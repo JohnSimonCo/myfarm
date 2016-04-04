@@ -30,11 +30,13 @@
 				<div translate="Language"></div>
 				<select class="language" ng-model="language" ng-options="lang.languageCode as lang.languageLabel for lang in form.languages" ng-change="changeLanguage()"></select>
 			</div>
+			
+			<input type="hidden" extract-as="useImperialUnits" extract-value="form.useImperialUnits">
 			<div class="row clearfix">
-				<div translate="Use imperial units"></div>
+				<div translate="Unit"></div>
 				<div>
-					Kg<j$-radio-button ng-model="form.useImperialUnits" extract-as="useImperialUnits" ng-value="false"></j$-radio-button>
-					Pounds<j$-radio-button ng-model="form.useImperialUnits" extract-as="useImperialUnits" ng-value="true"></j$-radio-button>
+					<span translate="Kg"></span> <j$-radio-button ng-model="form.useImperialUnits" ng-value="false"></j$-radio-button>
+					<span translate="Pounds"></span> <j$-radio-button ng-model="form.useImperialUnits" ng-value="true"></j$-radio-button>
 				</div>
 			</div>
 

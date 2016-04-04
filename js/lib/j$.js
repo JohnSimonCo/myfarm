@@ -183,38 +183,30 @@ angular.module('j$', ['server', 'util', 'emoji'])
 		}
 	}
 }])
-.directive('j$RadioButton', [function() {
+.directive('j$RadioButton', ['$compile', function($compile) {
 	var generateId = 0;
 	return {
 		restrict: 'E',
 		template: '<span><input type="radio" class="radio-button"><label></label></span>',
 		replace: true,
 		compile: function(tElement, tAttrs) {
-			if(tAttrs.ngModel && tAttrs.ngValue && tAttrs.extractAs) {
-				tElement.attr('temp-ng-model', tAttrs.ngModel);
-				tElement.attr('temp-ng-value', tAttrs.ngValue);
-				tElement.attr('temp-ng-extractAs', tAttrs.extractAs);
-
+			if(tAttrs.ngModel && tAttrs.ngValue) {
 				tElement.removeAttr('ng-model');
 				tElement.removeAttr('ng-value');
-				tElement.removeAttr('ng-extractAs');
-			}
-        },
-		link: function(scope, element, attr, ngModel) {
-			var id = scope.useId || 'jDOLLAR-radio-button-' + generateId++;
-			var input = element.find('input').attr('id', id);
-			var label = element.find('label').attr('for', id);
 
-			// if(attr.j$Disabled) {
-			// 	scope.$watch('j$Disabled', function(disabled) {
-			// 		input.attr('disabled', disabled);
-			// 	});
-			// }
-			if(attr.tempNgModel && attr.tempNgValue) {
-				input.attr('ng-model', attr.j$NgModel);
-				input.attr('ng-value', attr.j$NgValue);
+				var tInput = tElement.find('input');
+				tInput.attr('ng-model', tAttrs.ngModel);
+				tInput.attr('ng-value', tAttrs.ngValue);
 			}
-		}
+
+			return function link(scope, element, attr, ngModel) {
+				var id = scope.useId || 'jDOLLAR-radio-button-' + generateId++;
+				var input = element.find('input').attr('id', id);
+				var label = element.find('label').attr('for', id);
+
+				$compile(input)(scope);
+			};
+        }
 	}
 }])
 .filter('ensure2digits', function() {
