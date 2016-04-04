@@ -62,14 +62,14 @@ button, .button {
 	border-radius: 100%;
 }
 .radio-button:checked + label:before {
-	content: " ";
-	position: absolute;
-	width: 5px;
-	height: 5px;
-	background: blue;
-	border-radius: 100%;
-	left: 0px;
-	bottom: 0px;
+    content: " ";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: blue;
+    border-radius: 99%;
+    left: 4.6px;
+    bottom: 4.5px;
 }
 
 button, .button {

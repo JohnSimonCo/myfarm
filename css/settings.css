@@ -61,6 +61,10 @@
 	margin: 0;
 }
 
+#settings .radio-button-label {
+	cursor: pointer;
+}
+
 #settings .password {
 	margin-top: 50px;
 }
