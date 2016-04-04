@@ -46,6 +46,32 @@ button, .button {
 	bottom: 0px;
 }
 
+.radio-button {
+	display: none;
+}
+.radio-button + label {
+	background-color: #fff;
+	border: 1px solid #58595B;
+	margin: 0;
+	width: 19px;
+	height: 19px;
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+	position: relative;
+	border-radius: 100%;
+}
+.radio-button:checked + label:before {
+	content: " ";
+	position: absolute;
+	width: 5px;
+	height: 5px;
+	background: blue;
+	border-radius: 100%;
+	left: 0px;
+	bottom: 0px;
+}
+
 button, .button {
 	background: #575757;
 }

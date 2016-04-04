@@ -1,73 +1,75 @@
 <div id="cowq" class="cowq">
-	<div class="action-bar component clearfix">
-		<div j$-select class="select-profile" ng-controller="cowq.profileController">
-			<button class="big-button black-button select-button text-overflow"> 
-				<div class="select-text" ng-bind="profileName"></div>
-				<div class="select-arrows"></div>
-			</button>
-			<select j$-select-test="profileName" ng-model="profileName" ng-change="change()"
-				ng-options="profile.key as profile.key for profile in profiles.sortedProfiles"></select>
-		</div>
-		<button class="black-button icon search" ng-controller="cowq.searchController" ng-disabled="!hasTextInput" ng-click="searchClick()" ></button>
-	</div>
-	
-	<div class="component wait-area" ng-controller="cowq.waitAreaController" ng-show="shouldShow()">
-		<div class="inner" ng-if="shouldShow()">
-			<button class="big-button black-button" j$-bind-value="getState()" ng-click="openWaitArea()" ng-class="getClass(value)">
-				<div ng-switch="value">
-					<div ng-switch-when="0" translate="Try to open wait area..."></div>
-					<div ng-switch-when="1">
-						<span translate="Wait area open"></span>
-						<span ng-bind="getDuration()"></span>
-						<span translate="min"></span>
-					</div>
-					<div ng-switch-when="2" translate="Try to close wait area..."></div>
-					<div ng-switch-when="3" translate="OpenWaitArea"></div>
-				</div>
-			</button>
-		</div>
-		
-	</div>
 
-	<div class="sort-container" ng-controller="cowq.filterController">
-		<div class="sort clearfix" ng-class="{reverse: reverse}">
-			<div class="component groups" ng-if="showGroups" ng-class="{search: searchPattern}">
-				<div j$-select class="filter select-group">
-					<button class="big-button black-button select-button text-overflow">
-						<span ng-bind="groupName"></span>
-						<div class="select-arrows"></div>
-					</button>
-					<select ng-model="$parent.group" j$-select-label="groupName" ng-change="selectGroup()"
-						ng-options="group.key as group.name for group in groups | orderBy:'name'">
-						<option value="" translate="All groups"></option>
-					</select>
-				</div>
-				<button class="big-button black-button filter cancel-search error" ng-click="cancelSearch($event)">
-					<span translate="Stop show"></span> "<span ng-bind="searchPattern"></span>"
+	<div ng-controller="cowq.filterController">
+
+		<div class="action-bar component clearfix" ng-class="{reverse: reverse}" >
+			<div j$-select class="select-profile" ng-controller="cowq.profileController">
+				<button class="big-button black-button select-button text-overflow"> 
+					<div class="select-text" ng-bind="profileName"></div>
+					<div class="select-arrows"></div>
 				</button>
+				<select j$-select-test="profileName" ng-model="profileName" ng-change="change()"
+					ng-options="profile.key as profile.key for profile in profiles.sortedProfiles"></select>
 			</div>
 
-			<div class="sort-controls-container">
+			<button class="black-button icon by-color" j$-bind-value="1" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}"></button>
 
-				<div class="cow-cells clearfix">
-					<div class="cow-cell" j$-bind-value="getProfileIndex(1)" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}" ng-bind="getFieldName(1)"></div>
-					<div class="cow-cell" j$-bind-value="getProfileIndex(4)" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}" ng-bind="getFieldName(4)"></div>
-					<div class="cow-cell" j$-bind-value="getProfileIndex(2)" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}" ng-bind="getFieldName(2)"></div>
-					<div class="cow-cell" j$-bind-value="getProfileIndex(5)" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}" ng-bind="getFieldName(5)"></div>
-					<div class="cow-cell" j$-bind-value="getProfileIndex(3)" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}" ng-bind="getFieldName(3)"></div>
-					<div class="cow-cell" j$-bind-value="getProfileIndex(6)" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}" ng-bind="getFieldName(6)"></div>
-				</div>
-
-				<div class="component buttons">
-					<button class="black-button icon by-incomplete" j$-bind-value="15" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}"></button>
-					<button class="black-button icon by-color" j$-bind-value="1" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}"></button>
-				</div>
-
-				<div class="clearfix"></div>
-
-			</div>	
+			<button class="black-button icon search" ng-controller="cowq.searchController" ng-disabled="!hasTextInput" ng-click="searchClick()" ></button>
 		</div>
-	</div>
+		
+		<div class="component wait-area" ng-controller="cowq.waitAreaController" ng-show="shouldShow()">
+			<div class="inner" ng-if="shouldShow()">
+				<button class="big-button black-button" j$-bind-value="getState()" ng-click="openWaitArea()" ng-class="getClass(value)">
+					<div ng-switch="value">
+						<div ng-switch-when="0" translate="Try to open wait area..."></div>
+						<div ng-switch-when="1">
+							<span translate="Wait area open"></span>
+							<span ng-bind="getDuration()"></span>
+							<span translate="min"></span>
+						</div>
+						<div ng-switch-when="2" translate="Try to close wait area..."></div>
+						<div ng-switch-when="3" translate="OpenWaitArea"></div>
+					</div>
+				</button>
+			</div>
+			
+		</div>
+
+		<div class="sort-container">
+			<div class="sort clearfix">
+				<div class="component groups" ng-if="showGroups" ng-class="{search: searchPattern}">
+					<div j$-select class="filter select-group">
+						<button class="big-button black-button select-button text-overflow">
+							<span ng-bind="groupName"></span>
+							<div class="select-arrows"></div>
+						</button>
+						<select ng-model="$parent.group" j$-select-label="groupName" ng-change="selectGroup()"
+							ng-options="group.key as group.name for group in groups | orderBy:'name'">
+							<option value="" translate="All groups"></option>
+						</select>
+					</div>
+					<button class="big-button black-button filter cancel-search error" ng-click="cancelSearch($event)">
+						<span translate="Stop show"></span> "<span ng-bind="searchPattern"></span>"
+					</button>
+				</div>
+
+				<div class="sort-controls-container">
+
+					<div class="cow-cells clearfix">
+						<div class="cow-cell" j$-bind-value="getProfileIndex(1)" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}" ng-bind="getFieldName(1)"></div>
+						<div class="cow-cell" j$-bind-value="getProfileIndex(4)" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}" ng-bind="getFieldName(4)"></div>
+						<div class="cow-cell" j$-bind-value="getProfileIndex(2)" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}" ng-bind="getFieldName(2)"></div>
+						<div class="cow-cell" j$-bind-value="getProfileIndex(5)" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}" ng-bind="getFieldName(5)"></div>
+						<div class="cow-cell" j$-bind-value="getProfileIndex(3)" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}" ng-bind="getFieldName(3)"></div>
+						<div class="cow-cell" j$-bind-value="getProfileIndex(6)" ng-click="selectProfileIndex(value, $event)" ng-class="{selected: isSelectedProfileIndex(value)}" ng-bind="getFieldName(6)"></div>
+					</div>
+
+					<div class="clearfix"></div>
+
+				</div>	
+			</div>
+		</div>
+	</div>	
 
 	<div ng-controller="cowq.notifyController" class="item-container">
 		<!--<div class="item cow clearfix" j$-repeat="as cow when renderCows" ng-class="getCowClass(cow)" ng-click="addNotify(cow)" scroll-to-if="cow.nr matches scrollToCowNr">-->

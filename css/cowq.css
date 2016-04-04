@@ -90,9 +90,23 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 	background: url(/Resources/search50.png);
 }
 #cowq .action-bar .select-profile {
-	/*width: calc(100% - 120px);*/
-	width: calc(100% - 60px);
+	width: calc(100% - 120px);
 }
+.cowq .action-bar .icon.by-color:after {
+	background-image: url(/Resources/sort.png);
+	left: -7px;
+}
+.cowq .action-bar .icon.by-incomplete:after {
+	background-image: url(/Resources/udder_white.png);
+}
+.cowq .action-bar button.selected {
+	background: #00a6ff;
+}
+
+.cowq .action-bar.reverse button.selected {
+	background: #77ad1c;
+}
+
 
 #cowq .wait-area .inner,
 #cowq .wait-area button {
@@ -101,21 +115,13 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 
 .cowq .sort-container {
 	min-height: 50px;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
+	border-radius: 5px;
 	padding: 10px 10px;
 	box-sizing: border-box;
 	background: #f3f3f3;
 }
 .cowq .sort .filter {
 	width: 100%;
-}
-.cowq .sort .icon.by-color:after {
-	background-image: url(/Resources/sort.png);
-	left: -7px;
-}
-.cowq .sort .icon.by-incomplete:after {
-	background-image: url(/Resources/udder_white.png);
 }
 .cowq .sort .cow-cells {
 	margin-bottom: 15px;
@@ -124,7 +130,7 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 	font-weight: bold;
 }
 .cowq .sort .cow-cells {
-	margin-top: 15px;
+	margin-top: 7px;
 	margin-bottom: 13px
 }
 .cowq .sort .cow-cell {
@@ -153,13 +159,6 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 	top: 2px;
 	font-size: 20px;
 	font-weight: bold;
-}
-.cowq .sort button.selected {
-	background: #00a6ff;
-}
-
-.cowq .sort.reverse button.selected {
-	background: #77ad1c;
 }
 #cowq .sort .groups .cancel-search {
 	display: none;
@@ -274,7 +273,7 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 }
 
 #cowq .item .info {
-	width: calc(100% - 130px);
+	width: calc(100% - 65px);
 }
 
 #cowq .cow .cow-head {
@@ -303,9 +302,8 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 }
 
 .cowq .sort-controls-container .cow-cells {
-	width: calc(100% - 130px);
+	width: calc(100% - 65px);
 	position: absolute;
-	top: 6px;
 	left: 65px;
 	z-index: 2;
 }
@@ -330,7 +328,6 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 .cowq .sort-controls-container .buttons button:nth-child(2) {
 	right: 0;
 }
-
 
 @media (max-width: 599px) {
 	#cowq .item .info {
@@ -401,7 +398,7 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 	}
 
 	.cowq .sort .cow-cells {
-		margin-top: 15px;
+		margin-top: 5px;
 		margin-bottom: 0;
 	}
 
@@ -458,6 +455,12 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 	.cowq .sort .sort-controls-container .buttons {
 		margin-top: 9px;
 		margin-bottom: 8px;
+	}
+	.cowq .sort-container {
+		padding-top: 0;
+	}
+	.cowq .sort .cow-cells {
+		margin-top: 5px;
 	}
 }
 

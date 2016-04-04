@@ -32,7 +32,10 @@
 			</div>
 			<div class="row clearfix">
 				<div translate="Use imperial units"></div>
-				<div><j$-checkbox ng-model="form.useImperialUnits" extract-as="useImperialUnits"></checkbox></div>
+				<div>
+					Kg<j$-radio-button ng-model="form.useImperialUnits" extract-as="useImperialUnits" ng-value="false"></j$-radio-button>
+					Pounds<j$-radio-button ng-model="form.useImperialUnits" extract-as="useImperialUnits" ng-value="true"></j$-radio-button>
+				</div>
 			</div>
 
 			<div class="password" ng-controller="settings.passwordController">

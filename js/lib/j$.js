@@ -177,9 +177,43 @@ angular.module('j$', ['server', 'util', 'emoji'])
 
 			input.on('change', function() {
 				scope.$apply(function() {
-					ngModel.$setViewValue(input.prop('checked'));
+					ngModel.$setViewValue(input.attr('checked'));
 				});
 			});
+		}
+	}
+}])
+.directive('j$RadioButton', [function() {
+	var generateId = 0;
+	return {
+		restrict: 'E',
+		template: '<span><input type="radio" class="radio-button"><label></label></span>',
+		replace: true,
+		compile: function(tElement, tAttrs) {
+			if(tAttrs.ngModel && tAttrs.ngValue && tAttrs.extractAs) {
+				tElement.attr('temp-ng-model', tAttrs.ngModel);
+				tElement.attr('temp-ng-value', tAttrs.ngValue);
+				tElement.attr('temp-ng-extractAs', tAttrs.extractAs);
+
+				tElement.removeAttr('ng-model');
+				tElement.removeAttr('ng-value');
+				tElement.removeAttr('ng-extractAs');
+			}
+        },
+		link: function(scope, element, attr, ngModel) {
+			var id = scope.useId || 'jDOLLAR-radio-button-' + generateId++;
+			var input = element.find('input').attr('id', id);
+			var label = element.find('label').attr('for', id);
+
+			// if(attr.j$Disabled) {
+			// 	scope.$watch('j$Disabled', function(disabled) {
+			// 		input.attr('disabled', disabled);
+			// 	});
+			// }
+			if(attr.tempNgModel && attr.tempNgValue) {
+				input.attr('ng-model', attr.j$NgModel);
+				input.attr('ng-value', attr.j$NgValue);
+			}
 		}
 	}
 }])
