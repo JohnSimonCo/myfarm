@@ -8,7 +8,7 @@
 #cowq .cow {
 	display: block;
 	color: black;
-	padding: 2px 11px;
+	padding: 2px 10px;
 	border: none;
 	border-radius: 10px;
 	cursor: pointer;
@@ -46,7 +46,8 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 
 .cowq .component {
 	height: 50px;
-	margin-bottom: 10px;
+	margin-bottom: 2px;
+	margin-top: 5px;
 }
 .cowq .component > * {
 	height: 100%;
@@ -92,6 +93,7 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 	transform: rotate(0deg);
 }
 
+
 /*Gör denna till en kommentar för att avaktivera rotationen av sorteringsikonen*/
 .cowq .reverse .icon.by-color:after {
 	transform: rotate(180deg);
@@ -107,6 +109,16 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 	background: #77ad1c;
 }*/
 
+.cowq .sort .icon.by-incomplete:after {
+	background-image: url(/Resources/udder_white.png);
+}
+.cowq .sort button.selected {
+	background: #00a6ff;
+}
+
+.cowq .sort.reverse button.selected {
+	background: #77ad1c;
+}
 
 #cowq .wait-area .inner,
 #cowq .wait-area button {
@@ -114,9 +126,8 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 }
 
 .cowq .sort-container {
-	min-height: 50px;
 	border-radius: 5px;
-	padding: 10px 10px;
+	padding: 5px 10px;
 	box-sizing: border-box;
 	background: #f3f3f3;
 }
@@ -128,11 +139,11 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 	float: left;
 	font-weight: bold;
 }
-.cowq .sort .cow-cells {
-	margin-top: 7px;
-}
 .cowq .sort .cow-cell {
 	cursor: pointer;
+	padding-bottom: 18px;
+	padding-top: 20px;
+	font-size: 14px;
 }
 .cowq .sort .cow-cell.selected {
 	font-weight: bold;
@@ -306,6 +317,8 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 
 .cowq .sort-controls-container .cow-cells .cow-cell {
 	font-size: 14px;
+	padding-top: 12px;
+	padding-bottom: 8px;
 }
 
 .cowq .sort-controls-container .buttons {
@@ -327,7 +340,7 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 
 @media (max-width: 599px) {
 	#cowq .item .info {
-		width: calc(100% - 65px);
+		width: calc(100% - 32px);
 	}
 	.cowq .cow-cell {
 		width: calc(100% / 2);
@@ -366,36 +379,32 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 
 	.cowq .sort-controls-container .cow-cells {
 		position: static;
-		width: 100%;
 		float: left;
 	}
 
 	.cowq .sort-controls-container .cow-cells .cow-cell {
-		height: 20px;
 		font-size: 15px;
-	}
-
-	.cowq .sort-controls-container .buttons {
-		position: relative;
-		width: 100%;
-		margin-bottom: 6px;
-	}
-
-	.cowq .sort-controls-container .buttons button {
-		position: absolute;
-		top: 0;
-		left: 0;
-		height: 50px;
-	}
-
-	.cowq .sort-controls-container .buttons button:nth-child(2) {
-		left: 50%;
-		margin-left: 0;
+		padding-top: 6px;
+		padding-bottom: 6px;
 	}
 
 	.cowq .sort .cow-cells {
 		margin-top: 5px;
 		margin-bottom: 0;
+		margin-left: 0;
+		width: calc(100% - 65px);
+	}
+
+	#cowq .sort .cow-cells {
+		margin-top: 5px;
+		margin-bottom: 0;
+		margin-left: 32px;
+		width: calc(100% - 32px);
+	}
+
+	.cowq .sort .cow-cell {
+		padding-top: 5px;
+		padding-bottom: 5px;
 	}
 
 	#cowq .item .icons {
@@ -413,6 +422,7 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 		margin-top: -7px;
 		margin-left: -2px;
 	}
+
 }
 @media (min-width: 600px) {
 	.cowq .cow-cell {
@@ -446,15 +456,21 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 		margin-top: 3px;
 	}
 	.cowq .sort .buttons {
-		margin-top: 10px;
-	}
-	.cowq .sort .sort-controls-container .buttons {
-		margin-top: 9px;
-		margin-bottom: 8px;
+		margin-top: 6px;
 	}
 	.cowq .sort .cow-cells {
 		margin-top: 5px;
 	}
+	.cowq .sort .cow-cell {
+		padding-bottom: 4px;
+		padding-top: 4px;
+	}
+	.cowq .sort-controls-container .cow-cells .cow-cell {
+		font-size: 15px;
+		padding-top: 4px;
+		padding-bottom: 4px;
+	}
+
 }
 
 

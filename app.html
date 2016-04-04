@@ -13,12 +13,12 @@
 			<span class="disconnected-text" translate="Reload"></span>
 		</div>
 
-		<div class="selectable farm-name text-overflow" ng-class="{'fill': connected}">
-			<span ng-bind="farmName" j$-fit-parent max-font-size="25" min-font-size="18"></span>
+		<div class="farm-name text-overflow" ng-class="{'fill': connected}">
+			<span class="selectable" ng-bind="farmName" j$-fit-parent max-font-size="25" min-font-size="18"></span>
 		</div>
 		<div ng-if="connected" ng-controller="dropdownController">
 			<div class="right dropdown-container">
-				<img src="/Resources/list_big.png" class="dropdown-toggle" ng-click="toggle()">
+				<img src="/Resources/list_normal.png" class="dropdown-toggle" ng-click="toggle()">
 				<div class="dropdown ng-hide" ng-hide="!isExpanded">
 					<div class="section">
 						<div class="title" translate="Settings"></div>

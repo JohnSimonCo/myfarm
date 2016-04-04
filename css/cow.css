@@ -23,7 +23,7 @@
 #cow .content .info .status-container {
 	width: 79px;
 	height: 70px;
-	padding-left: 0;
+	padding-left: 0 !important;
 	padding-right: 2px;
 	padding-top: 0;
 }
@@ -226,6 +226,9 @@
 #cow .info .incomplete {
 	margin-bottom: 10px;
 }
+#cow .info .incomplete img {
+	float: right;
+}
 #cow .milkings .milkings-container .item:last-child {
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
@@ -401,6 +404,9 @@
 	#cow .graph .item-container div {
 		font-size: 16px;
 		padding-top: 1px;		
+	}
+	#cow .info .incomplete img {
+		float: right;
 	}
 }
 

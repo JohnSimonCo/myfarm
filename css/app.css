@@ -96,6 +96,9 @@ body {
 	height: 50px;
 	cursor: pointer;
 }
+#action-bar .farm-connection img {
+	cursor: default;
+}
 #action-bar a {
 	height: 100%;
 	text-decoration: none;
