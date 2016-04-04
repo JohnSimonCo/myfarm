@@ -1,0 +1,68 @@
+#edit-user form {
+	overflow-y: auto;
+	height: calc(100% - 47px)
+}
+
+#edit-user .input {
+	width: 100%;
+	box-sizing: border-box;
+	border-radius: 8px;
+	border: 1px solid #999;
+	padding: 5px;
+	margin: 0;
+	font-weight: bold;
+	font-size: 16px;
+	outline: 0;
+}
+
+#edit-user .input-label {
+	display: block;
+	font-size: 18px;
+	font-weight: bold;
+	color: #575757;
+}
+#edit-user .input-label:after {
+	content: ":";
+}
+#edit-user button {
+	border-radius: 10px;
+	font-size: 22px;
+}
+#edit-user button.new-password {
+	width: 100%;
+}
+#edit-user .lower-buttons {
+	width: 100%;
+	margin-top: 5px;
+	/*position: absolute;*/
+	/*bottom: 10px;*/
+}
+#edit-user .lower-buttons button {
+	width: calc(50% - 4px);
+	float: left;
+}
+#edit-user .lower-buttons button + button {
+	margin-left: 8px;
+}
+/*Submit button will be only child if in add mode*/
+#edit-user .lower-buttons button:only-child {
+	width: 100%;
+}
+
+#edit-user .role + .role {
+	margin-top: 5px;
+}
+
+#edit-user .role.no-access {
+	color: #999;
+}
+
+@media all and (max-width: 400px) {
+	#edit-user form {
+		height: calc(100% - 42px);
+	}
+
+	#edit-user button {
+		font-size: 18px;
+	}
+}

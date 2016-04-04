@@ -1,0 +1,70 @@
+<style type="text/css">
+	body {
+		padding: 0px;
+		/*overflow: hidden;*/
+	}
+	#wrapper {
+		width: 100%;
+		height: inherit;
+		max-width: auto;
+		max-width: initial;
+		margin: 0px;
+	}
+	#container {
+		height: inherit;
+		background: #e5e5e5;
+		border-radius: 0px;
+		border: none;
+		padding: 0px;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+</style>
+<div id="wrapper" class="full-height">
+	<div id="container" class="full-height" ng-view></div>
+</div>
+
+<script>
+	var canGoBack = false;
+	angular.module('app')
+	.value('cowqHistory', { canGoBack: false, canGoFoward: false })
+	.run(['$rootScope', '$timeout', 'cowqHistory', function($rootScope, $timeout, cowqHistory) {
+		$rootScope.$on('$routeChangeStart', function(event, next, current) {
+			$timeout(function() {
+				var cowqPage = 'templates/cowq.html';
+				var cowPage = 'templates/cow.html';
+
+				if(next.loadedTemplateUrl) {
+					switch (next.loadedTemplateUrl) {
+						case cowqPage:
+							cowqHistory.canGoBack = false;
+							if(current && current.loadedTemplateUrl == cowPage) {
+								cowqHistory.canGoFoward = true;
+							}
+							break;
+						case cowPage:
+							cowqHistory.canGoBack = true;
+							cowqHistory.canGoFoward = false;
+							break;
+					}
+				}
+			});
+		});
+	}])
+	.run(['$window', 'cowqHistory', function($window, cowqHistory) {
+		$window.addEventListener('message', function(event) {
+			switch (event.data) {
+				case 'forward':
+					if(cowqHistory.canGoFoward) {
+						$window.history.forward();
+					}
+					break;
+				case 'back':
+					if(cowqHistory.canGoBack) {
+						$window.history.back();
+					}
+					break;
+			}
+		}, false);
+	}]);
+</script>

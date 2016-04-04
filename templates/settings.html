@@ -1,0 +1,181 @@
+<div id="settings" class="ver-set" ng-form name="settingsForm" extract-with="getFormData" extract-from="form" ng-class="{'ignore-quiet-time': !form.deviceNotifications.useQuietTime}">
+	<input type="hidden" extract-as="id">
+	<input type="hidden" extract-as="target" extract-value="form.id">
+
+	<div class="right clearfix buttons">
+		<button class="black-button big-button reset" translate="Reset" ng-click="reset()" ng-disabled="isFormSame()"></button>
+		<button class="black-button big-button save" ng-click="save()" ng-disabled="isFormDataSame() || settingsForm.$invalid" ng-class="saveState">
+			<div class="text" translate="Save" ng-hide="saveState"></div>
+			<img class="success" src="/Resources/check.png" alt="{{'Error' | translate}}" ng-show="saveState === 'success'">
+			<img class="error" src="/Resources/cross.png" alt="{{'Success' | translate}}" ng-show="saveState === 'error'">
+		</button>
+	</div>
+
+	<div class="section">
+		<div class="header title" translate="Profile"></div>
+		<div class="content">
+			<div class="row clearfix">
+				<div translate="First name"></div>
+				<input type="text" ng-model="form.firstName" extract-as="firstName" required>
+			</div>
+			<div class="row clearfix">
+				<div translate="Last name"></div>
+				<input type="text" ng-model="form.lastName" extract-as="lastName" required>
+			</div>
+			<div class="row clearfix">
+				<div translate="e-mail"></div>
+				<input type="email" ng-model="form.email" extract-as="email" required>
+			</div>
+			<div class="row clearfix">
+				<div translate="Language"></div>
+				<select class="language" ng-model="language" ng-options="lang.languageCode as lang.languageLabel for lang in form.languages" ng-change="changeLanguage()"></select>
+			</div>
+			<div class="row clearfix">
+				<div translate="Use imperial units"></div>
+				<div><j$-checkbox ng-model="form.useImperialUnits" extract-as="useImperialUnits"></checkbox></div>
+			</div>
+
+			<div class="password" ng-controller="settings.passwordController">
+				<input type="hidden" extract-as="pwd">
+				<div class="row clearfix">
+					<div translate="Old password"></div>
+					<div class="field clearfix" ng-class="{correct: verification.oldCorrect}">
+						<input type="password" ng-model="oldPassword" ng-change="change()">
+						<div class="check" ng-show="showChecks"></div>
+					</div>
+				</div>
+				<div class="row clearfix password-input">
+					<div translate="New password"></div>
+					<div class="field clearfix" ng-class="{correct: verification.newCorrect}">
+						<input type="password" ng-model="newPassword" ng-change="change()">
+						<div class="check" ng-show="showChecks"></div>
+					</div>
+				</div>
+				<div class="right password-problem" ng-show="newPassword && verification.problem">
+					<div ng-repeat="problem in verification.problem">{{problem}}</div>
+				</div>
+				<div class="row clearfix" ng-show="newPassword">
+					<div translate="Verify password"></div>
+					<div class="field clearfix" ng-class="{correct: verification.verifyCorrect}">
+						<input type="password" ng-model="verifyPassword" ng-change="change()">
+						<div class="check" ng-show="showChecks"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="header title" translate="My phone notifications"></div>
+		<div class="content">
+			<div class="row clearfix">
+				<div translate="Subscribe"></div>
+				<div><j$-checkbox ng-model="form.deviceNotifications.doNotify" extract-as="deviceNotifications.doNotify"></checkbox></div>
+			</div>
+			<div class="row clearfix">
+				<div translate="Vibration"></div>
+				<div><j$-checkbox ng-model="form.deviceNotifications.isVibration" extract-as="deviceNotifications.isVibration"></checkbox></div>
+			</div>
+			<div class="row clearfix">
+				<div translate="Quiet time"></div>
+				<div class="silent-time">
+					<div><j$-checkbox ng-model="form.deviceNotifications.useQuietTime" extract-as="deviceNotifications.useQuietTime"></checkbox></div>
+					<div class="silent-time-setup">
+						<div class="select clearfix">
+							<span translate="from"></span>
+							<j$-timepicker ng-model="form.deviceNotifications.millisecFromTime" extract-as="deviceNotifications.millisecFromTime"></j$-timepicker>
+						</div>
+						<div class="select clearfix">
+							<span translate="to"></span>
+							<j$-timepicker ng-model="form.deviceNotifications.millisecToTime" extract-as="deviceNotifications.millisecToTime"></j$-timepicker>
+						</div>
+					</div>
+					<div class="explination" translate="Adjust volume">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="section" ng-repeat="notify in form.notify track by notify.domainId">
+		<input type="hidden" extract-as="notify[{{$index}}].domainName">
+		<input type="hidden" extract-as="notify[{{$index}}].domainId">
+
+		<div class="header title">{{'from' | translate}} {{notify.domainName}}</div>
+		<div class="body">
+			<table class="notify">
+				<tr>
+					<td></td>
+					<td translate="Subscribe"></td>
+					<td translate="Not under quiet time"></td>
+				</tr>
+				<tr>
+					<td translate="Stop alarms"></td>
+					<td><j$-checkbox ng-model="notify.notifyFarmData.isStopAlarm" extract-as="notify[{{$index}}].notifyFarmData.isStopAlarm"></j$-checkbox></td>
+					<td><j$-checkbox ng-model="notify.notifyFarmData.isStopAlarmQuiet" extract-as="notify[{{$index}}].notifyFarmData.isStopAlarmQuiet"></j$-checkbox></td>
+				</tr>
+				<tr>
+					<td translate="Notifications"></td>
+					<td><j$-checkbox ng-model="notify.notifyFarmData.isNotificationAlarm" extract-as="notify[{{$index}}].notifyFarmData.isNotificationAlarm"></j$-checkbox></td>
+					<td><j$-checkbox ng-model="notify.notifyFarmData.isNotificationAlarmQuiet" extract-as="notify[{{$index}}].notifyFarmData.isNotificationAlarmQuiet"></j$-checkbox></td>
+				</tr>
+				<tr>
+					<td translate="Messages"></td>
+					<td><j$-checkbox ng-model="notify.notifyFarmData.isChatMessageAlarm" extract-as="notify[{{$index}}].notifyFarmData.isChatMessageAlarm"></j$-checkbox></td>
+					<td><j$-checkbox ng-model="notify.notifyFarmData.isChatMessageAlarmQuiet" extract-as="notify[{{$index}}].notifyFarmData.isChatMessageAlarmQuiet"></j$-checkbox></td>
+				</tr>
+				<tr>
+					<td translate="Farm communication problems"></td>
+					<td><j$-checkbox ng-model="notify.notifyFarmData.isVcCommunicationProblemNotification" extract-as="notify[{{$index}}].notifyFarmData.isVcCommunicationProblemNotification"></j$-checkbox></td>
+					<td><j$-checkbox ng-model="notify.notifyFarmData.isVcCommunicationProblemNotificationQuiet" extract-as="notify[{{$index}}].notifyFarmData.isVcCommunicationProblemNotificationQuiet"></j$-checkbox></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="header title" translate="My phones"></div>
+		<div class="content devices">
+			<div class="device-controller" ng-controller="settings.deviceController" ng-repeat="phone in form.phones track by phone.id" ng-class="{delete: phone.delete}">
+				<input type="hidden" extract-as="phones[{{$index}}].id">
+				<input type="hidden" extract-as="phones[{{$index}}].delete">
+
+				<div class="row clearfix">
+					<div translate="Phone"></div>
+					<input type="text" ng-model="phone.name" extract-as="phones[{{$index}}].name" class="name" ng-disabled="phone.delete" ng-required="!phone.delete">
+				</div>
+
+				<div class="row device-row clearfix">
+					<div>
+						<div translate="Type"></div>
+						<div translate="Created"></div>
+						<div translate="Last contact"></div>
+					</div>
+					<div class="device-right-col clearfix">
+						<div class="text-overflow" ng-bind="phone.type"></div>
+						<button class="black-button device-button button test" translate="Test" ng-click="test()" ng-disabled="phone.delete"></button>
+						<div class="text-overflow" ng-bind="phone.cre | formatDate"></div>
+						<div class="text-overflow" ng-bind="phone.last | formatDate"></div>
+					</div>
+				</div>
+				<div class="row device-row clearfix">
+					<div>
+						<div translate="App version"></div>
+						<div translate="OS version"></div>
+					</div>
+					<div class="device-right-col clearfix">
+						<div class="text-overflow" ng-bind="phone.appVer"></div>
+						<button class="black-button device-button button" translate="Delete" ng-click="toggleDelete()" ng-class="{success: phone.delete}"></button>
+						<div class="text-overflow" ng-bind="phone.osVer"></div>
+					</div>
+				</div>
+				<div class="row device-row clearfix">
+					<div><div translate="Recieve notifications"></div></div>
+					<div class="device-right-col clearfix">
+						<j$-checkbox ng-model="phone.notification" extract-as="phones[{{$index}}].notification"></j$-checkbox>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

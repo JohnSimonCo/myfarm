@@ -1,0 +1,426 @@
+#cow .action-bar .change-cow {
+	/*width: calc(100% - 120px);*/
+	width: calc(100% - 60px);
+}
+
+#cow .action-bar .change-cow > * {
+	float: left;
+	height: 100%;
+}
+
+#cow .action-bar .left,
+#cow .action-bar .right {
+	width: 40px;
+}
+#cow .cow {
+	width: calc(100% - 80px);
+	padding: 10px;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+
+#cow .content .info .status-container {
+	width: 79px;
+	height: 70px;
+	padding-left: 0;
+	padding-right: 2px;
+	padding-top: 0;
+}
+
+#cow .content .info .status-top {
+	height: 17px;
+	width: 100%;
+	background-size:cover !important;
+	background: url('/Resources/cowq_top.png') no-repeat center;
+}
+
+#cow .content .info .status-cell {
+	width: 23px;
+	height: 23px;
+	margin-left: 3px;
+	margin-right: 3px;
+	margin-top: 4px;
+	float: left;
+	background-size: cover !important;
+}
+
+#cow .content .info .status-cell-container {
+	padding-left: 6px;
+}
+
+#cow .content .info .status-cell.red {
+	background: url('/Resources/cowq_red.png') no-repeat;
+}
+
+#cow .content .info .status-cell.white {
+	background: url('/Resources/cowq_white.png') no-repeat;
+}
+
+#cow .milkings .icons .status-container {
+	float: left;
+	width: 24px;
+	height: 28px;
+	padding-left: 0;
+	padding-right: 2px;
+	padding-top: 0;
+	margin-left: 0;
+	margin-top: 5px;
+}
+
+#cow .milkings .icons .status-top {
+	height: 5px;
+	width: 24px;
+	background-size:cover !important;
+	background: url('/Resources/cowq_top.png') no-repeat center;
+}
+
+#cow .milkings .icons .status-cell {
+	width: 10px;
+	height: 10px;
+	margin: 1px;
+	float: left;
+	background-size: cover !important;
+}
+
+#cow .milkings .icons .status-cell.red {
+	background: url('/Resources/cowq_red.png') no-repeat;
+}
+
+#cow .milkings .icons .status-cell.white {
+	background: url('/Resources/cowq_white.png') no-repeat;
+}
+
+
+
+
+
+
+#cow .cow .cow-number {
+	font-size: 27px;
+	font-weight: bold;
+}
+#cow .action-bar .left {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+#cow .action-bar .left:after {
+	background-image: url(/Resources/arrowleft.png);
+	background-position: 6px 12px;
+}
+#cow .action-bar .right {
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+#cow .action-bar .right:after {
+	background-image: url(/Resources/arrowright.png);
+	background-position: 10px 12px;
+}
+#cow .action-bar .change-view.info:after {
+	background-image: url(/Resources/cow-info.png)
+}
+#cow .action-bar .change-view.milkings:after {
+	background-image: url(/Resources/cow-milkings.png)
+}
+#cow .action-bar .change-view.graph:after {
+	background-image: url(/Resources/cow-graph.png)
+}
+#cow .content {
+	height: calc(100% - 60px);
+}
+
+#cow .content > .info {
+	font-size: 16px;
+	margin-top: 14px;
+}
+#cow .info .field {
+	border-bottom: 1px solid #999;
+	padding-top: 4px;
+	padding-bottom: 2px;
+	float: left;
+	width: 50%;
+}
+
+#cow .content .row-container {
+	background: #fff;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-radius: 5px;
+}
+
+#cow .info .row .row-name {
+	max-width: 50%;
+} 
+
+#cow .row-container > .row:nth-last-child(2) {
+	border-bottom: none;
+}
+
+#cow .row-container > .row:nth-child(odd):nth-last-child(3) {
+	border-bottom: none;
+}
+
+#cow .info .note {
+	position: relative;
+}
+#cow .info .note .content {
+	width: 100%;
+}
+#cow .info .note .edit-button {
+	vertical-align: top;
+
+	width: 22px;
+	height: 22px;
+	float: right;
+	cursor: pointer;
+
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position-y: center;
+
+	/*TODO(Jöran) ändra url till en riktig icon*/
+	background-image: url(/Resources/edit_icon.png);
+}
+#cow .info .note .permission .content {
+	width: calc(100% - 50px);
+}
+#cow .info .note .permission .edit-button {
+	display: block;
+}
+#cow .info .note .old {
+	color: #999;
+}
+#cow .info .note .user {
+	font-weight: normal;
+}
+
+#cow .info .row > div {
+	width: 50%;
+	box-sizing: border-box;
+	float: left;
+	font-size: 15px;
+}
+#cow .info .row > div:nth-child(1) {
+	padding-right: 7px;
+}
+#cow .info .row > div:nth-child(2) {
+	padding-left: 7px;
+	font-weight: bold;
+	padding-right: 8px;
+}
+#cow .info .fetch-cows > div:first-child {
+	font-weight: bold;
+}
+#cow .info .fetch-cows {
+	margin-bottom: 15px;
+}
+#cow .info .incomplete canvas {
+	width: 35px;
+}
+#cow button.black-button.notify {
+	border-radius: 5px;
+	font-size: 1.0em;
+}
+#cow .info .incomplete {
+	margin-bottom: 10px;
+}
+#cow .milkings .milkings-container .item:last-child {
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+#cow .milkings .milkings-container .item:nth-child(odd) {
+	background: #fff;
+}
+
+#cow .milkings .milkings-container .item:nth-child(even) {
+	background: #f3f3f3;
+}
+
+#cow .milkings .milkings-container .item {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#cow .milkings .milking {
+	padding-top: 5px;
+	padding-bottom: 0px;
+}
+#cow .graph {
+	position: relative;
+	height: 100%;
+}
+#cow .graph canvas {
+	width: 100%;
+	height: 100%;
+}
+#cow .graph .graph-container {
+	height: calc(100% - 221px);
+}
+#cow .graph .graph-info {
+	height: 220px;
+	padding-top: 8px;
+	box-sizing: border-box;
+}
+
+#cow .graph .graph-stats-container {
+	height: 167px;
+}
+
+#cow .graph .date-info-container {
+	width: 100%;
+}
+
+#cow .graph .date-info-container .arrow {
+	float: left;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	background-position: center;
+	background: url('/Resources/arrow-down.png') no-repeat;
+}
+
+#cow .graph .date-info-container .left-arrow {
+	transform: rotate(90deg);
+}
+
+#cow .graph .date-info-container .right-arrow {
+	transform: rotate(270deg);
+}
+
+#cow .graph .date-info-container .date {
+	width: calc(100% - 60px);
+	float: left;
+	text-align: center;
+	font-size: 20px;
+	padding-top: 5px;
+}
+
+#cow .graph .date-info-container .date-text-container {
+	display: inline-block;
+}
+
+#cow .graph .date-info-container .date-text-container span:first-child {
+	font-weight: bold;
+}
+
+#cow .graph .graph-stats-container {
+	background: #fff;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	padding-left: 40px;
+	padding-right: 40px;
+	margin-top: 6px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	overflow-y: auto; 
+}
+
+#cow .graph .item-container {
+	width: 50%;
+	float: left;
+}
+
+#cow .graph .item-container div {
+	width: calc(50% - 6px);
+	float: left;
+	padding-right: 6px;
+	height: 21px;
+	box-sizing: border-box;
+}
+
+#cow .graph .item-container .value {
+	font-weight: bold;
+}
+
+#cow .milkings .empty-view {
+	padding-top: 30px;
+}
+#cow .graph .empty-view {
+	padding-top: 30px;
+}
+
+#cow .graph .hover-display {
+	position: absolute;
+	max-width: 100%;
+	z-index: 1000;
+
+	box-sizing: border-box;
+	padding: 6px;
+	background: white;
+	border: 3px solid black;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+@media (max-width: 820px) {
+	#cow .info .row .row-name {
+		font-size: 14px;
+	}
+
+	#cow .graph .item-container div {
+		font-size: 16px;
+		padding-top: 1px;		
+	}
+}
+
+@media (max-width: 780px) {
+	#cow .graph .item-container div {
+		font-size: 15px;
+		padding-top: 1.5px;		
+	}
+}
+
+@media (max-width: 710px) {
+	#cow .info .field {
+		width: 100%;
+	}
+
+	#cow .info .row .row-name {
+		font-size: 16px;
+	}
+
+	#cow .graph .item-container {
+		width: 100%;
+	}
+
+	#cow .graph .graph-container {
+		height: calc(100% - 368px);
+	}
+
+	#cow .graph .graph-info {
+		height: 360px;
+	}
+
+	#cow .graph .graph-stats-container {
+		height: calc(360px - 46px);
+	}
+
+	#cow .graph .item-container div {
+		font-size: 16px;
+		padding-top: 1px;		
+	}
+}
+
+
+
+
+@media (max-height: 650px) {
+	#cow .graph .item-container {
+		width: 100%;
+	}
+
+	#cow .graph .graph-container {
+		height: 60%;
+	}
+
+	#cow .graph .graph-info {
+		height: 40%;
+	}
+
+	#cow .graph .graph-stats-container {
+		height: calc(100% - 46px);
+	}
+}

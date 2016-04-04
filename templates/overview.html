@@ -1,0 +1,64 @@
+<div id="overview" class="full-height">
+	<div ng-if="data != 'No farm'" class="full-height">
+		<a class="page production" href="#/production" ng-controller="overviewProductionController">
+			<div class="full-height" ng-include="'partials/production-info.html'"></div>
+		</a>
+
+		<a class="page overview-cowq" href="#/cowq" ng-controller="overview.cowqController">
+			<cowq-overview data="cowData"></cowq-overview>
+			<!-- <div class="graph center-container">
+				<circular-graph graph-data="cowData" half-size-of-container class="circular-graph"></circular-graph>
+				<div class="all-cows centered">
+					<div class="number selectable" ng-bind="data.cows.length"></div>
+					<div class="text" translate="All Cows"></div>
+				</div>
+			</div>
+
+			<div class="info center-container">
+				<div class="centered">
+					<div class="cow-type table" ng-repeat="item in cowData">
+						<div class="icon" ng-class="item.color"></div>
+						<span class="selectable" ng-bind="item.amount"></span>
+					</div>
+				</div>
+			</div> -->
+		</a>
+
+		<a class="page chat" href="#/chat" ng-controller="overview.chatController">
+			<div class="bubble">
+				<bubble-icon unread-count="unread.length">
+					<img src="/Resources/chat.png" class="icon">
+					<div class="unread-count" ng-class="{'no-unread': unread.length < 1}"></div>
+				</bubble-icon>
+			</div>
+			<div class="messages">
+				<div class="message" ng-repeat="message in data.list" ng-class="{unread: isMessageUnread(message)}">
+					<div class="name selectable" ng-bind="message.fromName"></div>
+					<div class="date selectable" ng-bind="message.time | date:'yyyy-MM-dd HH:mm'"></div>
+					<pre class="text selectable" message-text="message.text"></pre>
+				</div>
+			</div>
+		</a>
+
+		<a class="page alarms" href="#/alarms" ng-controller="overview.alarmsController">
+			<div class="alarm clearfix" ng-class="alarm.type" ng-repeat="alarm in data.alarms.list">
+				<div class="icon" ng-class="alarm.icon"></div>
+				<div class="details">
+					<div class="title selectable" ng-bind="alarm.sourceDevice"></div>
+					<div class="date selectable" ng-bind="alarm.date"></div>
+					<div class="selectable" ng-bind="alarm.message"></div>
+				</div>
+			</div>
+			<div ng-if="data.alarms.list.length < 1" class="empty-view" translate="No alarms"></div>
+		</a>
+	</div>
+	
+	<div ng-if="data == 'No farm'" class="no-farm center-container full-height" ng-controller="noFarmController">
+		<div class="centered no-farm-container">
+			<div class="no-farm-text">No farm data has yet been collected, please wait</div>
+			<div>
+				<button class="big-button black-button" ng-click="retry()">Retry</button>
+			</div>
+		</div>
+	</div>
+</div>

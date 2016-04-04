@@ -1,0 +1,54 @@
+<div class="section clearfix">
+	<div class="icon"><img class="img-icon" src="/Resources/myfarm_icon_80.png"></div>
+	<div class="fields">
+		<div class="field">
+			<div class="time-period" translate="24h"></div>
+			<div class="value">
+				<span class="selectable" ng-bind="selected.last24h | trend"></span> 
+				<span class="selectable" translate="kg"></span>
+			</div>
+			<div class="trend" ng-class="{up: selected.trend24h > 0, down: selected.trend24h < 0}">
+				<trend-arrow trend="selected.trend24h"></trend-arrow>
+				<span class="selectable" ng-bind="selected.last24h - selected.lastLast24h | trend:true"></span>
+			</div>
+		</div>
+		<div class="field seven-days">
+			<div class="time-period" translate="7d"></div>
+			<div class="value">
+				<span class="selectable" ng-bind="selected.lastSeven | trend"></span> 
+				<span class="selectable" translate="kg"></span>
+			</div>
+			<div class="trend" ng-class="{up: selected.trend7d > 0, down: selected.trend7d < 0}">
+				<trend-arrow trend="selected.trend7d"></trend-arrow>
+				<span class="selectable" ng-bind="selected.lastSeven - selected.lastLastSeven | trend:true"></span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="section clearfix">
+	<div class="icon"><img class="img-icon" src="/Resources/cowblack_highres.png"></div>
+	<div class="fields">
+		<div class="field">
+			<div class="time-period" translate="24h"></div>
+			<div class="value">
+				<span class="selectable" ng-bind="selected.animalLast24h | trend"></span> 
+				<span class="selectable" translate="kg"></span>
+			</div>
+			<div class="trend" ng-class="{up: selected.trendAnimal24h > 0, down: selected.trendAnimal24h < 0}">
+				<trend-arrow trend="selected.trendAnimal24h"></trend-arrow>
+				<span class="selectable" ng-bind="selected.animalLast24h - selected.animalLastLast24h | trend:true"></span>
+			</div>
+		</div>
+		<div class="field seven-days">
+			<div class="time-period" translate="7d"></div>
+			<div class="value">
+				<span class="selectable" ng-bind="selected.animalLastSeven | trend"></span> 
+				<span class="selectable" translate="kg"></span>
+			</div>
+			<div class="trend" ng-class="{up: selected.trendAnimal7d > 0, down: selected.trendAnimal7d < 0}">
+				<trend-arrow trend="selected.trendAnimal7d"></trend-arrow>
+				<span class="selectable" ng-bind="selected.animalLastSeven - selected.animalLastLastSeven | trend:true"></span>
+			</div>
+		</div>
+	</div>
+</div>

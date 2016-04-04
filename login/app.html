@@ -1,0 +1,44 @@
+<div id="wrapper" class="center-container">
+	<div class="centered form-container">
+		<div class="logo-container">
+			<!-- <img id="logo" src="/Resources/delaval_high_res.png" ng-controller="changeServerController" j$-dblclick="changeServer()" j$-long-press="changeServer()"> -->
+			<!-- <img id="logo" src="/Resources/delaval_high_res.png" ng-controller="changeServerController"> -->
+			<img id="logo" src="/Resources/delaval_high_res.png">
+			<div class="logo-text">MyFarm</div>
+		</div>
+		<form name="form" ng-submit="attemptLogin()" id="form" ng-controller="formController">
+			<div class="label">
+				<span translate="e-mail address"></span><span translate=":"></span>
+			</div>
+			<input ng-model="email" required type="email"
+				   ng-class="{error: submitted && form.$error.email}">
+			<div class="error-label">Must be an email</div>
+
+			<div class="label">
+				<span translate="Password"></span><span translate=":"></span>
+			</div>
+			<input ng-model="password" required minlength="6" type="password"
+				   ng-class="{error: submitted && form.$error.minlength}">
+			<div class="error-label">Must be at least 6 characters</div>
+
+			<div class="label">
+				<span translate="Language"></span><span translate=":"></span>
+			</div>
+			<div id="select-language" j$-select>
+				<button class="black-button select-button">
+					<span class="button-text" ng-bind="languageLabel"></span>
+					<div class="select-arrows"></div>
+				</button>
+				<select ng-model="language" j$-select-label="languageLabel" ng-change="changeLanguage()"
+						ng-options="lang.languageCode as lang.languageLabel for lang in languages"></select>
+			</div>
+
+			<div class="lower-part">
+				<!-- <div class="form-error" ng-show="error" translate="Login failed"></div> -->
+
+				<button class="login-button button big-button black-button button-text"
+						translate="Login" ng-disabled="form.$invalid"></button>
+			</div>
+		</form>
+	</div>
+</div>

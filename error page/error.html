@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<style>
+		button {
+			text-align: center;
+			color: white;
+			border: 1px solid black;
+			font-weight: bold;
+			box-sizing: border-box;
+			cursor: pointer;
+			background: #575757;
+			border-radius: 10px;
+			padding: 10px;
+		}
+
+		div.top {
+			height: 33%;
+			display: table;
+			margin: auto;
+			font-size: 40px;
+		}
+		div.bottom {
+			width: 90%;
+			margin-top: 15px;
+			display: table;
+			margin-left: auto;
+			margin-right: auto;
+			text-align: center;
+		}
+		div.vcentered {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		div.hcentered {
+			text-align: center;
+		}
+
+		html, body, .full-height {
+			height: 100%;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: Helvetica, Arial, sans-serif;
+			font-weight: Bold;
+			font-size: 26px;
+			color: white;
+			background-color: #103d82;
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		.black-button {
+			text-align: center;
+			color: white;
+			border: 1px solid black;
+			font-weight: bold;
+			box-sizing: border-box;
+			cursor: pointer;
+		}
+
+		button {
+			outline: none;
+		}
+
+
+		button {
+			background: #575757;
+		}
+
+		button:hover {
+			background: #999;
+		}
+
+		button:disabled {
+			color: #999;
+			border-color: #999;
+			cursor: default;
+
+			background: #ccc;
+		}
+
+		button.big-button {
+			border-radius: 5px;
+			padding: 7px;
+			font-size: 24px;
+		}
+
+
+		.logo  {
+			width: 216px;
+			height: 37px;
+		}
+
+		.name {
+			text-align: center;
+			font-size: 24px;
+			margin-left: -12px;
+		}
+
+
+	</style>
+
+	<script>
+		var query = parseQuery();
+		var nativeInterface = (function(nativeProtocol) {
+			var callMethod;
+
+			switch (nativeProtocol || 'Unknown') {
+				case 'IOS 1.0':
+					callMethod = function(name, argument) {
+						window.webkit.messageHandlers.app.postMessage({
+							method: name,
+							argument: argument
+						});
+					};
+					break;
+				case 'Android 1.0':
+					callMethod = function(name, argument) {
+						if(typeof argument === 'object') {
+							argument = JSON.stringify(argument);
+						}
+						if(typeof argument === 'undefined') {
+							window.android[name]();
+						} else {
+							window.android[name](argument);
+						}
+
+					};
+					break;
+				case 'Unknown':
+					callMethod = function(name, argument) {
+						console.log('callMethod', name, argument);
+					}
+			}
+
+			console.log(callMethod.toString())
+			return {
+				callMethod: function(name, argument) { callMethod(name, argument) },
+			}
+		})(query.nativeProtocol);
+
+		function parseQuery() {
+			var search = window.location.search.substring(1);
+			if(!search) {
+				return {};
+			}
+
+			var query = {}, pairs = search.split('&'), keyValue, key, value, undef, existing, old;
+
+			for(var i = 0, l = pairs.length; i < l; i++) {
+				keyValue = pairs[i].split('=');
+				key = keyValue[0];
+				value = keyValue[1];
+				if(!key) continue
+				key = decodeURI(key);
+				undef = typeof value == 'undefined';
+				value =  undef ? true : decodeURI(value);
+				if(!undef) {
+					try {
+						value = JSON.parse(value);
+					} catch(e) { }
+				}
+
+				existing = query[key];
+				if(existing) {
+					if(isArray(existing)) {
+						if(!undef) { existing.push(value); }
+					} else {
+						old = existing;
+						query[key] = [old];
+						if(!undef) { query[key].push(value); }
+					}
+				} else {
+
+					query[key] = value;
+				}
+			}
+			return query;
+		}
+		function isArray(obj) {
+			return Object.prototype.toString.call(obj) === '[object Array]';
+		}
+
+		function forEach(arrayLike, fn) {
+			[].forEach.call(arrayLike, fn);
+		}
+
+		var $ = document.querySelector.bind(document);
+		var $$ = document.querySelectorAll.bind(document);
+	</script>
+</head>
+<body>
+<div class="top">
+	<div class="vcentered">
+		<img class="logo" src="data:image/png;base64,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"/>
+		<div class="name">MyFarm</div>
+	</div>
+</div>
+<div class="bottom">
+	<div class="vcentered hcentered">
+		<span id ="connectionErrorText" data-translate="connectionError">Connection error</span>
+		<br><br>
+		<button class="big-button black-button" data-translate="retry" data-onclick="reload">Retry</button>
+		<button class="big-button" id="resetServer" data-translate="resetServer" data-onclick="resetServer">Reset server</button>
+	</div>
+</div>
+
+<script type="text/javascript">
+	forEach($$('[data-translate]'), function(element) {
+		var key = element.dataset.translate;
+		if(query.hasOwnProperty(key)) {
+			element.innerHTML = query[key];
+		}
+	});
+
+	forEach($$('[data-onclick]'), function(element) {
+		var method = element.dataset.onclick;
+		element.addEventListener('click', function() {
+			nativeInterface.callMethod(method);
+		});
+	});
+
+	if(query.isDefaultServer) {
+		$('#resetServer').style.display = 'none';
+	}
+</script>
+
+</body>
+</html>

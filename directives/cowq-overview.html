@@ -1,0 +1,18 @@
+<div class="cowq-overview-directive">
+	<div class="graph center-container">
+		<circular-graph graph-data="data.cowGroups" size-circular-graph></circular-graph>
+		<div class="all-cows centered">
+			<div class="number selectable" ng-bind="data.totalNumberOfCows"></div>
+			<div class="text" translate="All Cows"></div>
+		</div>
+	</div>
+
+	<div class="info center-container">
+		<div class="centered">
+			<div class="cow-type" ng-repeat="item in data.cowGroups">
+				<div class="icon" ng-class="item.color"></div>
+				<span class="selectable" ng-bind="item.amount"></span>
+			</div>
+		</div>
+	</div>
+</div>
