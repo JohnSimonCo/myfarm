@@ -33,13 +33,6 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 }
 */
 
-#cowq .item-container > .cow:last-child {
-	border-bottom: none;
-	border-bottom-right-radius: 5px;
-	border-bottom-left-radius: 5px;
-}
-
-
 
 
 
@@ -53,6 +46,7 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 
 .cowq .component {
 	height: 50px;
+	margin-bottom: 10px;
 }
 .cowq .component > * {
 	height: 100%;
@@ -93,19 +87,25 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 	width: calc(100% - 120px);
 }
 .cowq .action-bar .icon.by-color:after {
-	background-image: url(/Resources/sort.png);
-	left: -7px;
+	background-image: url(/Resources/sort_colored.png);
+	background-size: cover;
+	transform: rotate(0deg);
 }
-.cowq .action-bar .icon.by-incomplete:after {
-	background-image: url(/Resources/udder_white.png);
+
+/*Gör denna till en kommentar för att avaktivera rotationen av sorteringsikonen*/
+.cowq .reverse .icon.by-color:after {
+	transform: rotate(180deg);
 }
+
+
+/* Gamla markeringsfärger (grön och blå)
 .cowq .action-bar button.selected {
 	background: #00a6ff;
 }
 
 .cowq .action-bar.reverse button.selected {
 	background: #77ad1c;
-}
+}*/
 
 
 #cowq .wait-area .inner,
@@ -124,14 +124,12 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 	width: 100%;
 }
 .cowq .sort .cow-cells {
-	margin-bottom: 15px;
 	width: calc(100% - 65px);
 	float: left;
 	font-weight: bold;
 }
 .cowq .sort .cow-cells {
 	margin-top: 7px;
-	margin-bottom: 13px
 }
 .cowq .sort .cow-cell {
 	cursor: pointer;
@@ -303,13 +301,11 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 
 .cowq .sort-controls-container .cow-cells {
 	width: calc(100% - 65px);
-	position: absolute;
-	left: 65px;
-	z-index: 2;
+	margin-left: 65px;
 }
 
 .cowq .sort-controls-container .cow-cells .cow-cell {
-	font-size: 15px;
+	font-size: 14px;
 }
 
 .cowq .sort-controls-container .buttons {
@@ -455,9 +451,6 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 	.cowq .sort .sort-controls-container .buttons {
 		margin-top: 9px;
 		margin-bottom: 8px;
-	}
-	.cowq .sort-container {
-		padding-top: 0;
 	}
 	.cowq .sort .cow-cells {
 		margin-top: 5px;
