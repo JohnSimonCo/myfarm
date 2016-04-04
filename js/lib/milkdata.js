@@ -2,7 +2,7 @@
 
 angular.module('milkdata', [])
 .factory('getCowDataNew', ['myfarm.cacheByFarm', 'getWeekMilkings', '$q', 'MilkData', 'AnimalData', function(cacheByFarm, getWeekMilkings, $q, MilkData, AnimalData) {
-	return cacheByFarm('cow.getCowDataNew', function(vcId) {
+	return cacheByFarm('cow.getCowDataNew', function(vcId, useImperialUnits) {
 		var getFileIndexFromTime=function(time) {
 			return Math.floor((time - 1415318400000) / 604800000) - 60;
 		}
@@ -36,18 +36,17 @@ angular.module('milkdata', [])
 
 		return done.then(function(data) {
 			var minTime = new Date().getTime(), maxTime = 0, maxProd = 0;
-			var useImperialUnits = false;	// *** Finns i svaret på getAllData. Om true, ska stå pound istället för kg i GUI
-			var cc=2.204622621;
+			var cc = 2.204622621;
 			data.animals.forEach(function(a) {
 				if (useImperialUnits) {
 					a.milkings.forEach(function(m){
-						m.pounds=1;
-						m.totalYield =		Math.round(cc * m.totalYield *	 10) / 10;
-						m.totalYieldLF =	Math.round(cc * m.totalYieldLF * 10) / 10;
-						m.totalYieldLR =	Math.round(cc * m.totalYieldLR * 10) / 10;
-						m.totalYieldRF =	Math.round(cc * m.totalYieldRF * 10) / 10;
-						m.totalYieldRR =	Math.round(cc * m.totalYieldRR * 10) / 10;
-						m.averageFlow =		Math.round(cc * m.averageFlow * 100) / 100;
+						m.pounds = true;
+						m.totalYield =		Math.round(cc * m.totalYield    * 10) / 10;
+						m.totalYieldLF =	Math.round(cc * m.totalYieldLF  * 10) / 10;
+						m.totalYieldLR =	Math.round(cc * m.totalYieldLR  * 10) / 10;
+						m.totalYieldRF =	Math.round(cc * m.totalYieldRF  * 10) / 10;
+						m.totalYieldRR =	Math.round(cc * m.totalYieldRR  * 10) / 10;
+						m.averageFlow =		Math.round(cc * m.averageFlow   * 100) / 100;
 						m.averageFlowLF =	Math.round(cc * m.averageFlowLF * 100) / 100;
 						m.averageFlowLR =	Math.round(cc * m.averageFlowLR * 100) / 100;
 						m.averageFlowRF =	Math.round(cc * m.averageFlowRF * 100) / 100;

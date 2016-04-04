@@ -56,9 +56,8 @@ angular.module('myfarm', ['j$', 'server', 'chat', 'alarms', 'cowq'])
 	function(sendRequest, $q) {
 		return function(id) {
 			return sendRequest('SrvMyFarm.getAllData', id).then(function(data) {
-				if(data){
-					var convertToImperial=function(d){
-						var cc=2.204622621;
+				function convertToImperial(d) {
+						var cc = 2.204622621;
 						d.lastSeven *= cc;
 						d.lastLastSeven *= cc;
 						d.perAnimalLastSeven *= cc;
@@ -71,12 +70,13 @@ angular.module('myfarm', ['j$', 'server', 'chat', 'alarms', 'cowq'])
 						d.perAnimalLastLast24h *= cc;
 						d.perMilkingsLast24h *= cc;
 						d.perMilkingslLastLast24h *= cc;
-					};
+				}
+				if(data) {
 					if(data.useImperialUnits) {
-						data.sevenDays.pounds=1;
-						data.sevenDays.jsVcMilkData && convertToImperial(data.sevenDays.jsVcMilkData);
-						data.sevenDays.jsRobots && data.sevenDays.jsRobots.forEach(function(d){convertToImperial(d);});
-						data.sevenDays.jsGroup && data.sevenDays.jsGroup.forEach(function(d){convertToImperial(d);});
+							data.sevenDays.pounds = 1;
+							data.sevenDays.jsVcMilkData && convertToImperial(data.sevenDays.jsVcMilkData);
+							data.sevenDays.jsRobots && data.sevenDays.jsRobots.forEach(convertToImperial);
+							data.sevenDays.jsGroup && data.sevenDays.jsGroup.forEach(convertToImperial);
 					}
 					return data;
 				}
@@ -144,7 +144,8 @@ angular.module('myfarm', ['j$', 'server', 'chat', 'alarms', 'cowq'])
 // 		};
 // 	}
 // ])
-.run(['$rootScope', function($scope) {
+.value('unit', {current: 'kg'})
+.run(['$rootScope', 'unit', function($scope, unit) {
 	$scope.$on('myfarm.dataUpdated', function(event, data, id) {
 		$scope.loaded = false;
 		data.then(function(data) {
@@ -157,6 +158,10 @@ angular.module('myfarm', ['j$', 'server', 'chat', 'alarms', 'cowq'])
 
 			$scope.farmName = data.cows.vcName;
 			$scope.isAdmin = isAdmin(data.cows.perm);
+
+			$scope.useImperialUnits = data.useImperialUnits;
+			$scope.unit = $scope.useImperialUnits ? 'lb' : 'kg';
+			unit.current = $scope.unit;
 		});
 	});
 

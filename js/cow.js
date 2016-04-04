@@ -561,15 +561,19 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		return cowData;
 	}
 }])
-.constant('milkingCellNames', ['Milking time','Duration mm:ss','Blo MDi Cel','Yield kg (~/24h)','Flow kg/m','Milk dest'])
-.controller('cow.milkingsController', ['$scope', 'cow.cowData', 'milkingCellNames',
+.factory('getMilkingCellNames', ['unit', function(unit) {
+	return function() {
+		return ['Milking time','Duration mm:ss','Blo MDi Cel','Yield ' + unit.current + ' (~/24h)','Flow ' + unit.current + '/m','Milk dest'];
+	};
+}])
+.controller('cow.milkingsController', ['$scope', 'cow.cowData', 'getMilkingCellNames',
 			'sortMilkings', 'cow.getUserCollapsed', 'cow.setUserCollapsed',
 			'cow.getUserSort', 'cow.setUserSort', 'getCowDataNew', 'extractCowData',
-	function($scope, getCowData, cellNames, sortMilkings, getUserCollapsed, setUserCollapsed, getUserSort, setUserSort, getCowDataNew, extractCowData) {
+	function($scope, getCowData, getCellNames, sortMilkings, getUserCollapsed, setUserCollapsed, getUserSort, setUserSort, getCowDataNew, extractCowData) {
 		$scope.$watchGroup(['cowData', 'nr'], function(values) {
 			var nr = values[1];
 			if(!values[0]) {
-				getCowDataNew($scope.id, nr).then(function(data) {
+				getCowDataNew($scope.id, $scope.useImperialUnits).then(function(data) {
 					$scope.setAllData(data);
 					$scope.setCowData(data.getAnimal(nr));
 				});
@@ -583,7 +587,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 			}
 		});
 
-		$scope.cellNames = cellNames;
+		$scope.cellNames = getCellNames();
 
 		$scope.sort = getUserSort();
 		$scope.sortCol = $scope.sort.sortCol;
@@ -722,7 +726,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		$scope.$watchGroup(['cowData', 'nr'], function(values) {
 			var nr = values[1];
 			if(!values[0]) {
-				getCowDataNew($scope.id, nr).then(function(data) {
+				getCowDataNew($scope.id, $scope.useImperialUnits).then(function(data) {
 					$scope.setAllData(data);
 					$scope.setCowData(data.getAnimal(nr));
 				});
@@ -851,7 +855,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		}
 	};
 }])
-.factory('getMilkingMetadata', [function() {
+.factory('getMilkingMetadata', ['unit', function(unit) {
 	function addEntry(entries, label, value) {
 		entries.push({
 			label: label,
@@ -859,7 +863,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		});
 	}
 	function addYield(entries, label, yld, expected) {
-		addEntry(entries, 'Yield ' + label, yld + 'kg' + (expected ? ' (' + Math.round(yld / expected * 100) + '% of expected)' : ''));
+		addEntry(entries, 'Yield ' + label, yld + unit.current + (expected ? ' (' + Math.round(yld / expected * 100) + '% of expected)' : ''));
 	}
 
 	var teats = ["LF", "LR", "RF", "RR"];
@@ -888,8 +892,8 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		var milking = mo.o;
 		var date = new Date(milking.endOfMilkingTime);
 
-		addEntry(entries, 'Prod / 24h', Math.round(mo.prodPerDay * 10) / 10 + 'kg');
-		addEntry(entries, 'Total yield', Math.round(milking.totalYield * 10) / 10 + 'kg');
+		addEntry(entries, 'Prod / 24h', Math.round(mo.prodPerDay * 10) / 10  + unit.current);
+		addEntry(entries, 'Total yield', Math.round(milking.totalYield * 10) / 10 + unit.current);
 		var prodH = Math.floor(mo.prodTime);
 		var prodMinu = Math.floor((mo.prodTime - prodH) * 60);
 		addEntry(entries, 'Prod time', prodH + 'h' + ' ' + prodMinu + 'min');
