@@ -94,7 +94,10 @@
 
 
 
-
+#cow {
+	height: calc(100% - 5px);
+	box-sizing: border-box;
+}
 
 #cow .cow .cow-number {
 	font-size: 27px;
@@ -268,7 +271,7 @@
 }
 
 #cow .graph .graph-stats-container {
-	height: 167px;
+	height: 168px;
 }
 
 #cow .graph .date-info-container {
@@ -397,7 +400,7 @@
 	}
 
 	#cow .graph .graph-stats-container {
-		height: calc(360px - 46px);
+		height: calc(360px - 45px);
 	}
 
 	#cow .graph .item-container div {
