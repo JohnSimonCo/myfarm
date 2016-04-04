@@ -128,7 +128,6 @@
 #cow .content {
 	height: calc(100% - 60px);
 }
-
 #cow .content > .info {
 	font-size: 16px;
 	margin-top: 14px;

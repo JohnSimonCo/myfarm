@@ -3,7 +3,7 @@
 		<div class="empty-view" ng-if="data.list.length < 1" translate="No messages"></div>
 		<div class="message" ng-repeat="message in data.list" ng-class="{selected: message === selectedMessage, unread: isMessageUnread(message)}">
 			<div class="name selectable" ng-bind="message.fromName"></div>
-			<div class="plus" ng-click="select(message)"></div>
+			<div class="plus non-selectable" ng-click="select(message)"></div>
 			<div class="date selectable" ng-bind="message.time | date:'yyyy-MM-dd HH:mm'"></div>
 			<pre class="text selectable" chatify="message.text"></pre>
 		</div>

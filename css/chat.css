@@ -30,9 +30,9 @@ margin-top: 50px;
 }
 
 .chat .message {
-padding-bottom: 10px;
-position: relative;
-transition: background 0.2s;
+	padding-bottom: 10px;
+	position: relative;
+	transition: background 0.2s;
 }
 
 .chat .message.selected {
@@ -65,13 +65,14 @@ transition: background 0.2s;
 	width: 24px;
 	height: 24px;
 	background-image: url(/Resources/plus_highres.png);
+	transition: 200ms transform;
 	background-size: cover;
 	position: absolute;
 	right: 0;
 }
 
 #chat .message.selected .plus {
-	background-image: url(/Resources/cross_highres.png);
+	transform: rotate(45deg);
 }
 
 #chat .message .date {

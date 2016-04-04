@@ -299,12 +299,12 @@ body {
 	}
 }
 
-@media all and (max-width: 1050px) {
+@media (max-width: 1050px) {
 	#action-bar .dropdown {
 		right: 15px;
 	}
 }
-@media all and (max-width: 800px) {
+@media (max-width: 800px) {
 	#action-bar .dropdown .item {
 		padding-top: 7px;
 		padding-bottom: 7px;
@@ -315,19 +315,24 @@ body {
 		max-height: 55vh;
 	}
 }
-@media all and (max-height: 600px) {
+@media (max-width: 450px) {
+	.disconnected-text {
+		display: none;
+	}
+}
+@media (max-height: 600px) {
 	#action-bar .dropdown {
 		max-height: 400px;
 		max-height: 55vh;
 	}
 }
-@media all and (max-height: 500px) {
+@media (max-height: 500px) {
 	#action-bar .dropdown {
 		max-height: 300px;
 		max-height: 60vh;
 	}
 }
-@media all and (max-height: 400px) {
+@media (max-height: 400px) {
 	#action-bar .dropdown {
 		max-height: 200px;
 		max-height: 65vh;
