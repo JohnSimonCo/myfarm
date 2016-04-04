@@ -19,6 +19,17 @@
 		overflow-x: hidden;
 		overflow-y: auto;
 	}
+
+	#cow .action-bar {
+		display: none;
+	}
+	#cow .content > .info {
+		margin-top: 0;
+	}
+	#cow .content > .info .row:first-child.empty {
+		display: none;
+	}
+
 </style>
 <div id="wrapper" class="full-height">
 	<div id="container" class="full-height" ng-view></div>
@@ -51,9 +62,9 @@
 			});
 		});
 	}])
-	.run(['$window', 'cowqHistory', function($window, cowqHistory) {
-		$window.addEventListener('message', function(event) {
-			switch (event.data) {
+	.run(['$window', 'cowqHistory', '$rootScope', function($window, cowqHistory, $rootScope) {
+		function handleOldMessage(message) {
+			switch (message) {
 				case 'forward':
 					if(cowqHistory.canGoFoward) {
 						$window.history.forward();
@@ -65,6 +76,17 @@
 					}
 					break;
 			}
+		}
+		$window.addEventListener('message', function(event) {
+			var data = event.data;
+			if(typeof data == 'string') {
+				handleOldMessage(data);
+				return;
+			}
+
+			console.log('got message', data);
+			$rootScope.$broadcast('window.message', data);
+
 		}, false);
 	}]);
 </script>

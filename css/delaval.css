@@ -181,3 +181,18 @@ button.big-button, .button.big-button {
 .clearfix {
 	zoom: 1;
 }
+
+/*Scroll bar*/
+::-webkit-scrollbar {
+    height: 12px;
+    width: 10px;
+    background: #e5e5e5;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #777;
+}
+
+::-webkit-scrollbar-corner {
+    background: #000;
+}

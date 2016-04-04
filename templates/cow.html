@@ -1,4 +1,5 @@
 <div id="cow" class="cowq full-height">
+	<div ng-controller="cow.windowMessageController"></div>
 	<div class="action-bar component clearfix" ng-controller="cow.navigationController">
 		<!-- <button class="big-button black-button icon back" ng-click="back()"></button> -->
 		<div class="change-cow">
@@ -16,7 +17,7 @@
 	</div>
 	<div class="content" ng-switch="view">
 		<div ng-switch-when="info" ng-controller="cow.infoController" class="info">
-			<div class="row incomplete clearfix">
+			<div class="row incomplete clearfix" ng-class="{'empty': !cow.mask && !cow.incompleteMask}">
 				<div><cow-icon ng-if="cow.mask" cow="cow" index="-1"></cow-icon></div>
 
 				<div ng-if="cow.incompleteMask" class="status-container" ng-controller="cow.incompleteIndicatorInfoController">

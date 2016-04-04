@@ -171,6 +171,35 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 	}
 ])
 .constant('cow.views', ['info', 'milkings', 'graph']) //update to add more views
+.controller('cow.windowMessageController', ['$scope', 'cow.views', 'util.findIndex',
+	function($scope, views, findIndex) {
+		$scope.$on('window.message', function(e, data) {
+			console.log('recieved message', data);
+			switch (data.method) {
+				case 'setCowNumber':
+					var cowNumber = data.args[0];
+					var index = findIndex($scope.cows, function(cow) {
+						return cow.nr == cowNumber;
+					});
+					//findIndex will return length if not found
+					if(index !== $scope.cows.length) {
+						$scope.$apply(function() {
+							$scope.setCow(index);
+						});
+					}
+					break;
+				case 'setCowView':
+					var view = data.args[0];
+					if(views.indexOf(view) !== -1) {
+						$scope.$apply(function() {
+							$scope.setView(view);
+						});
+					}
+					break;
+			}
+		});
+	}
+])
 .controller('cow.navigationController', ['$scope', '$routeParams', 'setUserViewIndex', 'cow.views',
 	function($scope, $routeParams, setUserViewIndex, views) {
 
