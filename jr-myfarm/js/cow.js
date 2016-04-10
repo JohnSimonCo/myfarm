@@ -933,6 +933,24 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		scope.displayHover(event);
 	};
 }])
+.filter('firstHalf', function() {
+	return function(array) {
+		if (!array) {
+			return [];
+		}
+		var n = Math.ceil(array.length / 2);
+		return array.slice(0, n);
+	};
+})
+.filter('secondHalf', function() {
+	return function(array) {
+		if (!array) {
+			return [];
+		}
+		var start = Math.ceil(array.length / 2);
+		return array.slice(start, array.length);
+	};
+})
 .factory('cow.renderGraphNew', [ 'jrGraph', 'translate', 'getMilkingMetadata',
 	function(jrGraph, translate, getMilkingMetadata) {
 		var milkings = {};

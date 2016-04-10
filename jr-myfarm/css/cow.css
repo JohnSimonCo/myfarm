@@ -213,10 +213,16 @@
 	padding-right: 8px;
 }
 #cow .info .fetch-cows > div:first-child {
+	float: left;
 	font-weight: bold;
 }
+#cow .info .fetch-cows > div:nth-child(2) {
+	margin-left: 8px;
+	margin-top: -2px;
+	float: left;
+}
 #cow .info .fetch-cows {
-	margin-bottom: 15px;
+	margin-bottom: 12px;
 }
 #cow .info .incomplete canvas {
 	width: 35px;
@@ -323,7 +329,7 @@
 	overflow-y: auto; 
 }
 
-#cow .graph .item-container {
+#cow .graph .graph-stats-container .stats-subcontainer {
 	width: 50%;
 	float: left;
 }
@@ -362,6 +368,7 @@
 
 @media (max-width: 820px) {
 	#cow .info .row .row-name {
+		padding-top: 2px;
 		font-size: 14px;
 	}
 
@@ -378,17 +385,25 @@
 	}
 }
 
-@media (max-width: 710px) {
+@media (max-width: 650px) {
+	#cow .info .row .row-name {
+		font-size: 13px;
+		padding-top: 2px;
+	}
+
+	#cow .info .row > div {
+		font-size: 13px;
+		padding-top: 2px;
+	}
+}
+
+@media (max-width: 530px) {
 	#cow .info .field {
 		width: 100%;
 	}
 
 	#cow .info .row .row-name {
 		font-size: 16px;
-	}
-
-	#cow .graph .item-container {
-		width: 100%;
 	}
 
 	#cow .graph .graph-container {
@@ -410,15 +425,15 @@
 	#cow .info .incomplete img {
 		float: right;
 	}
+	#cow .graph .graph-stats-container .stats-subcontainer {
+		width: 100%;
+	}
 }
 
 
 
 
 @media (max-height: 650px) {
-	#cow .graph .item-container {
-		width: 100%;
-	}
 
 	#cow .graph .graph-container {
 		height: 60%;

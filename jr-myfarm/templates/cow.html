@@ -33,7 +33,7 @@
 
 				<!--<div><cow-icon ng-if="cow.mask" cow="cow" index="0"></cow-icon></div>-->
 			</div>
-			<div ng-show="hasEditPermission()" class="row fetch-cows clearfix">
+			<div ng-show="hasEditPermission()" class="fetch-cows clearfix">
 				<div translate="Include in FetchCows"></div>
 				<div><j$-checkbox ng-model="fetchCow" ng-change="toggleFetch()"></j$-checkbox></div>
 			</div>
@@ -146,9 +146,18 @@
 				<div class="clearfix"></div>
 
 				<div class="graph-stats-container">
-					<div class="item-container" ng-repeat="entry in milkingMeta.entries">
-						<div class="text-overflow" ng-bind="entry.label"></div>
-						<div class="value text-overflow" ng-bind="entry.value"></div>
+					<div class="stats-subcontainer">
+						<div class="item-container" ng-repeat="entry in milkingMeta.entries | firstHalf">
+							<div class="text-overflow" ng-bind="entry.label"></div>
+							<div class="value text-overflow" ng-bind="entry.value"></div>
+						</div>
+					</div>
+
+					<div class="stats-subcontainer">
+						<div class="item-container" ng-repeat="entry in milkingMeta.entries | secondHalf">
+							<div class="text-overflow" ng-bind="entry.label"></div>
+							<div class="value text-overflow" ng-bind="entry.value"></div>
+						</div>
 					</div>
 
 					<div class="clearfix"></div>

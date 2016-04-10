@@ -185,7 +185,7 @@ button.big-button, .button.big-button {
 /*Scroll bar*/
 ::-webkit-scrollbar {
     height: 12px;
-    width: 10px;
+    width: 16px;
     background: #e5e5e5;
 }
 
