@@ -136,20 +136,12 @@
 	margin-top: 14px;
 }
 #cow .info .field {
+	border-bottom: 1px solid #999;
 	padding-top: 4px;
 	padding-bottom: 2px;
 	float: left;
 	width: 50%;
 }
-
-#cow .info .field-pair-container {
-	border-bottom: 1px solid #999;
-}
-
-#cow .info .field-pair-container:last-child {
-	border-bottom: none;
-}
-
 
 #cow .content .row-container {
 	background: #fff;
@@ -163,6 +155,14 @@
 #cow .info .row .row-name {
 	max-width: 50%;
 } 
+
+#cow .row-container > .row:nth-last-child(2) {
+	border-bottom: none;
+}
+
+#cow .row-container > .row:nth-child(odd):nth-last-child(3) {
+	border-bottom: none;
+}
 
 #cow .info .note {
 	position: relative;
@@ -428,20 +428,6 @@
 	#cow .graph .graph-stats-container .stats-subcontainer {
 		width: 100%;
 	}
-
-
-	#cow .info .field-pair-container .row:first-child {
-		border-bottom: 1px solid #999;
-	}
-
-	#cow .info .field-pair-container:last-child {
-		border-bottom: none;
-	}
-
-	#cow .info .field-pair-container:last-child .row:first-child {
-		border-bottom: none;
-	}
-
 }
 
 

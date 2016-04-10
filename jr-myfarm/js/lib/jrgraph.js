@@ -38,7 +38,7 @@ angular.module('jrGraph', [])
 				this.yPix = 0;
 				this.sort = function(o1,o2) {return parseInt(o1.x-o2.x,10);};
 			},
-			plotLine=function(colorLine, thickness, stapleOutlineColor, onMouseOver, markDiameter, onClick){
+			plotLine=function(colorLine, thickness, stapleOutlineColor, onMouseOver, markDiameter){
 				this.colorLine = colorLine;
 				this.thickness = thickness;
 				this.stapleOutlineColor = stapleOutlineColor;
@@ -47,7 +47,6 @@ angular.module('jrGraph', [])
 				this.xMax = -0x3fffffffffff;
 				this.onMouseOver = onMouseOver;
 				this.markDiameter = markDiameter;
-				this.onClick = onClick;
 				this.addPoint = function(x, y, x2, id, col, specialColor, makeBig){
 					this.points.push(new point(x, y, x2, id, col, specialColor, makeBig));
 					if (this.xMin===0x3fffffffffff) {
@@ -349,30 +348,28 @@ angular.module('jrGraph', [])
 					}
 				};
 				this.clicked = function(data) {
-					if (!this.getClosest()) {
-						var me = data.plot, x = event.offsetX, y = event.offsetY;
-						if (me.onClickX && x - me.radius <= me.onClickX && x + me.radius >= me.onClickX) {
-							var i = -1;
-							while (++i < me.onClickY.length) {
-								if (y - me.radius <= me.onClickY[i] && y + me.radius >= me.onClickY[i]) {
-									var id = me.onClickId[i];
-									i = -1;
-									while (++i < me.info.length)
-										if (me.info[i].id === id) {
-											me.onClickInfo(id);
-											return false;
-										}
-									break;
-								}
+					var me = data.plot, x = event.offsetX, y = event.offsetY;
+					if (me.onClickX && x - me.radius <= me.onClickX && x + me.radius >= me.onClickX) {
+						var i = -1;
+						while (++i < me.onClickY.length) {
+							if (y - me.radius <= me.onClickY[i] && y + me.radius >= me.onClickY[i]) {
+								var id = me.onClickId[i];
+								i = -1;
+								while (++i < me.info.length)
+									if (me.info[i].id === id) {
+										me.onClickInfo(id);
+										return false;
+									}
+								break;
 							}
 						}
-						var newTarget = me.getTarget();
-						if (data.mouseClickCallback)
-							if (newTarget)
-								data.mouseClickCallback(data, newTarget);
-							else
-								data.mouseClickCallback(me, Math.round(me.pixXreverse(window.event.offsetX)), Math.round(me.pixYreverse(window.event.offsetY)));
 					}
+					var newTarget = me.getTarget();
+					if (data.mouseClickCallback)
+						if (newTarget)
+							data.mouseClickCallback(data, newTarget);
+						else
+							data.mouseClickCallback(me, Math.round(me.pixXreverse(window.event.offsetX)), Math.round(me.pixYreverse(window.event.offsetY)));
 					return false;
 				};
 				this.addInfo = function(infoIn, textStyleIn, onClick) {
@@ -398,30 +395,6 @@ angular.module('jrGraph', [])
 						if (yMax < ln.yMax) yMax = ln.yMax;
 					}
 				};
-				this.getClosest = function() {
-					if (window.event.type === 'click') {
-						var mouseX=window.event.offsetX, mouseY=window.event.offsetY, i = -1;
-						while (++i < this.lines.length) {
-							var ln = this.lines[i], ii = -1, xl=mouseX-ln.markDiameter, xr=mouseX+ln.markDiameter, yu=mouseY-ln.markDiameter, yd=mouseY+ln.markDiameter;
-							if (ln.onClick && ln.markX) {
-								var dist = 1000000, id = null, ii = -1;
-								while (++ii < ln.markX.length) {
-									var nd = mouseX - ln.markX[ii];
-									if (nd < 0)
-										nd = -nd;
-									if (nd < dist) {
-										dist = nd;
-										var pnt = ln.points[ii+1];
-										id = pnt.id;
-									}
-								}
-								ln.onClick(id);
-								return true;
-							}
-						}
-					}
-					return null;
-				};
 				this.getTarget = function() {
 					var mouseX=window.event.offsetX, mouseY=window.event.offsetY, i = -1;
 					while (++i < this.lines.length) {
@@ -438,8 +411,7 @@ angular.module('jrGraph', [])
 								}
 						}
 					}
-					return this.getClosest();
-//					return null;
+					return null;
 				};
 			};
 			this.plot =	null;
@@ -462,11 +434,11 @@ angular.module('jrGraph', [])
 			this.addStaple = function(d,value,x2) {
 				this.plot.addPoint(currIndex, d, value, x2);
 			};
-			this.addLine = function(color, thickness, stapleOutlineColor, onMouseOver, markDiameter, onClick) {
+			this.addLine = function(color, thickness, stapleOutlineColor, onMouseOver, markDiameter) {
 				if (!this.plot)
 					this.plot = new plotData();
 				currIndex++;
-				this.plot.lines.push(new plotLine(color, thickness, stapleOutlineColor, onMouseOver, markDiameter, onClick));
+				this.plot.lines.push(new plotLine(color, thickness, stapleOutlineColor, onMouseOver, markDiameter));
 			};
 			this.clear = function(colorGridIn, colorHour, dateFormatIn, colorTextIn, colorMont1In, colorMont2In) {
 				if (dateFormatIn)
