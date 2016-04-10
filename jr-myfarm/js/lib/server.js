@@ -67,7 +67,7 @@ angular.module('server', ['modal'])
 	.factory('errorInterceptor', ['$rootScope', '$q', '$log', function($rootScope, $q, $log) {
 		return {
 			responseError: function(rejection) {
-				if(rejection.config._sendRequest) {
+				if(rejection.config._sendRequest && rejection.status === 0) {
 					$log.debug('*** Error', rejection);
 					$rootScope.$broadcast('connectionError');
 				}

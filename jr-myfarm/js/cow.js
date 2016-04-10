@@ -145,16 +145,32 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		};
 
 		$scope.updateUrl = function() {
-			if($scope.view != 'graph') {
-				$ngSilentLocation.silent('/cowq/cow/' + $scope.nr + '/' + $scope.view, true);
-			} else if($scope.milkingIndex != null) {
-				$ngSilentLocation.silent('/cowq/cow/' + $scope.nr + '/' + $scope.view + '/' + $scope.milkingIndex, true);
+			var baseUrl = '/cowq/cow/' + $scope.nr + '/' + $scope.view;
+			switch ($scope.view) {
+				case 'graph':
+					if($scope.milkingIndex != null) {
+						$ngSilentLocation.silent(baseUrl + '/' + $scope.milkingIndex, true);
+					}
+					break;
+				case 'info':
+					if($scope.infoView) {
+						$ngSilentLocation.silent(baseUrl + '/' + $scope.infoView, true);
+						break;	
+					}
+					//else fall through
+				default:
+					$ngSilentLocation.silent(baseUrl, true);
+					break;
 			}
 		};
 
 		$scope.setView = function(view) {
 			$scope.view = view;
 			$scope.updateUrl();
+		};
+
+		$scope.setInfoView = function(view) {
+			$scope.infoView = view;
 		};
 
 		$scope.setMilkingIndex = function(milkingIndex) {
@@ -171,8 +187,8 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 	}
 ])
 .constant('cow.views', ['info', 'milkings', 'graph']) //update to add more views
-.controller('cow.windowMessageController', ['$scope', 'cow.views', 'util.findIndex',
-	function($scope, views, findIndex) {
+.controller('cow.windowMessageController', ['$scope', 'cow.views', 'util.findIndex', 'cow.infoViews',
+	function($scope, views, findIndex, infoViews) {
 		$scope.$on('window.message', function(e, data) {
 			console.log('recieved message', data);
 			switch (data.method) {
@@ -190,6 +206,15 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 					break;
 				case 'setCowView':
 					var view = data.args[0];
+
+					if(/^info-/.test(view)) {
+						var infoView = view.split('-')[1];
+						if(infoViews.indexOf(infoView) !== -1) {
+							$scope.setInfoView(infoView);
+						}
+						view = 'info';
+					}
+
 					if(views.indexOf(view) !== -1) {
 						$scope.$apply(function() {
 							$scope.setView(view);
@@ -249,10 +274,11 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
     }
 }])
 .constant('cow.infoIndices', [11,8,9,12,24,3,5,6,27,10,14,17,22,23,26])
+.constant('cow.infoViews', ['notes', 'fields'])
 //.constant('cow.infoIndicesExtended', [36,3,5,6,12,8,9,11,24,42,40,31,34,28,32,33,30,39,29,27,10,14,35,38,23,37,41,17,22,26,43,44,45,46,47,48,49])
 .constant('cow.infoIndicesExtended', [36,3,5,6,12,8,9,11,24,42,40,31,34,28,32,33,30,39,29,27,10,14,35,38,23,37,41,17,22,26])
-.controller('cow.infoController', ['$scope', 'myfarm', 'cow.infoIndices', 'cow.infoIndicesExtended', 'fetchCow', 'markAnimal', 'util.arrayFind', 'editNotification',
-	function($scope, myfarm, indexes, infoIndicesExtended, fetchCow, markAnimal, arrayFind, editNotification) {
+.controller('cow.infoController', ['$scope', 'myfarm', 'cow.infoIndices', 'cow.infoIndicesExtended', 'fetchCow', 'markAnimal', 'util.arrayFind', 'editNotification', '$routeParams',
+	function($scope, myfarm, indexes, infoIndicesExtended, fetchCow, markAnimal, arrayFind, editNotification, $routeParams) {
 		var indices = isNaN($scope.cow.toBeCulled) ? indexes : infoIndicesExtended;
 		$scope.fields = indices.map(function(index) {
 			return {index: index, name: $scope.data.profiles.fieldNames[index]};
@@ -285,7 +311,9 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 			});
 		};
 
-		$scope.$watch('cow', function(){
+		$scope.setInfoView($routeParams.infoView);
+
+		$scope.$watch('cow', function() {
             if ($scope.data.users) 
 				if ($scope.hasEditPermission()) {
 					$scope.notes = $.map($scope.data.noteTypes, function(typeName, type) {
