@@ -268,11 +268,11 @@
 	height: 100%;
 }
 #cow .graph .graph-container {
-	height: calc(100% - 221px);
+	height: calc(100% - 230px);
 }
 #cow .graph .graph-info {
 	height: 220px;
-	padding-top: 8px;
+	padding-top: 14px;
 	box-sizing: border-box;
 }
 
