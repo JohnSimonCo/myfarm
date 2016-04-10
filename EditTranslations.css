@@ -1,0 +1,20 @@
+button.save {
+	float: right;
+}
+.textTopPadding {
+	padding-top: 7px;
+}
+.textUsed {
+	background-color: darkseagreen;
+	border-radius: 10px;
+	border: 1px solid black;
+	cursor: default;
+}
+.textUnused {
+	height: 20px;
+	width: 20px;
+	background-color: darkred;
+	border-radius: 10px;
+	border: 1px solid black;
+	cursor: default;
+}

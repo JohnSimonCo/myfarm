@@ -1,0 +1,128 @@
+div.cowq {
+	position: absolute;
+	height: 99%;
+	width: 98.5%;
+	left: 1%;
+	background: #cccccc;
+	background: -webkit-gradient(linear,0 0,0 100%,from(#d8d8d8),to(#c0c0c0));
+	border-radius: 10px;
+	box-shadow: 4px 4px 4px #888;	
+}
+
+.groupSelect {
+	overflow: hidden;
+}
+table.cowq div.headchoosen {
+	color: orange;
+}
+table.cowq {
+    margin-left: 0.5%;
+    margin-right: 2.5%;
+    border-spacing: 0px 3px;
+    width: 99%;
+	font-family: Helvetica;
+}
+table.cowq div.left, div.center, div.right {
+	width: 30%;
+	position: absolute;
+}
+table.cowq div.center {
+	left: 35%;		
+}
+table.cowq div.right {
+	right: 5px;		
+}
+table.cowq div.right div {
+	width: 100%;
+	display: inline;
+}
+table.cowq button.buttonSelect {
+	width: 100%;
+}
+table.cowq div.right button.buttonSelect {
+	right: 0px;
+	position: absolute;
+}
+table.cowq button.buttonSelect img {
+	margin-top: 4px;
+	position: absolute;
+	right: 10px;
+}
+table.cowq div.buttons {
+	padding: 10px 0px 10px 0px;
+	cursor: default;
+	height: 40px;		
+}
+table.cowq div.drop-down-text {
+	top: 0px;
+	width: 90%;
+	overflow: hidden;	
+}
+/*table.cowq i.status {
+	width: 70px;
+	height: 70px;
+	background:url("/Delaval/Resources/info6.png") -70px -140px;
+}
+table.cowq i.udder {
+	width: 70px;
+	height: 70px;
+	background:url("/Delaval/Resources/info6.png") -70px -210px;
+}
+table.cowq i.status,i.udder img {
+	width: 70px;
+	height: 70px;
+}*/
+table.cowq tr {
+	cursor: pointer;
+}
+table.cowq.topCmd {
+}
+table.cowq div.buttons button {
+	white-space: nowrap;
+	height: 40px;
+}
+table.cowq .info {
+	color: #000000;
+}
+table.cowq .hinfo {
+	color: #000000;
+}
+table.cowq td.imageCell {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding-right: 1%;
+}
+table.cowq td.imageCell img canvas {
+    width: 100%;
+	height: 100%;
+}
+table.cowq td.infoCell {
+	overflow: hidden;
+}
+table.cowq td.infoCell div {
+	white-space: nowrap;
+}
+table.cowq td.infoCell div.cInfoCell {
+	overflow: hidden;
+}
+table.cowq td.lastCell {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+table.cowq tr.topHeading td {
+    color:#ffffff;background-color:#555555;background:-webkit-gradient(linear,0 0,0 100%,from(#7a7a7a),to(#373737));
+    cursor: pointer;
+}
+
+.styleOverdue{color:#ffffff;background-color:#ff1010;background:-webkit-gradient(linear,0 0,0 100%,from(#b71919),to(#ff2323));}
+.stylePermission{color:#000000;background-color:#ffff00;background:-webkit-gradient(linear,0 0,0 100%,from(#c8c800),to(#ffff00));}
+.styleNopermission{color:#000000;background-color:#dedede;background:-webkit-gradient(linear,0 0,0 100%,from(#cecece),to(#f0f0f0));}
+.styleNeverMilked{color:#000000;background-color:#fc7a00;background:-webkit-gradient(linear,0 0,0 100%,from(#fc7a00),to(#fcb577));}
+.styleFeedOnly{color:#000000;background-color:#99F799;background:-webkit-gradient(linear,0 0,0 100%,from(#8FEA8F),to(#99F799));}
+.stylePassThrough{color:#ffffff;background-color:#008000;background:-webkit-gradient(linear,0 0,0 100%,from(#007000),to(#00a000));}
+
+.styleRubber{color:#ffffff;background-color:#555555;background:-webkit-gradient(linear,0 0,0 100%,from(#7a7a7a),to(#373737));}
+.styleBlue{color:#ffffff;background-color:#00579e;background:-webkit-gradient(linear,0 0,0 100%,from(#00579e),to(#3e7dc0));}
+.styleBackground{border-radius:7px;color:#000000;background-color:#103d82;background:-webkit-gradient(linear,0 0,0 100%,from(#103d82),to(#103d82));}
+.styleDialog{margin:10px;border-radius:6px;color:#000000;background-color:#e0e0e0;background:-webkit-gradient(linear,0 0,0 100%,from(#d8d8d8),to(#ffffff));}
+.styleMilking{color:#000000;background-color:#D9DAFA;background:-webkit-gradient(linear,0 0,0 100%,from(#F0F0FC),to(#D9DAFA));}

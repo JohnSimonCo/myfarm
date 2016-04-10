@@ -1,0 +1,83 @@
+div.chat {
+	height: 99%; top: 0%; background-color: #103D82; width: 98.5%; position: absolute; left: 0.5%; border-radius: 10px; background: -webkit-gradient(linear,0 0,0 100%,from(#d8d8d8),to(#c0c0c0)); box-shadow: 4px 4px 4px #888;	
+}
+div.chat div.title {
+	height: 5%; top: 1%; width: 96%; position: absolute; left: 2%;
+}
+div.chat div.messagesContainer {
+	height: 65%; top: 7%; background-color: white; width: 98%; position: absolute; left: 1%; border-radius: 10px;	
+}
+div.chat div.messages {
+	height: 98%; top: 1%; width: 98%; position: absolute; overflow: auto; color: black;
+}
+div.chat div.message {
+	padding-top: 7px;
+	margin-left: .5%;
+	padding-left: .5%;
+	padding-right: .5%;
+}
+div.chat div.message.selected {
+	/*background-color: rgb(247, 230, 140);*/
+	background-color: rgb(171, 218, 255);
+	border-radius: 10px;
+}
+div.chat div.newMessage {
+	float: left;
+	color: grey;
+}
+div.chat div.message div.name {
+	font-weight: bold;
+	margin-left: 10px;
+	float: left;
+}
+div.chat div.message div.change {
+	width: 40px;
+	height: 40px;
+	position: relative;
+	clear: left;
+	float: right;
+	right: 1%;
+}
+div.chat div.message div.time {
+	color: darkgray;
+	float: left;
+}
+div.chat div.message div.text {
+	margin-left: 10px;
+	margin-right: 7%;
+	clear: left;
+}
+
+div.chat textarea.newMessageContainer {
+	height: 26%; top: 73%; background-color: white; width: 66.5%; position: absolute; left: 1%; border-radius: 10px;
+}
+div.chat button.enabled {
+	height: 10%;
+	width: 30%;
+	position: absolute;
+	right: 1%;
+	bottom: 1%;
+	text-align: center;
+}
+div.chat button.disabled {
+	height: 10%;
+	width: 30%;
+	position: absolute;
+	right: 1%;
+	bottom: 1%;
+	text-align: center;
+	font-family: Helvetica;
+}
+div.chat button.delete {
+	top: 73%;
+	right: 1%;
+	height: 10%;
+	width: 30%;
+	position: absolute;
+}
+div.chat textarea {
+	border-width: 0px;
+	border-radius: 10px;
+	font-family: Helvetica;
+}
+

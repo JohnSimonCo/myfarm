@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ Register Package="Delaval.VMSController.WebControls." TagPrefix="wctrl" %>
+<%@ Register Package="Delaval.VMSController.WebControlsAsp." TagPrefix="" %>
+<%@ Register Package="Delaval.VMSController.WebControlsAsp." TagPrefix="asp" %>
+
+<html>
+<head>
+	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>VMS monitor</title>
+	<link href="common.css" type="text/css" rel="stylesheet"/>
+	<script language='JavaScript' type='text/javascript'>
+		if(typeof JsSerilz=='undefined'){function JsSerilz(data,delimiter){var escapeChar='\\';var index=0;var nextEscape;if(data!=null){index=0;if((nextEscape=data.indexOf(escapeChar))<0)nextEscape=data.length+1;}this.getString=function(){var rVal,i,ii,ifrom=index;if(ifrom>=data.length)return null;i=data.indexOf(delimiter,ifrom);if(i>nextEscape){rVal=data.substring(ifrom,nextEscape)+data.charAt(nextEscape+1);index=nextEscape+2;if((nextEscape=data.indexOf(escapeChar,nextEscape+2))<0)nextEscape=data.length+1;if(data.charAt(index)==delimiter)index++;else rVal+=this.getString();}else{rVal=data.substring(ifrom,i);index=i+1;}return(rVal.length==0)?null:rVal;};this.getInt=function(){return parseInt(this.getString(),10)};this.getRest=function(){return data.substring(index,data.length);}}}
+		if (typeof replaceInner == 'undefined'){function replaceInner(ctrl,content){if(document.all)ctrl.innerHTML=content;else if(document.getElementById){rng=document.createRange();rng.setStartBefore(ctrl);htmlFrag=rng.createContextualFragment(content);while(ctrl.hasChildNodes()) ctrl.removeChild(ctrl.lastChild);ctrl.appendChild(htmlFrag);}}}if (typeof xmlhttp=='undefined'){var xmlhttp=false;var ajaxfkn;function ajax(param,fkn){ajaxfkn=fkn;if(!xmlhttp)try{xmlhttp=new ActiveXObject("Msxml2.XMLHTTP");}catch(e){try{xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");}catch(E){xmlhttp=false;}}if(!xmlhttp&&typeof XMLHttpRequest!='undefined')xmlhttp=new XMLHttpRequest();if(xmlhttp){var deli=document.URL.indexOf('?')>=0?'&':'?';xmlhttp.open("GET",document.URL+deli+param,true);xmlhttp.onreadystatechange=ajaxCallback;xmlhttp.send(null);}return typeof(xmlhttp)=='object';}function ajaxCallback(){if((xmlhttp.readyState==4)&&(xmlhttp.status==200))if (typeof(ajaxfkn)=='string'){var a=ajaxfkn+"('"+xmlhttp.responseText.replace(/\u0027/g,"&#39;").replace(/\u0022/g,"&#34;")+"');";eval(a);}else ajaxfkn(xmlhttp.responseText);}}
+		var containerFrame = null;
+		function FindFrame(node,name){var nn=node.tagName;if(nn!=null){if(nn.toLowerCase()=='frame')if(node.name==name)return node;else return FindFrame(node.nextSibling,name);}var q=-1,r=null;while((++q<node.childNodes.length)&&((r=FindFrame(node.childNodes[q],name))==null));return r;}
+		function jsAct(id){if(containerFrame==null)containerFrame=FindFrame(top.document,'containerFrame');containerFrame.src='td.vcx?Id='+vcGUID+','+id;}
+		function jsUpdate(id){if(containerFrame==null)containerFrame=FindFrame(top.document,'containerFrame');containerFrame.src='td.vcx?Id='+vcGUID+','+id;}
+		function jsChoose(id,uid){ajax('ajax='+id+'&uid='+uid,AfterAjax);}
+		function jsDetails(id,uid){ajax('details='+vcGUID+','+id+'&uid='+uid,AfterAjax);}
+		function AfterAjax(data){
+			var tot=new JsSerilz(data,'$');
+			var d=new JsSerilz(data=tot.getString(),'@');
+			vcGUID=d.getString();
+			document.getElementById('lstDataType$').style.visibility="visible";
+			document.getElementById('lstDataType$a').value=data;
+			lstDataType$.Show=true;
+			lstDataType$.getListData(data);
+			lstDataType$.Render();
+			d=new JsSerilz(data=tot.getString(),'@');
+			d.getString();
+			document.getElementById('lstUpdates$').style.visibility="visible";
+			document.getElementById('lstUpdates$a').value=data;
+			lstUpdates$.Show=true;
+			lstUpdates$.getListData(data);
+			lstUpdates$.Render();
+			}
+		var vcGUID;
+	</script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+		<asp:Button ID="btnUpdate" text="Update" runat="server"	/>&nbsp;&nbsp;&nbsp;&nbsp;<asp:Literal ID="litUpdated" runat="server">Last updated:</asp:Literal>&nbsp;&nbsp;<b><asp:Literal ID="litLastUpdated" runat="server"></asp:Literal></b><br />
+		<asp:Literal ID="litInfo" runat="server">Info: </asp:Literal>
+		<table cellspacing='0'cellpadding='0'>
+			<tr valign="top">
+				<td colspan="3">
+					<asp:Literal ID="litLabel" runat="server"></asp:Literal><br/>
+				</td>
+			</tr>
+			<tr valign="top" style="height:100px">
+				<td>
+					<wctrl:JsList ID="lstDataType" runat="server"/>&nbsp;
+				</td>
+				<td>
+					<wctrl:JsList ID="lstUpdates" runat="server"/>&nbsp;
+				</td>
+				<td>
+					<wctrl:JsList ID="lstDetails" runat="server"/>&nbsp;
+				</td>
+			</tr>
+			<tr valign="top">
+				<td colspan="3">
+					<wctrl:JsList ID="lstVC" runat="server" OnUpdate="OnUpdate"/>
+				</td>
+			</tr>
+		<asp:Literal ID="litEmpty" runat="server" visible="false">--- No VC ---</asp:Literal>
+    </div>
+    </form>
+</body>
+<head>
+	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+</head>
+</html>

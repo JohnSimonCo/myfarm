@@ -1,0 +1,68 @@
+div.modalDimmer {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	background-color: white;
+	opacity: 0.5;
+	z-index: 5;
+}
+div.modalBlocker {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+}
+.modalMainContainer div.title {
+	font-size: 35px;
+	font-weight: bold;
+	text-align: center;
+	color: white;
+	padding: 4px;
+	position: relative;
+}
+.modalMainContainer div.text {
+	font-size: 20px;
+	font-weight: normal;
+	text-align: center;
+	color: white;
+	padding: 4px;
+	position: relative;
+}
+.modalMainContainer {
+	font-family: Verdana;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	z-index: 10;
+}
+.modalMainContainer p.modalOuterContainer {
+	height: 100%;
+	width: 100%;
+	text-align: center;
+}
+.modalMainContainer p.modalInnerContainer {
+	display: inline-block;
+}
+p.modalContainer {
+	background-color: #103D82;
+	border-radius: 18px;
+	border: 1px solid black;
+	padding: 10px;
+}
+.modalMainContainer b {
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+.modalMainContainer b.buttonSpacer {
+	height: 100px;
+}  
+.modalMainContainer button {
+	padding: 15px 20px 15px 20px;
+	font-size: 20px;
+}

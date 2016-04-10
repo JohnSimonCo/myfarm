@@ -1,0 +1,168 @@
+html { height: 100%; }
+body {
+    font-family: sans-serif;
+}
+body.all {
+    height: 99%;
+    overflow: hidden;
+}
+div {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-user-select: none;
+}
+button {
+	color: #ffffff;
+	background-color: #575757;
+	background: -webkit-gradient(linear,0 0,0 100%,from(#7a7a7a),to(#373737));
+	border-radius: 15px;
+	text-align: center;
+	-webkit-box-shadow: rgba(0, 0, 0, .55) 1px 1px 3px, rgba(255, 255, 255, .50) 0px 3px 10px inset;
+	border: 1px solid black;	
+}
+button:hover {
+	-webkit-box-shadow: rgba(0, 0, 0, .55) 1px 1px 3px inset;
+}
+button.pressed {
+	background-color: #002f53;
+	background: -webkit-gradient(linear,0 0,0 100%,from(#00569f),to(#0085f2));
+	-webkit-box-shadow: rgba(0, 0, 0, .55) 0px 3px 10px inset;
+}
+button:disabled {
+	color: #999999;
+	background-color: #e0e0e0;
+	background: -webkit-gradient(linear,0 0,0 100%,from(#e4e4e4),to(#d6d6d6));
+	-webkit-box-shadow: none;
+	border: 1px solid #999999;
+}
+div.topDiv {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
+div.partsContainer4_1 {
+	width: 49.25%;
+	height: 49.25%;
+	left: 0.5%;
+	top: 0.5%;
+	position: absolute;
+	overflow: auto;
+}
+div.partsContainer4_2 {
+	width: 49.25%;
+	height: 49.25%;
+	left: 50.25%;
+	top: 0.5%;
+	position: absolute;
+	overflow: auto;
+}
+div.partsContainer4_3 {
+	width: 49.25%;
+	height: 49.25%;
+	left: 0.5%;
+	top: 50.25%;
+	position: absolute;
+	overflow: auto;
+}
+div.partsContainer4_4 {
+	width: 49.25%;
+	height: 49.25%;
+	left: 50.25%;
+	top: 50.25%;
+	position: absolute;
+	overflow: auto;
+}
+div.zoomed {
+	width: 99%;
+	height: 100%;
+	top: 0.5%;
+	left: 0.5%;
+	position: absolute;
+	overflow: auto;
+}
+div.hidden {
+	display: none;
+}
+
+
+div.topRow {
+	left: 8px;
+	right: 8px;
+	height: 63px;
+	position: absolute;
+	overflow: visible;
+	display: inline;
+}
+div.farmName {
+	right: 90px;
+	bottom: 27px;
+	position: absolute;
+	overflow: visible;
+	color: white;
+	font-size: 28px;
+	font-weight: bold;
+}
+div.menu {
+	right: 5px;
+	top: 5px;
+	position: absolute;
+	overflow: visible;
+}
+div.menuImage {
+	right: 5px;
+	top: 5px;
+	position: absolute;
+	overflow: auto;
+}
+div.menuSelect {
+	width: 60px;
+	height: 60px;
+	right: -15px;
+	top: 2px;
+	position: absolute;
+	overflow: auto;
+	opacity: 0;
+	z-index: 2;
+}
+div.menuSelect select.menu {
+	width: 58px;
+	height: 58px;
+	cursor: pointer;
+	-webkit-appearance: menulist-text;
+}
+div.logo {
+	left: 5px;
+	top: 5px;
+	position: absolute;
+	overflow: auto;
+	display: inline;
+}
+div.tabs {
+	left: 8px;
+	right: 58px;
+	height: 90px;
+	position: absolute;
+	top: 48px;
+	overflow: auto;
+	display: inline;
+	z-index: 1;
+}
+.comErr {
+	position: absolute;
+	top: 57px;
+	left: 420px;
+	display: inline;
+	margin-bottom: 5px;	
+}
+div.partsContainer1 {
+	position: absolute;
+	top: 119px;
+	left: 8px;
+	right: 8px;
+	overflow: hidden;
+	background-color:#D8D8d8;
+	background:-webkit-gradient(linear,0 0,0 100%,from(#ffffff),to(#D8D8d8));
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+	border: solid 1px;
+}

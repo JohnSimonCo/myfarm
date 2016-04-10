@@ -1,0 +1,116 @@
+html {
+	height: 100%;
+}
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	background-color:#0A387b;
+	background:-webkit-gradient(linear,0 0,0 100%,from(#0a387b),to(#0A1B41));
+	color: white;
+	font-family: Helvetica;
+	font-weight: Bold;
+	font-size: 40px;
+}
+.block {
+	display: table;
+	margin: auto;	
+}
+.centered {
+	display: table-cell;
+	vertical-align: middle;
+}
+.login {
+	background-color:#ffffff;
+	background:-webkit-gradient(linear,0 0,0 100%,from(#ffffff),to(#D8D8d8));
+	-moz-border-radius: 18px;
+	-webkit-border-radius: 18px;
+	border-radius: 18px;
+	color: #5D5E5D;
+	font-family: Helvetica;
+	font-weight: Bold;
+	font-size: 25px;
+	text-align: left;
+	border: solid 1px;
+}
+.name {
+	/*margin-left: 80px;*/
+	margin-top: 5px;
+}
+.logo {
+}
+.outher {
+	padding: 5px;
+}
+.top {
+	height: 33%;
+}
+.bottom {
+	width: 80%;
+}
+.all {
+	height: 100%;
+}
+.rounded {
+	border: 1px solid #ccc;
+	-moz-border-radius: 18px;
+	-webkit-border-radius: 18px;
+	border-radius: 18px;
+	font-weight: Bold;
+	padding: 4px 7px;
+	outline: 0;
+	-webkit-appearance: none;
+}
+.btn {
+	font-size: 50px;
+	margin-top: 5px;
+}
+div.buttonSelect select {
+	height: 68px;
+}
+div.buttonSelect {
+    position: relative;
+}
+button.buttonSelect {
+    position: absolute;
+    right: 10%;
+    left: 10%;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+button.buttonSelect img {
+    position: absolute;
+}
+.shadow {
+	-moz-box-shadow: 2px 2px 3px #666 inset;
+	-webkit-box-shadow: 2px 2px 3px #666 inset;
+	box-shadow: 2px 2px 3px #666 inset;
+	font-size: 40px;
+}
+.rounded:focus {
+  border-color: #0f0f0f;
+}
+.wide {
+  width: 100%;
+}
+.inpt {
+	margin-right: 17px;
+	font-size: 30px;
+}
+.message {
+	text-align: center;
+	white-space:nowrap;
+}
+.warning {
+	background-color: red;
+	font-size: 40px;
+	color: yellow;
+}
+.label {
+	margin-top: 10px;
+}
+.waitMessage {
+	font-size: 40px;
+	color: #E4E4E4;
+}

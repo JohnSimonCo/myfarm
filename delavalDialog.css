@@ -1,0 +1,46 @@
+div.delavalDialog {
+	margin: 0.5%;
+}
+div.delavalDialog div.title {
+	border-radius: 7px;
+	text-align: center;
+	font-weight: bold;
+	margin: 1%;
+}
+div.delavalDialog div.buttons {
+	padding-left: 2%;
+	padding-right: 2%;
+	text-align: center;
+}
+
+div.delavalDialog div.buttons button {
+	color: #ffffff;
+	background-color: rgb( 85, 85, 85 );
+	border-radius: 7px;
+	margin: 0.5%;
+	cursor: pointer;
+}
+div.delavalDialog div.buttons button.disabled {
+	color: #333333;
+	cursor: default;
+}
+
+div.delavalDialog div.content {
+	margin: 1%;
+	background-color: lightgray;
+	border-radius: 10px;
+}
+div.delavalDialog table {
+	width: 100%;
+
+}
+div.delavalDialog td.left {
+	text-align: right;
+	padding-right: 10px;
+}
+div.delavalDialog td.right {
+	background-color: white;
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+	padding-left: 10px;
+}

@@ -1,0 +1,41 @@
+#version {
+	border-radius: 7px;
+}
+#version button.back {
+	width: 25%;
+}
+#version .section.expandable .expandable > div {
+	display: none;
+}
+
+#version .section.expandable.expanded .expandable > div,
+#version .section.expandable .expandable > div:nth-child(-n+7) {
+	display: block;
+}
+
+#version .section.expandable .content {
+	position: relative;
+}
+#version .section.expandable .arrow {
+	width: 21px;
+	height: 13px;
+	opacity: 0.25;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+
+	background-image: url(../Resources/arrow-down.png);
+	background-size: cover;
+}
+#version .section.expandable.expanded .arrow {
+	background-image: url(../Resources/arrow-up.png);
+}
+#version .section .date {
+	position: absolute;
+	bottom: 5px;
+	right: 0;
+}
+#version .section .tr > div {
+	float: left;
+	width: 50%;
+}

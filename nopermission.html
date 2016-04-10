@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ Register Package="Delaval.VMSController.WebControls." TagPrefix="wctrl" %>
+<%@ Register Package="Delaval.VMSController.WebControlsAsp." TagPrefix="" %>
+<%@ Register Package="Delaval.VMSController.WebControlsAsp." TagPrefix="asp" %>
+<%@ Register Package="Delaval.info." TagPrefix="ictrl" %>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+	<head>
+		<title>Permission</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+		<link type="text/css" rel="stylesheet" href="cli.css" />
+		<script type="text/javascript" src="/js/jr-jr1.js"></script>
+		<script type="text/javascript">
+	var pg = {
+		render:		function() {
+						document.onkeyup=pg.onKey;
+						pg.root=jr.ec('div',{className:'top',parentNode:document.body,children:[
+							{div:{className:'styleBackground background',children:[
+								{div:{className:'styleDialog',children:[
+									{div:{className:'dialogHeading',id:'dialogHeading',innerHTML:lab_permission}},
+									{div:{className:'dialogHeading styleDialog',id:'warning',children:{
+										table:{align:'center',children:[
+												{tr:{children:{td:{children:[
+//													{'input':{type:'button',onclick:pg.back,value:lab_back}},
+													{'input':{type:'button',onclick:pg.login,value:lab_login}}]}}}},
+									]}}}}
+									,
+								]}}]}
+							}
+						]})
+					},
+		login:		function(){
+						window.location="/Delaval/mvc/Pages/Show/login";
+					},
+		back:		function(ev){
+						window.history.back();
+					},
+		onKey:		function(ev){
+						if(typeof ev=="undefined")ev=window.event;key=document.layers?ev.which:ev.keyCode;if(key==13)pg.back();
+					}
+	};
+</script>
+</head>
+	<body>
+	    <form id="form1" runat="server">
+			<script type="text/javascript">pg.render();</script>
+		</form>
+	</body>
+</html>

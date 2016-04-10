@@ -1,0 +1,644 @@
+body
+{
+	font-family: Verdana, Helvetica, sans-serif;
+    font-size: 0.70em;
+    font-weight: normal;
+}
+
+td
+{
+	font-family: Verdana, Helvetica, sans-serif;
+	font-size: 1.00em;
+	font-weight: normal;
+}
+
+A:link
+{
+	text-decoration: underline;
+	
+}
+
+A:visited
+{
+	text-decoration: underline;
+}
+
+.masterMenu
+{
+	width: 156px;
+}
+.masterBody
+{
+}
+
+.button
+{
+	font-size:	Smaller;
+	font-weight:bold;
+	font-family:Verdana;
+}
+
+.help
+{
+	cursor:pointer;
+}
+
+.title
+{
+	font-size:	1.5em;
+	font-weight:bold;
+	font-family:Verdana;
+}
+
+.headerstyle
+{
+	font-size:	0.9em;
+	text-align:	center;
+	font-family:Helvetica;
+	font-weight:bold;
+	background:	whitesmoke;
+	color:		#505050;
+}
+
+.tree
+{
+	font-family: Verdana, Helvetica, sans-serif;
+    font-size: 0.70em;
+    font-weight: normal;
+}
+
+.menuUnSel a:link,a:active,a:visited
+{
+	font-family: Verdana, Helvetica, sans-serif;
+    font-size: 1.0em;
+    font-weight: normal;
+	color:Blue;
+    text-decoration:none;
+}
+.menuSel
+{
+	font-family: Verdana, Helvetica, sans-serif;
+    font-size: 1.1em;
+    font-weight: bold;
+	color:OrangeRed;
+	background-color:whitesmoke;
+    text-decoration:none;
+}
+
+.lblInfo
+{
+	font-weight:bold;
+}
+
+.lblTableInfo
+{
+	font-weight:bold;
+}
+
+.lblTableValue
+{
+	font-weight:bold;
+}
+
+.lblValue
+{
+	font-weight:normal;
+}
+
+.lblFieldHeader
+{
+	font-weight:normal;
+}
+
+.lblFieldValue
+{
+	font-weight:bold;
+}
+
+.lblFieldValueEx
+{
+	font-weight:bold;
+	background-color:GhostWhite;
+	font-size:	1.3em;
+}
+
+.lblFieldValueRd
+{
+	font-weight:bold;
+	background-color:Gainsboro;
+	font-size:	1.3em;
+}
+
+.lblFieldValueFc
+{
+	font-weight:bold;
+	background-color:#ffffcc;
+	font-size:	1.3em;
+}
+
+.loginTitle
+{
+	font-weight:bold;
+}
+.loginField
+{
+	font-size:	Smaller;
+}
+.loginLabel
+{
+	font-size:	Smaller;
+}
+.loginError
+{
+	color:		Red;
+	font-weight:bold;
+	font-size:	Smaller;
+}
+.loginButton
+{
+	font-size:	Smaller;
+	font-family:Verdana;
+}
+
+.tblStyle
+{
+	border-width:1;
+	padding:2;
+}
+.tblTable
+{
+	margin: 0px;
+	padding: 0px;
+	border-collapse: separate;
+	border: 5px ridge;
+}
+.tblOrd					/* tableOrdinary */
+{
+	background-color:whitesmoke;
+}
+.tblSelbl				/* tableSelectable */
+{
+	cursor:pointer;
+	color:Blue;
+	text-decoration:underline;
+	background-color:Lightgrey;
+}
+.tblSeled				/* tableSelected */
+{
+	background-color:deepskyblue;
+}
+.tblSelblSeled			/* tableSelectedSelectable */
+{
+	cursor:pointer;
+	text-decoration:underline;
+	background-color:deepskyblue;
+}
+
+.tblUnMarked
+{
+	background-color:whitesmoke;
+	text-align:right;
+}
+.tblMarked
+{
+	font-weight:bold;
+	background-color:Lightgrey;
+}
+.tblSeledUnMarked
+{
+	background-color:deepskyblue;
+	text-align:right;
+}
+.tblSeledMarked
+{
+	font-weight:bold;
+	background-color:deepskyblue;
+}
+
+.tblHdr
+{
+	background-color: aliceblue;
+	text-align: left;
+}
+.tblHdrSort
+{
+    BACKGROUND-COLOR: lightsteelblue;
+	font-weight:bold;
+	text-decoration:underline;	
+	text-align: left;
+}
+.tblHdrSorted
+{
+    BACKGROUND-COLOR: lightskyblue;
+	font-weight:bold;
+	text-decoration:underline;	
+	text-align: left;
+}
+.tblEditField
+{
+	background-color: NavajoWhite;
+}
+
+.tblOddRow
+{
+	background-color: WhiteSmoke;
+}
+
+.tblEvenRow
+{
+	background-color: Silver;
+}
+
+.tblSortHead
+{
+	font-size: 1.1em;
+	color: #0000cc;
+	background-color: peachpuff;
+}
+
+.tblSortGroupMessage
+{
+	font-size: 1.0em;
+	color: #0000cc;
+	background-color: peachpuff;
+	text-align: left;
+}
+
+.TreeStyle td 
+{
+	vertical-align:middle;
+}
+.TreeStyle img 
+{
+	border-width:0;
+}
+.TreeStyle a:hover 
+{
+	color: #000;
+	background: #E0E0E0;
+	text-decoration:underline;
+}
+.TreeStyle a:link 
+{
+	color: #000;
+	text-decoration:none;
+}
+.TreeStyle a
+{
+	color: #000;
+	text-decoration:none;
+}
+.TreeStyle a:active
+{
+	color: #000;
+	text-decoration:underline;
+}
+.TreeStyle a:visited
+{
+	color: #000;
+	text-decoration:none;
+}
+.TreeStyleSelected
+{
+	color: #ffffff;
+/*	text-decoration:underline; */
+}
+
+.Message
+{
+	background:#ffffc0;
+	font-weight:bold;
+	color: Gray;
+}
+
+.MessageError
+{
+	background:#fff0f0;
+	color: red;
+	font-weight:bold;
+}
+
+.MessageSuccess
+{
+	background:#e0ffe0;
+	font-weight:bold;
+}
+
+h1
+{
+	font-family: Verdana, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 14px   
+}
+
+h2
+{
+	font-family: Verdana, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 12px   
+}
+
+h3
+{
+	font-family: Verdana, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 10px   
+}
+
+h4
+{
+	font-family: Verdana, Helvetica, sans-serif;
+    font-size: 9px;
+    font-weight: bold;
+    line-height: 9px   
+}
+
+.headline1
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    COLOR: #000000;
+    LINE-HEIGHT: 24px;
+    FONT-FAMILY: Verdana
+}
+.specialColumn
+{
+    FONT-SIZE: 10px;
+    COLOR: black;
+    FONT-FAMILY: Verdana;
+    BACKGROUND-COLOR: #d1d7da
+}
+.specialColumn2
+{
+    FONT-SIZE: 10px;
+    COLOR: black;
+    FONT-FAMILY: Verdana;
+    BACKGROUND-COLOR: lightsteelblue
+}
+.specialColumn3
+{
+    FONT-SIZE: 10px;
+    COLOR: black;
+    FONT-FAMILY: Verdana;
+    BACKGROUND-COLOR: #efefef
+}
+
+.normal
+{
+    FONT-SIZE: 10px;
+    COLOR: black;
+    FONT-FAMILY: Verdana
+}
+
+.SelectedTab
+{
+	PADDING: 10px;
+	BORDER-LEFT: gray 1px solid;
+	BORDER-RIGHT: gray 1px solid;
+	BORDER-TOP: gray 1px solid;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 13px;
+	WIDTH: 84px;
+	FONT-FAMILY: Verdana
+}
+
+.OtherTab
+{
+	PADDING: 10px;
+	BORDER: gray 1px solid;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 13px;
+	WIDTH: 84px;
+	FONT-FAMILY: Verdana;
+	BACKGROUND-COLOR: whitesmoke
+}
+
+A.OtherTabText:link
+{
+    text-decoration:    none;
+    color:#eeeeee;
+}
+
+A.OtherTabText:visited
+{
+    text-decoration:    none;
+    color:#eeeeee;
+}
+
+A.OtherTabText:active
+{
+    text-decoration:    none;
+    color:#eeeeee;
+}
+
+A.OtherTabText:hover
+{
+    text-decoration:    underline;
+    color:white;
+}
+
+DIV.print 
+{
+	width: 340px;
+	height: 30px;
+	margin-bottom: 10px;
+	margin-left: 270px;
+	text-align: left;
+}
+
+DIV.print input 
+{
+	float: right;	
+}
+
+@media print {
+  /* style sheet for print goes here */
+  DIV.print 
+  {
+	display: none;
+  }
+}
+
+/* Jonas real-time Javascript Calendar */
+.calendarYearDD
+{
+	font-family: courier-new;
+	font-size: 10px;
+	width:60px;
+}
+
+.calendarMonthDD
+{
+	font-family: courier-new;
+	font-size: 10px;
+	width:50px;
+}
+
+.calendarDateDD
+{
+	font-family: courier-new;
+	font-size: 10px;
+	width:50px;
+}
+
+.calendarGrid
+{
+	background-color: #000000;
+	border: 0px;
+}
+
+.calendarCell
+{
+	width: 20px;
+	height: 20px;
+	background-color: #f5f5f5;
+}
+
+.calendarCellSelected
+{
+	width: 20px;
+	height: 20px;
+	background-color: #fFa5a5;
+}
+
+.calendarWeekendCell
+{
+	width: 20px;
+	height: 20px;
+	background-color: #e5e5e5;
+}
+
+.calendarHeader
+{
+	width: 20px;
+	height: 20px;
+	background-color: #000000;
+	font-family: verdana;
+	font-size: 10px;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+.calendarBrowser
+{
+	background-color: #ffffff;
+	font-family: verdana;
+	font-size: 10px;
+	font-weight: bold;
+	color: #000000;
+}
+
+.calendarFrame
+{
+	border: 1px solid #cccccc;
+}
+
+a.calendarLink
+{
+	font-family: verdana;
+	font-size: 10px;
+	color: #000000;
+	text-decoration: none;
+}
+
+a.calendarLinkToday
+{
+	font-family: verdana;
+	font-size: 10px;
+	color: #000000;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.calendarLinkSelected
+{
+	font-family: verdana;
+	font-size: 10px;
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: bold;
+}
+/* End of Jonas real-time Javascript Calendar */
+
+#div_allocationTable{
+
+overflow:auto;
+width:100%;
+
+height:150px;
+
+}
+
+/*
+th#tdFixedHeader
+{
+position:relative; 
+top: expression(document.getElementById("div_allocationTable").scrollTop);
+}
+*/
+
+tr.fixedPos
+{
+	position:relative;
+	left:0;
+	top:0;
+}
+
+.treeProgressNotStarted
+{
+	background-color:red;
+}
+.treeProgressStarted
+{
+	background-color:yellow;
+}
+.treeProgressDone
+{
+	background-color:green;
+}
+.treeStyle
+{
+	background-color: green;
+	font-weight: bold;
+}
+.treeStyleCol
+{ 
+	font-style: italic;
+}
+.treeCmndEnable
+{ 
+	color:#000000;
+	font-weight: bold;
+}
+.treeCmndEnable:hover
+{ 
+	background-color:#d0f0d0;
+	color:#000000;
+	font-weight: bold;
+}
+.treeCmndDisable
+{ 
+	background-color:#ffffff;
+	color:#b0b0b0;
+}
+.treeSelected
+{ 
+	font-weight: bold;
+}
+
+.validatorError
+{
+	background-color: #ff9c9c;
+}
+.validatorMessage
+{
+	border: black 1px solid;
+	background-color: #ffffd0;
+}
+.validatorMandatory
+{
+	font-size: 2.0em;
+}

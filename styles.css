@@ -1,0 +1,159 @@
+root { 
+    display: block;
+}
+
+body {
+	font-family: Sans-serif; 
+	font-size: 12px;
+}
+
+input[ type="text" ] {
+	border: 1px solid black;
+	border-radius: 5px;
+	font-size: 12px;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+textarea {
+	border: 1px solid black;
+	border-radius: 5px;
+	font-size: 13px;
+	padding-left: 4px;
+	padding-right: 4px;
+	overflow: auto;
+}
+
+table {
+	border-spacing: 0px 3px;
+	margin-left: 3px;
+	margin-right: 3px;
+}
+thead tr {
+	background-color: #505050;
+	color: white;
+	font-weight: bold;
+	font-size: 14px;
+}
+thead td {
+	padding: 3px;
+}
+tbody tr {
+	background-color: #d1d7da;
+}
+td.first {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	padding-left: 3px;
+}
+td.last {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	padding-right: 3px;
+}
+
+div.container {
+	background-color: #183180;
+	border-radius: 5px;
+	border: 1px solid black;
+	padding: 3px;
+}
+div.container div.title {
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	color: white;
+	padding: 4px;
+	position: relative;
+}
+div.container div.body {
+	
+}
+.floatLeft {
+	float: left;
+}
+.clearer {
+	clear: both;
+}
+.nobr {
+	white-space: nowrap;
+}
+.textTop {
+	vertical-align: text-top;
+}
+button {
+	border-radius: 5px;	
+}
+.hidden {
+	display: none;
+}
+.modalMainContainer {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+}
+.modalBlockContainer {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	background-color: white;
+	opacity: 0.5;
+}
+.modalInnerContainer {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+}
+.outerModalContainer {
+	overflow: hidden;
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+.outerModalContainer .centeredContainer {
+	float: left;
+	position: absolute;
+	left: 50%;
+	top: 50px;
+}
+.outerModalContainer .centeredContainer .container {
+	float: left;
+	position: relative;
+	left: -50%;
+	top: 0px;
+}
+.outerContainer {
+	overflow: hidden;
+	position: relative;
+}
+.outerContainer .centeredContainer {
+	float: left;
+	position: relative;
+	left: 50%;
+}
+.outerContainer .centeredContainer .container {
+	position: relative;
+	left: -50%;
+	float: left;
+}
+.centeredText {
+	text-align: center;
+}
+.floatRight {
+	float: right;
+}
+.defaultPointer {
+	cursor: pointer;
+}
+.popup {
+	position: absolute;
+	border-radius: 5px;
+	border: 1px solid black;
+	background-color: white;
+	padding: 3px;
+}

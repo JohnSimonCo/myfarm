@@ -1,0 +1,63 @@
+div.alarms {
+	position: absolute;
+	height: 99%;
+	width: 98.5%;
+	left: 0.5%;
+	background: #cccccc;
+	background: -webkit-gradient(linear,0 0,0 100%,from(#d8d8d8),to(#c0c0c0));
+	border-radius: 10px;
+	box-shadow: 4px 4px 4px #888;
+}
+
+table.alarms {
+    margin-left: 0.75%;
+    margin-right: 2.5%;
+    margin-top: 0.5%;
+    border-spacing: 0px 3px;
+    width: 99%;
+}
+table.alarms tr {
+}
+table.alarms td {
+    color: #ffffff;
+}
+table.alarms td.first {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 18%;
+    padding-right: 1%;
+}
+table.alarms td.first img {
+    width: 100%;
+}
+table.alarms td.last {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+table.alarms td.last div.row1 {
+    font-weight: bold;
+}
+table.alarms td.last div.row2 {
+    font-weight: bold;
+}
+table.alarms td.last div.row3 {
+}
+table.alarms tr.fatal td {
+    color:#ffffff;background-color:#ff1010;background:-webkit-gradient(linear,0 0,0 100%,from(#b71919),to(#ff2323));
+    cursor: pointer;
+}
+table.alarms tr.notification td {
+    color:#ffffff;background-color:#00579e;background:-webkit-gradient(linear,0 0,0 100%,from(#00579e),to(#3e7dc0));
+    cursor: pointer;
+}
+table.alarms tr.standard td {
+    color:#000000;background-color:#D9DAFA;background:-webkit-gradient(linear,0 0,0 100%,from(#F0F0FC),to(#D9DAFA));
+}
+table.alarms button {
+	color: #ffffff;
+	background-color: rgb( 85, 85, 85 );
+	border-radius: 12px;
+	margin-right: 2%;
+	margin-bottom: 2%;
+	width: 100%;
+}
