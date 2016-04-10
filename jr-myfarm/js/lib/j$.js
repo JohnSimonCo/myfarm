@@ -136,6 +136,14 @@ angular.module('j$', ['server', 'util', 'emoji'])
 		}
 	}
 }])
+.directive('j$Autofocus', [function() {
+	return {
+		restrict: 'AC',
+		link: function(scope, element, attr) {
+			element.focus();
+		}
+	}
+}])
 .directive('j$Onsend', [function() {
 	return {
 		restrict: 'AC',
@@ -177,7 +185,7 @@ angular.module('j$', ['server', 'util', 'emoji'])
 
 			input.on('change', function() {
 				scope.$apply(function() {
-					ngModel.$setViewValue(input.attr('checked'));
+					ngModel.$setViewValue(input.prop('checked'));
 				});
 			});
 		}

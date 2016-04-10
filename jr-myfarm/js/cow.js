@@ -131,7 +131,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 			$scope.cow = $scope.cows[index];
 			$scope.nr = $scope.cow.nr;
 			$scope.cowData = null;
-			$scope.milkingIndex = 0;
+			$scope.milkingIndex = -1;
 			$scope.updateUrl();
 			
 			scrollTo.set('scrollToCowNr', $scope.nr);
@@ -145,16 +145,32 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		};
 
 		$scope.updateUrl = function() {
-			if($scope.view != 'graph') {
-				$ngSilentLocation.silent('/cowq/cow/' + $scope.nr + '/' + $scope.view, true);
-			} else if($scope.milkingIndex != null) {
-				$ngSilentLocation.silent('/cowq/cow/' + $scope.nr + '/' + $scope.view + '/' + $scope.milkingIndex, true);
+			var baseUrl = '/cowq/cow/' + $scope.nr + '/' + $scope.view;
+			switch ($scope.view) {
+				case 'graph':
+					if($scope.milkingIndex != null && $scope.milkingIndex != -1) {
+						$ngSilentLocation.silent(baseUrl + '/' + $scope.milkingIndex, true);
+					}
+					break;
+				case 'info':
+					if($scope.infoView) {
+						$ngSilentLocation.silent(baseUrl + '/' + $scope.infoView, true);
+						break;	
+					}
+					//else fall through
+				default:
+					$ngSilentLocation.silent(baseUrl, true);
+					break;
 			}
 		};
 
 		$scope.setView = function(view) {
 			$scope.view = view;
 			$scope.updateUrl();
+		};
+
+		$scope.setInfoView = function(view) {
+			$scope.infoView = view;
 		};
 
 		$scope.setMilkingIndex = function(milkingIndex) {
@@ -171,8 +187,8 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 	}
 ])
 .constant('cow.views', ['info', 'milkings', 'graph']) //update to add more views
-.controller('cow.windowMessageController', ['$scope', 'cow.views', 'util.findIndex',
-	function($scope, views, findIndex) {
+.controller('cow.windowMessageController', ['$scope', 'cow.views', 'util.findIndex', 'cow.infoViews',
+	function($scope, views, findIndex, infoViews) {
 		$scope.$on('window.message', function(e, data) {
 			console.log('recieved message', data);
 			switch (data.method) {
@@ -190,6 +206,15 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 					break;
 				case 'setCowView':
 					var view = data.args[0];
+
+					if(/^info-/.test(view)) {
+						var infoView = view.split('-')[1];
+						if(infoViews.indexOf(infoView) !== -1) {
+							$scope.setInfoView(infoView);
+						}
+						view = 'info';
+					}
+
 					if(views.indexOf(view) !== -1) {
 						$scope.$apply(function() {
 							$scope.setView(view);
@@ -248,24 +273,12 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
         return sendRequest('SrvAnimal.setFetch', {vcId:vcId, animalNr:animalNr, isFetch:isFetch});
     }
 }])
-.factory('pairify', function() {
-	return function(array) {
-		var pairs = [];
-		for (var i = 0; i < array.length; i += 2) {
-			if (array[i + 1]) {
-				pairs.push([array[i], array[i + 1]]);
-			} else {
-				pairs.push([array[i]]);
-			}
-		}
-		return pairs;
-	};
-})
 .constant('cow.infoIndices', [11,8,9,12,24,3,5,6,27,10,14,17,22,23,26])
+.constant('cow.infoViews', ['notes', 'fields'])
 //.constant('cow.infoIndicesExtended', [36,3,5,6,12,8,9,11,24,42,40,31,34,28,32,33,30,39,29,27,10,14,35,38,23,37,41,17,22,26,43,44,45,46,47,48,49])
 .constant('cow.infoIndicesExtended', [36,3,5,6,12,8,9,11,24,42,40,31,34,28,32,33,30,39,29,27,10,14,35,38,23,37,41,17,22,26])
-.controller('cow.infoController', ['$scope', 'myfarm', 'cow.infoIndices', 'cow.infoIndicesExtended', 'fetchCow', 'markAnimal', 'util.arrayFind', 'editNotification', 'pairify',
-	function($scope, myfarm, indexes, infoIndicesExtended, fetchCow, markAnimal, arrayFind, editNotification, pairify) {
+.controller('cow.infoController', ['$scope', 'myfarm', 'cow.infoIndices', 'cow.infoIndicesExtended', 'fetchCow', 'markAnimal', 'util.arrayFind', 'editNotification', '$routeParams', 'pairify',
+	function($scope, myfarm, indexes, infoIndicesExtended, fetchCow, markAnimal, arrayFind, editNotification, $routeParams, pairify) {
 		var indices = isNaN($scope.cow.toBeCulled) ? indexes : infoIndicesExtended;
 		$scope.fields = indices.map(function(index) {
 			return {index: index, name: $scope.data.profiles.fieldNames[index]};
@@ -300,8 +313,10 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 			});
 		};
 
-		$scope.$watch('cow', function(){
-            if ($scope.data.users) {
+		$scope.setInfoView($routeParams.infoView);
+
+		$scope.$watch('cow', function() {
+            if ($scope.data.users) 
 				if ($scope.hasEditPermission()) {
 					$scope.notes = $.map($scope.data.noteTypes, function(typeName, type) {
 						var note = $scope.cow.notes && $scope.cow.notes[type];
@@ -319,8 +334,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 						}
 						return mappedNote;
 					});
-				}
-				else {
+				} else {
 					$scope.notes = $scope.cow.notes && $.map($scope.cow.notes, function(note, type) {
 						return {
 							comment: note.comment,
@@ -333,7 +347,6 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 					});
 				}
 				$scope.notePairs = pairify($scope.notes);
-			}	
 		});
 	}
 ])
@@ -737,8 +750,8 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 			if($routeParams.milkingIndex) {
 				$scope.setMilkingIndex(+$routeParams.milkingIndex);
 			} else {
-				$scope.setMilkingIndex(0);
-				$scope.updateUrl();
+				$scope.setMilkingIndex(-1);
+				// $scope.updateUrl();
 			}	
 		}
 		$scope.$watchGroup(['cowData', 'nr'], function(values) {
@@ -754,7 +767,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 			var index = values[0], entries = values[1];
 			if(index != null && entries != null ) {
 				if(!(index  in entries)) {
-					index = 0;
+					index = entries.length - 1;
 					$scope.setMilkingIndex(index);
 					$scope.updateUrl();
 				}
@@ -763,15 +776,14 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		});
 
 		$scope.prevMilking = function() {
-			var index = $scope.milkingIndex - 1;
-			if(index < 0) {
-				index = $scope.milkingsEntries.length - 1;
-			}
+			var n = $scope.milkingsEntries.length;
+			var index = ($scope.milkingIndex + n - 1) % n;
 			$scope.setMilkingIndex(index);
 			$scope.updateUrl();
 		};
 		$scope.nextMilking = function() {
-			$scope.setMilkingIndex(($scope.milkingIndex + 1) % $scope.milkingsEntries.length);
+			var index = ($scope.milkingIndex + 1) % $scope.milkingsEntries.length;
+			$scope.setMilkingIndex(index);
 			$scope.updateUrl();
 		};
 	}
@@ -969,6 +981,19 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		return array.slice(start, array.length);
 	};
 })
+.factory('pairify', function() {
+	return function(array) {
+		var pairs = [];
+		for (var i = 0; i < array.length; i += 2) {
+			if (array[i + 1]) {
+				pairs.push([array[i], array[i + 1]]);
+			} else {
+				pairs.push([array[i]]);
+			}
+		}
+		return pairs;
+	};
+})
 .factory('cow.renderGraphNew', [ 'jrGraph', 'translate', 'getMilkingMetadata',
 	function(jrGraph, translate, getMilkingMetadata) {
 		var milkings = {};
@@ -996,12 +1021,14 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		function chYl(yld, expected) {
 			return expected > 0 && ((yld / expected) > 1.3);
 		}
-		
+
 		function onClickClosest(id) {
 			alert("Id = " + id);
 		}
 
 		return function(allData, time, animal, element) {
+			milkings = {};
+
 			element.empty();
 
 			var parent = $(element.parent());
@@ -1063,6 +1090,9 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 						var mm = dd[ii].o, incomp = (mm.flags & 0x1111) !== 0, kickoff = (mm.flags & 0x2222) !== 0, normal = !incomp && !kickoff;
 						var prod = dd[ii].prodPerDay > allData.maxProd ? allData.maxProd : dd[ii].prodPerDay;
 						var color =  normal ? "#0000FF" : incomp ? kickoff ? "#9C0000" : "#FF2020" : "#F6CA07";
+						// if (incomp && (mm.expectedYieldPercentDiff > 5 || (mm.expectedYieldPercentDiff > -10 && mm.expectedYieldLF !== -1
+							// && (chYl(mm.totalYieldLF, mm.expectedYieldLF) || chYl(mm.totalYieldLR, mm.expectedYieldLR) || chYl(mm.totalYieldRF, mm.expectedYieldRF) || chYl(mm.totalYieldRR, mm.expectedYieldRR)))))
+								// color = "#00FF62";
 //						if (lastTime)
 //							mainGraph.addPoint(lastTime, prod);
 						milkings[mm.guidHash] = dd[ii];

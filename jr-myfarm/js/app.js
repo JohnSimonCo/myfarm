@@ -134,25 +134,16 @@ angular.module('app', [
 			}]
 		}
 	})
-.when('/cowq/cow/:nr/graph', {
-		//Use resolve instead of redirectTo because we need DI
-		resolve: {
-			load: ['$q', '$route', '$location', function($q, $route, $location) {
-				var path = ['/cowq/cow', $route.current.params.nr, 'graph', 0];
-
-				$location.path(path.join('/')).replace();
-				
-				return $q.reject();
-			}]
-		}
-	})
-	.when('/cowq/cow/:nr/graph/:milkingIndex', {
+	.when('/cowq/cow/:nr/graph/:milkingIndex?', {
 		templateUrl: 'templates/cow.html',
 		controller: 'cowController',
 		resolve: {
 			data: ['myfarm', 'cowq.extractData', 'cow.extractData', '$route',
 				function(myfarm, extractCowqData, extractCowData, $route) {
 					$route.current.params.view = 'graph';
+					if(!$route.current.params.milkingIndex) {
+						$route.current.params.milkingIndex = -1;
+					}
 					return myfarm.data.then(extractCowqData).then(function(data) {
 						return extractCowData(data, myfarm.id, +$route.current.params.nr);
 					});
@@ -160,7 +151,29 @@ angular.module('app', [
 			]	
 		}
 		// ,reloadOnSearch: false
-	})	.when('/cowq/cow/:nr/:view', {
+	})
+	.when('/cowq/cow/:nr/info/:infoView', {
+		templateUrl: 'templates/cow.html',
+		controller: 'cowController',
+		resolve: {
+			data: ['myfarm', 'cowq.extractData', 'cow.extractData', '$route', '$q', '$location', 'cow.infoViews',
+				function(myfarm, extractCowqData, extractCowData, $route, $q, $location, infoViews) {
+					$route.current.params.view = 'info';
+					if(infoViews.indexOf($route.current.params.infoView) == -1) {
+						$location.path('/cowq/cow/' + $route.current.params.nr + '/info').replace();
+						
+						return $q.reject();
+					}
+
+					return myfarm.data.then(extractCowqData).then(function(data) {
+						return extractCowData(data, myfarm.id, +$route.current.params.nr);
+					});
+				}
+			]	
+		}
+		// ,reloadOnSearch: false
+	})
+	.when('/cowq/cow/:nr/:view', {
 		templateUrl: 'templates/cow.html',
 		controller: 'cowController',
 		resolve: {

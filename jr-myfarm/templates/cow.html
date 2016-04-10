@@ -48,8 +48,7 @@
 			</div>
 
 			<div class="row-container">
-
-				<div class="field-pair-container" ng-repeat="pairs in fieldPairs">
+				<div ng-if="infoView !== 'notes'" class="field-pair-container" ng-repeat="pairs in fieldPairs">
 					<div class="row field clearfix" ng-repeat="field in pairs">
 						<div class="row-name text-overflow" ng-bind="field.name"></div>
 						<info-cell class="selectable" index="field.index"></info-cell>
@@ -57,9 +56,10 @@
 
 					<div class="clearfix"></div>
 				</div>
-				<div class="field-pair-container" ng-repeat="pairs in notePairs">
 
-					<div class="row field note clearfix" ng-repeat="note in pairs" ng-click="editNotification(note)">
+				<div ng-if="infoView !== 'fields'" ng-repeat="pairs in notePairs" class="field-pair-container">
+
+					<div ng-repeat="note in pairs" class="row field note clearfix" ng-click="editNotification(note)">
 						<!-- <div ng-bind="field.name"></div> -->
 						<div translate-bind="'Note ' + note.type"></div>
 						<div ng-class="{'old': note.old, 'permission': hasEditPermission()}">
