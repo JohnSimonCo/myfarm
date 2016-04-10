@@ -215,6 +215,7 @@
 #cow .info .fetch-cows > div:first-child {
 	float: left;
 	font-weight: bold;
+	margin-left: 8px;
 }
 #cow .info .fetch-cows > div:nth-child(2) {
 	margin-left: 8px;
@@ -236,10 +237,6 @@
 }
 #cow .info .incomplete img {
 	float: right;
-}
-#cow .milkings .milkings-container .item:last-child {
-	border-bottom-right-radius: 5px;
-	border-bottom-left-radius: 5px;
 }
 
 #cow .milkings .milkings-container .item:nth-child(odd) {

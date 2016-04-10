@@ -124,12 +124,15 @@ Aktivera dess tre stilar samt ta bort de två över för att aktivera den nya de
 #cowq .wait-area button {
 	width: 100%;
 }
-
 .cowq .sort-container {
-	border-radius: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 	padding: 5px 10px;
 	box-sizing: border-box;
 	background: #f3f3f3;
+}
+#cowq .sort-container {
+	border-radius: 5px;
 }
 .cowq .sort .filter {
 	width: 100%;
