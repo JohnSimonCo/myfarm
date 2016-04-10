@@ -177,7 +177,7 @@ angular.module('j$', ['server', 'util', 'emoji'])
 
 			input.on('change', function() {
 				scope.$apply(function() {
-					ngModel.$setViewValue(input.prop('checked'));
+					ngModel.$setViewValue(input.attr('checked'));
 				});
 			});
 		}
