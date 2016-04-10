@@ -792,9 +792,9 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 	return {
 		restrict: 'AC',
 		link: function(scope, element) {
-			scope.$watchGroup(['cowData'], function(values) {
+			scope.$watchGroup(['cowData', 'milkingIndex'], function(values) {
 				if(values[0]) {
-					renderGraph(scope.allData, scope.time, values[0], element);
+					renderGraph(scope.allData, scope.time, values[0], scope.milkingMeta && scope.milkingMeta.id, element);
 				}
 			});
 		}
@@ -957,7 +957,8 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 
 		return {
 			date: milking.endOfMilkingTime,
-			entries: entries	
+			entries: entries,
+			id: milking.guidHash
 		};	
 
 		scope.displayHover(event);
@@ -994,8 +995,8 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		return pairs;
 	};
 })
-.factory('cow.renderGraphNew', [ 'jrGraph', 'translate', 'getMilkingMetadata',
-	function(jrGraph, translate, getMilkingMetadata) {
+.factory('cow.renderGraphNew', [ 'jrGraph', 'translate', 'getMilkingMetadata', 'util.findIndex',
+	function(jrGraph, translate, getMilkingMetadata, findIndex) {
 		var milkings = {};
 		var scope, pScope;
 
@@ -1022,11 +1023,8 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 			return expected > 0 && ((yld / expected) > 1.3);
 		}
 
-		function onClickClosest(id) {
-			alert("Id = " + id);
-		}
-
-		return function(allData, time, animal, element) {
+		return function(allData, time, animal, milkingId, element) {
+			console.log(milkingId)
 			milkings = {};
 
 			element.empty();
@@ -1050,7 +1048,17 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 
 			var view = viewElement[0];
 			// showDynamic(false);
-
+			function onClickClosest(id) {
+				var index = findIndex(pScope.milkingsEntries, function(entry) {
+					return entry.id == id;
+				})
+				pScope.$apply(function() {
+					pScope.setMilkingIndex(index);
+					pScope.updateUrl();
+				});
+				// alert(index);
+				// alert("Id = " + id);
+			}
 			
 			mainGraph.setCanvas(view);
 			mainGraph.clear('#848484','#f4f4f4','d','#575757', '#E5E5E5', '#DBDBDB');
@@ -1080,7 +1088,9 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 				mainGraph.addStaple(delta, mm.totalYield, mm.endOfMilkingTime);
 				dt = mm.endOfMilkingTime;
 			}
-			mainGraph.addLine('#2D518D', 1, null, null, 2, onClickClosest);
+
+			mainGraph.addLine('#2D518D', 1, null, null, 2,  onClickClosest);
+
 			var i = -1, lastTime = 0;
 			while (++i < data.days.length) {
 				var dd = data.days[i] ? data.days[i].mlk : null;
