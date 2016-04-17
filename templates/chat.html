@@ -1,0 +1,30 @@
+<div id="chat" class="chat full-height">
+	<div class="messages">
+		<div class="empty-view" ng-if="data.list.length < 1" translate="No messages"></div>
+		<div class="message" ng-repeat="message in data.list" ng-class="{selected: message === selectedMessage, unread: isMessageUnread(message)}">
+			<div class="name selectable" ng-bind="message.fromName"></div>
+			<div class="plus non-selectable" ng-click="select(message)"></div>
+			<div class="date selectable" ng-bind="message.time | date:'yyyy-MM-dd HH:mm'"></div>
+			<pre class="text selectable" chatify="message.text"></pre>
+		</div>
+	</div>
+	<div class="compose clearfix" ng-controller="chat.composeController" ng-class="{edit: editing}">
+		<textarea ng-model="message" j$-insert="insert" ng-trim="true"></textarea>
+		<div class="extras clearfix">
+			<div class="emoji-container" ng-controller="chat.emojiController">
+				<div class="emojis" ng-show="showEmojis">
+					<div ng-repeat="emoji in emojiList" class="emoji-img-holder">
+						<img ng-src="{{emoji.src}}" title="{{emoji.title}}" alt="{{emoji.alt}}" class="emoji" ng-click="insertEmoji(emoji.alt)">
+					</div>
+				</div>
+				<div class="emoji-button" ng-click="toggleEmojis()"></div>
+				<div class="emoji-overlay" ng-click="hideEmojis()" ng-show="showEmojis"></div>
+			</div>
+			<div class="buttons">
+				<button class="black-button big-button" translate="Change" ng-if="editing" ng-click="send()" ng-disabled="changed()"></button>	
+				<button class="black-button big-button" translate="Delete" ng-if="editing" ng-click="delete()"></button>
+				<button class="black-button big-button" translate="Send" ng-if="!editing" ng-click="send()" ng-disabled="changed()"></button>
+			</div>
+		</div>
+	</div>
+</div>

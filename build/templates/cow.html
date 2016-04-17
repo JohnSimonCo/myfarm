@@ -1,0 +1,185 @@
+<div id="cow" class="cowq">
+	<div ng-controller="cow.windowMessageController"></div>
+	<div class="action-bar component clearfix" ng-controller="cow.navigationController">
+		<!-- <button class="big-button black-button icon back" ng-click="back()"></button> -->
+		<div class="change-cow">
+			<button class="black-button icon left" ng-click="navigate(-1)" ng-disabled="firstIndex()"></button>
+			<div class="cow" ng-class="getCowClass(cow)">
+				<div class="cow-number text-overflow selectable">
+					<span ng-bind="cow.nr"></span>
+					<span ng-if="cow.name"> - </span>
+					<span ng-bind="cow.name"></span>
+				</div>
+			</div>
+			<button class="black-button icon right" ng-click="navigate(1)" ng-disabled="lastIndex()"></button>
+		</div>
+		<button class="black-button icon change-view" ng-class="nextView" ng-click="changeView()"></button>
+	</div>
+	<div class="content" ng-switch="view">
+		<div ng-switch-when="info" ng-controller="cow.infoController" class="info">
+			<div class="row incomplete clearfix" ng-class="{'empty': !cow.mask && !cow.incompleteMask}">
+				<div><cow-icon ng-if="cow.mask" cow="cow" index="-1"></cow-icon></div>
+
+				<div ng-if="cow.incompleteMask" class="status-container" ng-controller="cow.incompleteIndicatorInfoController">
+					<div class="status-top"></div>
+					<div class="status-cell-container">
+						<div ng-class="colors[0]" class="status-cell"></div>
+						<div ng-class="colors[1]" class="status-cell"></div>
+						<div ng-class="colors[2]" class="status-cell"></div>
+						<div ng-class="colors[3]" class="status-cell"></div>
+					</div>
+
+				</div>
+
+				<!--<div><cow-icon ng-if="cow.mask" cow="cow" index="0"></cow-icon></div>-->
+			</div>
+			<div ng-show="hasEditPermission()" class="fetch-cows clearfix">
+				<div translate="Include in FetchCows"></div>
+				<div><j$-checkbox ng-model="fetchCow" ng-change="toggleFetch()"></j$-checkbox></div>
+			</div>
+			<div class="row clearfix" ng-if="!data.users">
+				<div ng-if="hasEditPermission()" >
+					<button class="black-button notify" translate="Notification" ng-click="onNotification()"></button>
+				</div>
+				<div ng-if="!hasEditPermission()" >
+					<span translate="Notification"></span>
+				</div>
+				<info-notification></info-notification>
+			</div>
+
+			<div class="row-container">
+				<div ng-if="infoView !== 'notes'" class="field-pair-container" ng-repeat="pairs in fieldPairs">
+					<div class="row field clearfix" ng-repeat="field in pairs">
+						<div class="row-name text-overflow" ng-bind="field.name"></div>
+						<info-cell class="selectable" index="field.index"></info-cell>
+					</div>
+
+					<div class="clearfix"></div>
+				</div>
+
+				<div ng-if="infoView !== 'fields'" ng-repeat="pairs in notePairs" class="field-pair-container">
+
+					<div ng-repeat="note in pairs" class="row field note clearfix" ng-click="editNotification(note)">
+						<!-- <div ng-bind="field.name"></div> -->
+						<div translate-bind="'Note ' + note.type"></div>
+						<div ng-class="{'old': note.old, 'permission': hasEditPermission()}">
+							<div class="content">
+								<div class="selectable" ng-bind="note.comment"></div>
+								<div class="user">
+									<!-- <span ng-if="note.user"> -->
+										<span ng-bind="note.user"></span><span ng-if="note.date">, </span> 
+									<!-- </span> -->
+									<span ng-bind="note.date | date:'yyyy-MM-dd'"></span>
+								</div>	
+							</div>
+							<div ng-if="hasEditPermission()" class="edit-button">
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+		<div ng-switch-when="milkings" ng-controller="cow.milkingsController" class="milkings">
+
+			<div ng-if="milkings.length > 0" class="sort-container">
+				<div class="sort clearfix" ng-class="{reverse: reverse}">
+
+					<div class="component buttons">
+						<button class="black-button icon by-incomplete" j$-bind-value="7" ng-class="{selected: isSelectedSortCol(value)}" ng-click="setSortCol(value, $event)"></button>
+						
+					</div>
+
+					<div class="cow-cells clearfix">
+						<div class="cow-cell" ng-repeat="name in cellNames" j$-bind-value="$index + 1" ng-class="{selected: isSelectedSortCol(value)}" ng-click="setSortCol(value, $event)" ng-bind="name"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="milkings-container">
+			
+				<div class="item milking clearfix" j$-repeat="as milking when renderMilkings">
+					<div class="icons">
+						<!--<milking-icon index="1"></milking-icon>-->
+						<div class="status-container" ng-controller="cow.incompleteIndicatorCellController">
+							<div ng-if="milking.incompleteMask">
+								<div class="status-top"></div>
+
+								<div ng-class="colors[0]" class="status-cell"></div>
+								<div ng-class="colors[1]" class="status-cell"></div>
+								<div ng-class="colors[2]" class="status-cell"></div>
+								<div ng-class="colors[3]" class="status-cell"></div>
+							</div>
+						</div>
+						<milking-icon index="0"></milking-icon>
+					</div>
+					<div class="info">
+						<milking-cell class="selectable" index="1"></milking-cell>
+						<milking-cell class="selectable" index="2"></milking-cell>
+						<milking-cell class="selectable" index="3"></milking-cell>
+						<milking-cell class="selectable" index="4"></milking-cell>
+						<milking-cell class="selectable" index="5"></milking-cell>
+						<milking-cell class="selectable" index="6"></milking-cell>
+					</div>
+				</div>
+
+			</div>
+
+			<div ng-if="!milkings || milkings.length < 1" class="empty-view" translate="No milkings"></div>
+		</div>
+
+		<div ng-switch-when="graph" ng-controller="cow.graphController" class="graph">
+
+			<div ng-if="!cowData.milkings || cowData.milkings.length < 1" class="empty-view" translate="No milk data"></div>
+		
+			<div class="graph-container">
+				<div ng-if="cowData.milkings.length > 0" cow-graph></div>
+			</div>
+
+			<div ng-if="cowData.milkings.length > 0" class="graph-info">
+
+				<div class="date-info-container">
+					<div class="arrow left-arrow" ng-click="prevMilking()"></div>
+					<div class="date">
+						<div class="date-text-container">
+							<span ng-bind="milkingMeta.date | date:'yyyy-MM-dd'"></span>
+							<span ng-bind="milkingMeta.date | date:'HH:mm:ss'"></span>
+						</div>
+					</div>
+					<div class="arrow right-arrow" ng-click="nextMilking()"></div>
+				</div>
+
+				<div class="clearfix"></div>
+
+				<div class="graph-stats-container">
+					<div class="stats-subcontainer">
+						<div class="item-container" ng-repeat="entry in milkingMeta.entries | firstHalf">
+							<div class="text-overflow" ng-bind="entry.label"></div>
+							<div class="value text-overflow" ng-bind="entry.value"></div>
+						</div>
+					</div>
+
+					<div class="stats-subcontainer">
+						<div class="item-container" ng-repeat="entry in milkingMeta.entries | secondHalf">
+							<div class="text-overflow" ng-bind="entry.label"></div>
+							<div class="value text-overflow" ng-bind="entry.value"></div>
+						</div>
+					</div>
+
+					<div class="clearfix"></div>
+				</div>
+
+			</div>
+
+			<!-- <div simple-hover-template class="hover-display">
+				<div ng-bind="data.date | date:'yyyy-MM-dd HH:mm'"></div>
+				<table>
+					<tr ng-repeat="entry in data.entries">
+						<td translate-bind="entry.label"></td>
+						<td ng-bind="entry.value"></td>
+					</tr>
+				</table>
+			</div> -->
+		</div>
+	</div>
+</div>

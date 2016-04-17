@@ -1,0 +1,46 @@
+<div id="wrapper" class="full-height" ng-class="{loaded: loaded}">
+	<div id="action-bar" ng-controller="actionbarController">
+		<a class="fixed" href="#/">
+			<img src="/Resources/myfarm_icon_big.png">
+		</a>
+		<img class="fixed" src="/Resources/arrow_white_big.png" ng-click="navigateBack()">
+
+		<div class="fixed farm-connection" ng-if="connected && farmConnection != 'ok'">
+			<img class=" alarm" ng-src="/Resources/alert_{{farmConnection}}.png">
+		</div>
+		<div class="fill disconnected" ng-hide="connected" ng-click="reload()">
+			<img class="disconnected-icon" src="/Resources/refresh.png">
+			<span class="disconnected-text" translate="Reload"></span>
+		</div>
+
+		<div class="farm-name text-overflow" ng-class="{'fill': connected}">
+			<span class="selectable" ng-bind="farmName" j$-fit-parent max-font-size="25" min-font-size="18"></span>
+		</div>
+		<div ng-if="connected" ng-controller="dropdownController">
+			<div class="right dropdown-container">
+				<img src="/Resources/list_normal.png" class="dropdown-toggle" ng-click="toggle()">
+				<div class="dropdown ng-hide" ng-hide="!isExpanded">
+					<div class="section">
+						<div class="title" translate="Settings"></div>
+
+						<a class="item" ng-click="collapse()" href="#/settings" translate="My settings"></a>
+						<a class="item" ng-click="collapse()" href="#/version" translate="Version"></a>
+						<a class="item" ng-click="collapse()" href="#/farms" translate="Overview"></a>
+						<a class="item" ng-click="collapse()" href="#/users" translate="Users" ng-if="isAdmin"></a>
+						<div class="item" ng-click="collapse(); changeServer()" translate="Change server" ng-if="isAdmin" ng-controller="changeServerController"></div>
+						<div class="item" ng-click="logout()" translate="Logout"></div>
+					</div>
+					<div class="section" ng-if="farmList.length > 1">
+						<div class="title" translate="Farms"></div>
+
+						<div class="item" ng-repeat="farm in farmList | orderBy:'name'" ng-click="changeFarm(farm.id);collapse()" ng-bind="farm.name"></div>
+					</div>
+				</div>
+			</div>
+			<div class="dropdown-overlay ng-hide" ng-click="collapse()" ng-hide="!isExpanded"></div>
+		</div>
+	</div>
+	<div id="container-wrapper" class="full-height">
+		<div id="container" class="full-height" ng-view></div>
+	</div>
+</div>

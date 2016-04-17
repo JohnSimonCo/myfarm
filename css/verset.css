@@ -1,0 +1,32 @@
+.ver-set {
+}
+
+.ver-set .section + .section {
+	margin-top: 20px;
+}
+
+.ver-set .header {
+	padding-bottom: 2px;
+	border-bottom: 1px solid #fff;
+	position: relative;
+}
+
+.ver-set .header:before {
+	position: absolute;
+    display: block;
+    content: " ";
+	border-bottom: 1px solid #575757;
+    height: 100%; width: 100%;
+    box-sizing: border-box;
+}
+
+.ver-set .title {
+	font-size: 1.4em;
+	font-weight: bold;
+	position: relative;
+}
+
+.ver-set .content {
+	margin-top: 10px;
+}
+

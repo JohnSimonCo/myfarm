@@ -1,0 +1,11 @@
+<div id="production" class="production full-height">
+	<div j$-select class="choose-farm">
+		<button class="big-button black-button select-button text-overflow">
+			<span ng-bind="farmName"></span>
+			<div class="select-arrows"></div>
+		</button>
+		<select ng-model="selected" j$-select-label="farmName"
+			ng-options="entry as entry.name for entry in data"></select>
+	</div>
+	<div class="info clearfix" ng-include="'partials/production-info.html'"></div>
+</div>

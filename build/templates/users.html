@@ -1,0 +1,45 @@
+<div id="users" class="ver-set">
+	<a href="#/user/new">
+		<button class="add-user big-button black-button" translate="New user" ng-click="addUser()"></button>
+	</a>
+	
+	<div class="section">
+		<div class="header title" translate="Users"></div>
+
+
+
+		<div ng-repeat="user in users" scroll-to-if="user.id matches scrollToUserId">
+			<input name="selected" class="select" ng-checked="scrollToUserId ? user.id == scrollToUserId : $index == 0" type="radio" id="user-radio-{{$index}}">
+			<label for="user-radio-{{$index}}" class="content user clearfix" ng-class="{'inactive': !user.active}">
+				<div class="left-column">
+					<div class="row clearfix role" ng-repeat="role in user.roles">
+						<div class="left-info text-overflow selectable" ng-bind="role"></div>
+						<div class="text-overflow selectable" ng-if="$index == 0" ng-bind="user.fullName"></div>
+					</div>
+					<div class="row clearfix">
+						<div class="left-info text-overflow selectable" translate="e-mail"></div>
+						<div class="text-overflow selectable" ng-bind="user.email"></div>
+					</div>
+					<div class="row clearfix">
+						<div class="left-info text-overflow selectable" translate="Status"></div>
+						<div class="text-overflow selectable">
+							<span ng-bind="user.status"></span><span ng-if="user.lastAccessed">, 
+								<span translate="last visited"></span> <span ng-bind="user.lastAccessed | date:'yyyy-MM-dd'"></span>
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="right-column">
+
+					<button class="big-button black-button delete" ng-click="deleteUser(user)" translate="Delete"></button>
+					<a ng-href="#/user/{{user.id}}/edit">
+						<button class="big-button black-button" ng-click="editUser()" translate="Edit"></button>
+					</a>
+				</div>
+			</label>
+		</div>
+	</div>
+</div>
+
+

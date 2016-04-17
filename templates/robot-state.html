@@ -1,0 +1,15 @@
+<div id="robot-state">
+	<div ng-repeat="row in robotRows" class="robot-row clearfix">
+		<div ng-repeat="robot in row" ng-class="getRobotClass(robot)" class="robot {{hasAlarm(robot)}} clearfix">
+			<div class="top-row">
+				<div class="name selectable" ng-bind="robot.name"></div>
+				<div class="cow-name selectable" ng-bind="robot.cowName"></div>
+				<div class="mode"></div>
+			</div>
+			<div class="bottom-row">
+				<div class="note selectable" ng-bind="robot.note"></div>
+				<div class="action"></div>
+			</div>
+		</div>
+	</div>
+</div>
