@@ -1,0 +1,350 @@
+#chat {
+	position: relative;
+}
+
+#chat > div {
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+
+
+#chat .messages {
+	height: 60%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	top: 0;
+}
+
+#chat .compose {
+	height: 40%;
+	bottom: 0;
+}
+
+#chat .messages div.empty-view {
+	margin-top: 50px;
+}
+
+#chat a, #overview .chat a {
+	color: #103d82;
+	text-decoration: underline;
+}
+
+.chat .message {
+	padding-bottom: 10px;
+	position: relative;
+	/*transition: background 0.2s;*/
+}
+
+.chat .message.selected {
+	background: #ccc;
+}
+
+.chat .message + .message {
+	padding-top: 10px;
+	border-top: 1px solid #999999;
+}
+
+.chat .message .name {
+	font-size: 1.2em;
+	color: #999999;
+	font-weight: bold;
+	float: left;
+	transition: color 1s ease-in;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+.chat .message.unread .name {
+	color: #103d82;
+	transition: color 0s;
+}
+
+#chat .message .plus {
+	width: 24px;
+	height: 24px;
+	background-image: url(/Resources/plus_highres.png);
+	transition: 200ms transform;
+	background-size: cover;
+	position: absolute;
+	right: 0;
+}
+
+#chat .message.selected .plus {
+	transform: rotate(45deg);
+}
+
+#chat .message .date {
+	color: #999;
+	font-size: 12px;
+}
+
+.chat .message .text {
+	font: inherit;
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+	word-wrap: break-word;
+	clear: both;
+	margin: 0;
+}
+
+.chat .message .text .emoji {
+	height: 0.88em;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+#chat .compose textarea {
+	margin: 0;
+	display: block;
+	width: 100%;
+	height: calc(100% - 60px);
+	resize: none;
+	border-radius: 6px;
+	padding: 8px 5px;
+	box-sizing: border-box;
+	outline: none;
+	font-family: inherit;
+	font-size: 1.4em;
+}
+#chat .compose .extras {
+	margin-top: 10px;
+}
+#chat .compose .extras .emoji-img-holder {
+	width: 30px;
+	height: 30px;
+	border: 6px solid transparent;
+	float: left;
+	position: relative;
+}
+#chat .compose .extras .emoji-img-holder:hover {
+	border: 3px solid transparent;
+	width: 36px;
+	height: 36px;
+}
+#chat .compose .extras .emoji {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: block;
+	margin: auto;
+	max-height: 100%;
+	max-width: 100%;
+}
+#chat .compose .new,
+#chat .compose.edit .edit {
+	display: block;
+}
+
+#chat .compose .edit,
+#chat .compose.edit .new {
+	display: none;
+}
+
+#chat .compose .extras .buttons {
+	float: right;
+}
+
+#chat .compose .extras button {
+	height: 100%;
+	font-size: 1.75em;
+	padding: 8px 35px;
+}
+
+#chat .compose .extras button + button {
+	margin-left: 4px;
+}
+
+#chat .compose .extras .emoji-container {
+	width: 50px;
+	height: 50px;
+	float: left;
+}
+#chat .compose .extras .emoji-button {
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	background-image: url(/Resources/emoji/happy.png);
+	background-size: 40px 40px;
+	background-position: 5px 5px;
+	background-repeat: no-repeat;
+	position: relative;
+	z-index: 200;
+}
+#chat .compose .extras .emojis {
+	position: absolute;
+	background: white;
+	box-shadow: 0 20px 60px -15px rgba(0,0,0,0.4);
+	opacity: 1;
+	padding: 6px;
+	border-radius: 0;
+	border: 0;
+	text-align: right;
+	width: 54%;
+	overflow-y: auto;
+	bottom: 60px;
+	transition: opacity 0.1s;
+	z-index: 200;
+}
+#chat .compose .extras .emojis.ng-hide {
+	opacity: 0;
+}
+
+#chat .compose .extras .emoji-overlay {
+	width: 100%;
+	height: 100%;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 190;
+
+	background: rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 800px) {
+	#chat .compose .extras .emojis {
+		width: calc(100% - 11px);
+		height: calc(100% - 71px);
+		border-radius: 5px;
+		box-shadow: none;
+	}
+}
+
+@media (min-width: 800px) and (max-height: 356px) {
+	#chat .compose .extras .emojis {
+		height: 100px;
+		height: calc(100vh - 147px);
+	}
+}
+
+@media (min-width: 400px) and (max-width: 499px) {
+
+	#chat .compose .extras button {
+		font-size: 1.25em;
+	}
+
+	#chat .compose textarea {
+		height: calc(100% - 50px);
+	}
+
+	#chat .compose .extras .emoji-button {
+		width: 40px;
+		height: 40px;
+		background-size: 30px 30px;
+	}
+
+	#chat .compose .extras .emoji-container {
+		width: 40px;
+		height: 40px;
+	}
+
+	#chat .compose .extras .emojis {
+		width: calc(100% - 12px);
+		height: calc(100% - 62px);
+		bottom: 50px;
+	}
+}
+
+@media (max-width: 399px) {
+
+	#chat .compose .extras button {
+		font-size: 1em;
+	}
+
+	#chat .compose .extras .emoji-button {
+		width: 36px;
+		height: 36px;
+		background-size: 26px 26px;
+	}
+
+	#chat .compose .extras .emoji-container {
+		width: 36px;
+		height: 36px;
+	}
+
+	#chat .compose textarea {
+		height: calc(100% - 60px);
+	}
+
+	#chat .compose .extras .emojis {
+		width: calc(100% - 12px);
+		height: calc(100% - 57px);
+		bottom: 45px;
+	}
+
+	#chat .compose.edit .extras .emojis {
+		width: calc(100% - 12px);
+		height: calc(100% - 103px);
+		bottom: 91px;
+	}
+
+	#chat .compose .extras {
+		height: 40px;
+	}
+
+	#chat .compose textarea {
+		height: calc(100% - 45px);
+	}
+
+	#chat .compose.edit textarea {
+		height: calc(100% - 90px);
+	}
+
+	#chat .compose.edit .extras {
+		height: 90px;
+	}
+	#chat .compose.edit .emoji-button {
+		margin-top: 25px;
+	}
+	#chat .compose .extras .buttons {
+		width: calc(100% - 60px);
+	}
+	#chat .compose.edit .extras button {
+		height: calc(50% - 5px);
+		margin: 0;
+	}
+	#chat .compose.edit .extras button + button {
+		margin-top: 10px;
+	}
+
+	#chat .compose .extras button {
+		width: 100%;
+	}
+}
+
+/*Opened keyboard on small devices*/
+@media (max-height: 300px) {
+	#chat .messages {
+		height: 0;
+	}
+
+	#chat .compose {
+		height: 100%;
+	}
+}
+
+
+/*Small devices in landscape*/
+@media (max-height: 420px) {
+	.chat .message .name {
+		font-size: 1.1em;
+	}
+	.chat .message .text {
+		font-size: 0.9em;
+	}
+	#chat .compose textarea {
+		font-size: 0.9em;
+	}
+}
+
+@media (max-height: 500px) {
+	#chat .messages .empty-view {
+		margin-top: 30px;
+	}
+}

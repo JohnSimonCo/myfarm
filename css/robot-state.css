@@ -1,0 +1,148 @@
+
+#robot-state .robot-row {
+
+}
+#robot-state .robot-row + .robot-row {
+	margin-top: 10px;
+}
+
+
+#robot-state .robot {
+	width: calc(50% - 5px);
+	box-sizing: border-box;
+	border: 1px solid black;
+	border-radius: 8px;
+	font-size: 20px;
+	padding: 10px 20px;
+	font-weight: bold;
+	color: #575757;
+	cursor: pointer;
+}
+#robot-state .robot:first-child {
+	float: left;
+}
+#robot-state .robot:nth-child(2) {
+	float: right;
+}
+#robot-state .robot .top-row *,
+#robot-state .robot .bottom-row * {
+	height: 23px;
+}
+
+#robot-state .robot.has-alarm {
+	background: #E82F00 !important;
+	color: white;
+}
+#robot-state .robot.has-alarm .top-row .mode {
+	border-left: 1px solid #fff;
+}
+#robot-state .robot.has-alarm.auto .top-row .mode {
+	background-image: url(/Resources/robot/auto_w.png);
+}
+
+#robot-state .robot.has-alarm.manual .top-row .mode {
+	background-image: url(/Resources/robot/manual_w.png);
+}
+
+#robot-state .robot .top-row .name,
+#robot-state .robot .top-row .cow-name,
+#robot-state .robot .bottom-row .note {
+	float: left;
+
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#robot-state .robot .top-row .name {
+	width: 54px;
+	border-right: 1px solid #575757;
+}
+#robot-state .robot .top-row .cow-name {
+	width: calc(100% - 115px);
+	padding-left: 5px;
+	box-sizing: border-box;
+}
+#robot-state .robot .top-row .mode,
+#robot-state .robot .bottom-row .action {
+	float: right;
+	width: 59px;
+	text-align: right;
+	border-left: 1px solid #575757;
+	background-repeat: no-repeat;
+	background-position: 25px;
+}
+
+#robot-state .robot .bottom-row .note {
+	width: calc(100% - 60px);
+	font-size: 16px;
+	padding-top: 3px;
+}
+
+#robot-state .robot.auto {
+	background: #ffffff;
+}
+#robot-state .robot.auto .top-row .mode,
+#robot-state .robot.auto .bottom-row .action {
+	background-image: url(/Resources/robot/auto.png);
+	background-size: contain;
+}
+
+#robot-state .robot.manual {
+	background: #ffd300;
+}
+#robot-state .robot.manual .top-row .mode,
+#robot-state .robot.manual .bottom-row .action {
+	background-image: url(/Resources/robot/manual.png);
+	background-size: 30px;
+}
+
+@media (max-width: 400px) {
+	#robot-state .robot-row + .robot-row {
+		margin-top: 5px;
+	}
+
+	#robot-state .robot {
+		font-size: 18px;
+		padding: 7px 10px;
+		float: none !important;
+	}
+
+	#robot-state .robot .top-row *
+	#robot-state .robot .bottom-row * {
+		height: 21px;
+	}
+
+	#robot-state .robot .top-row .mode,
+	#robot-state .robot .bottom-row .action {
+		width: 39px;
+		background-position: 10px;
+	}
+
+	#robot-state .robot .top-row .cow-name {
+		width: calc(100% - 95px);
+	}
+
+	/*#robot-state .robot.auto .top-row .mode {
+		background-position: 15px;
+	}*/
+
+	#robot-state .robot + .robot {
+		margin-top: 5px;
+	}
+}
+
+@media (max-width: 450px) {
+	#robot-state .robot-row + .robot-row {
+		margin-top: 10px;
+	}
+
+	#robot-state .robot {
+		width: 100%;
+		margin: 0px;
+	}
+
+	#robot-state .robot + .robot {
+		margin-top: 10px;
+	}
+}

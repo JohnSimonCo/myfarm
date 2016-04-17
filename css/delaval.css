@@ -1,0 +1,214 @@
+body {
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+/*For ngAnimate*/
+.ng-hide-add, .ng-hide-remove {
+    display: block !important;
+}
+
+.black-button {
+	text-align: center;
+	color: white;
+	border: none;
+	font-weight: bold;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+button, .button {
+	outline: none;
+}
+
+.checkbox {
+	display: none;
+}
+.checkbox + label {
+	background-color: #fff;
+	border: 1px solid #58595B;
+	margin: 0;
+	width: 19px;
+	height: 19px;
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+	position: relative;
+	border-radius: 3px;
+}
+.checkbox:checked + label:before {
+	content: " ";
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	background-image: url(/Resources/checked.png);
+	background-size: contain;
+	left: 0px;
+	bottom: 0px;
+}
+
+.radio-button {
+	display: none;
+}
+.radio-button + label {
+	background-color: #fff;
+	border: 1px solid #58595B;
+	margin: 0;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+	position: relative;
+	border-radius: 100%;
+}
+.radio-button:checked + label:before {
+    content: " ";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #00A6FF;
+    border-radius: 99%;
+    left: 5px;
+    bottom: 5px;
+}
+
+button, .button {
+	background: #575757;
+}
+
+button:hover, .button:hover {
+	background: #999;
+}
+
+button:disabled, .button:disabled {
+	color: #999;
+	border-color: #999;
+	cursor: default;
+
+	background: #ccc;
+}
+
+button.active, .button.active,
+a.button:active,
+button:enabled:active, .button:enabled:active {
+	background: #103d82;
+}
+button.success, .button.success {
+	background: #00a6ff;
+}
+
+button.error, .button.error {
+	background: #f30;
+}
+
+button.big-button, .button.big-button {
+	border-radius: 5px;
+	padding: 7px;
+	font-size: 1.4em;
+}
+
+.big-button > span.jDOLLAR-select-text {
+	width: calc(100% - 25px);
+	display: inline-block;
+}
+
+.select-arrows {
+	float: right;
+	width: 15px;
+	height: 24px;
+	background-image: url(/Resources/arrows.png);
+	background-size: contain;
+	/*position: relative;*/
+	/*top: 2px;*/
+
+	position: absolute;
+	top: 11px;
+	right: 6px;
+}
+
+.empty-view {
+	text-align: center;
+	font-weight: bold;
+}
+
+.center-container {
+	text-align: center;
+}
+ 
+.center-container:before {
+	content: '';
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+	margin-right: -0.25em; /* Adjusts for spacing */
+}
+.centered {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.text-overflow {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+*, .non-selectable {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.selectable, .selectable *, input, textarea {
+	-webkit-touch-callout: initial !important;
+	-webkit-user-select: initial !important;
+	-khtml-user-select: initial !important;
+	-moz-user-select: initial !important;
+	-ms-user-select: initial !important;
+	user-select: initial !important;
+}
+
+
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+.clearfix:after {
+	clear: both;
+}
+.clearfix {
+	zoom: 1;
+}
+
+/*Scroll bar*/
+::-webkit-scrollbar {
+    height: 12px;
+    width: 14px;
+    background: #e5e5e5;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #777;
+}
+
+::-webkit-scrollbar-corner {
+    background: #000;
+}
+
+@media (max-width: 600px) {
+	::-webkit-scrollbar {
+	    height: 12px;
+	    width: 10px;
+	    background: #e5e5e5;
+	}
+}
+
+@media (max-width: 500px) {
+	::-webkit-scrollbar {
+	    height: 12px;
+	    width: 7px;
+	    background: #e5e5e5;
+	}
+}

@@ -1,0 +1,143 @@
+#farms {
+	text-align: center;
+}
+
+#farms table {
+	border-spacing: 1px;
+
+	margin: auto;
+}
+
+#farms table thead {
+	background: rgb(71, 71, 71);
+	color: white;
+	cursor: pointer;
+}
+#farms table thead td {
+	padding: 1px;
+	padding-bottom: 10px;
+}
+#farms table thead td.selected {
+	color: #00a6ff;	
+}
+
+#farms table thead.reversed td.selected {
+	color: #77ad1c;
+}
+
+#farms .styleRed,
+#farms .styleLightBlue {
+	color: white;
+}
+
+#farms .styleGrey {
+	background: #cecece;
+}
+
+#farms .styleOrange {
+	background: #de6c00;
+}
+#farms .styleLightBlue {
+	background: #00579e;
+}
+#farms .styleRed {
+	background: #ff1010;
+}
+#farms .styleYellow {
+	background: #c8c800;
+}
+
+#farms table td:first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+#farms table td:last-child {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+#farms table td {
+	text-align: right;
+	border: 1px solid gray;
+}
+#farms table td,
+#farms table td * {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 190px;
+}
+#farms table td:first-child {
+	position: relative;
+	text-align: left;
+	font-weight: bold;
+}
+
+#farms table td {
+	cursor: pointer;
+}
+
+#farms table td a {
+	width: 100%;
+	height: 100%;
+	display: block;
+
+	text-decoration: none;
+	color: inherit;
+}
+
+#farms button.refresh {
+	width: 100px;
+	height: 40px;
+	padding: 0px;
+	position: relative;
+	border-radius: 10px;
+}
+
+#farms button.refresh:after {
+	content: " ";
+	width: 28px;
+	height: 28px;
+	position: absolute;
+	top: 5px;
+	left: 33px;
+	background-repeat: no-repeat;
+	background-image: url(/Resources/refresh.png);
+	background-size: cover;
+}
+
+#farms .percent-graph-container {
+	padding: 1px;
+	padding-right: 3px;
+}
+
+#farms .percent-graph {
+	width: 100%;
+	height: 20px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	border-spacing: 0;
+	white-space: nowrap;
+}
+#farms .percent-graph:empty {
+	border: none;
+}
+#farms .percent-graph div {
+	display: inline-block;
+	height: 100%;
+	box-sizing: border-box;
+	border-right: 1px solid black;
+}
+#farms .percent-graph div:last-child {
+	border: none;
+}
+
+#farms .hover-display {
+	max-width: 100%;
+	box-sizing: border-box;
+	position: absolute;
+	padding: 6px;
+	background: white;
+	border: 3px solid black;
+	font-weight: bold;
+}
