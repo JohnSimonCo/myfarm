@@ -1,0 +1,57 @@
+<div id="version" class="ver-set">
+		<div class="section" ng-controller="version.ddmController" ng-repeat="ddm in data.ddm">
+			<div class="header with-date clearfix">
+				<div class="title text-overflow" ng-bind="ddm.id"></div>
+				<div class="date">
+					<span translate="Date"></span>
+					<select ng-model="ddm.selectedVer" ng-options="ver.time | date:'yyyy-MM-dd HH:mm' for ver in ddm.ver"></select>
+				</div>
+			</div>
+			<div class="content clearfix">
+				<div class="tr" ng-repeat="item in ddm.selectedVer.items">
+					<div class="text-overflow" ng-bind="item[0]"></div>
+					<div class="text-overflow" ng-bind="item[1]"></div>
+				</div>
+			</div>
+		</div>
+
+	<div class="section">
+		<div class="header">
+			<div class="title text-overflow" translate="VC"></div>
+		</div>
+		<div class="content">
+			<!-- <div> -->
+			<span translate="Version"></span> 
+			<span ng-bind="data.vc"></span>
+			<!-- </div> -->
+		</div>
+	</div>
+
+	<div class="section" ng-controller="version.vmsController" ng-repeat="vms in data.vms">
+		<div class="header with-date clearfix">
+			<div class="title text-overflow" ng-click="toggleExpand()">
+				<span translate="Robot"></span> 
+				<span ng-bind="vms.name"></span>
+			</div>
+			<div class="date">
+				<span translate="Date"></span>
+				<select ng-model="vms.selectedVer" ng-options="ver.time | date:'yyyy-MM-dd HH:mm' for ver in vms.ver"></select>
+			</div>
+		</div>
+		<div class="content expandable" ng-class="{expanded: expanded}" ng-click="toggleExpand(v)">
+			<div ng-repeat="item in vms.selectedVer.items track by $index" ng-bind="item" class="text-overflow"></div>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="header border-below">
+			<div class="title text-overflow" translate="App server"></div>
+		</div>
+		<div class="content">
+			<!-- <div> -->
+			<span translate="Version"></span>
+			<span ng-bind="data.appServerBuildName"></span>
+			<!-- </div> -->
+		</div>	
+	</div>
+</div>

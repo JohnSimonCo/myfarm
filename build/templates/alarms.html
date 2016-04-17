@@ -1,0 +1,18 @@
+<div id="alarms" class="alarms">
+	<div class="alarm clearfix" ng-class="alarm.type" ng-repeat="alarm in data.alarms.list" ng-controller="alarms.alarmController" ng-click="confirm(alarm)">
+		<div class="icon" ng-class="alarm.icon"></div>
+		<div class="details">
+			<div class="title selectable" ng-bind="alarm.sourceDevice"></div>
+			<div class="date selectable" ng-bind="alarm.date"></div>
+			<div class="selectable" ng-bind="alarm.msg"></div>
+			<div class="selectable" ng-if="alarm.dismissUser || alarm.tryToDismissUser">
+				<span translate="Confirmed"></span> 
+				<span ng-bind="alarm.dismissDateFormatted"></span> 
+				<span translate="by"></span> 
+				<span ng-bind="alarm.dismissUser"></span>
+			</div>
+		</div>
+	</div>
+
+	<div ng-if="data.alarms.list.length < 1" class="empty-view" translate="No alarms"></div>
+</div>
