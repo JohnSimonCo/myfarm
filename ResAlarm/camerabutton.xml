@@ -1,5 +1,0 @@
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/camera_up3"
-          android:state_pressed="true" />
-    <item android:drawable="@drawable/camera_up2" />
-</selector>
