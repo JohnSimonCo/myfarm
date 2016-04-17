@@ -130,7 +130,9 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 			$scope.index = index;
 			$scope.cow = $scope.cows[index];
 			$scope.nr = $scope.cow.nr;
-			$scope.cowData = null;
+			//Set to undefined
+			$scope.cowData = angular.identity();
+			$scope.milkingsEntries = null;
 			$scope.milkingIndex = -1;
 			$scope.updateUrl();
 			
@@ -143,6 +145,9 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		$scope.setAllData = function(data) {
 			$scope.allData = data;
 		};
+		$scope.setMilkingsEntries = function(entries) {
+			$scope.milkingsEntries = entries;
+		};
 
 		$scope.updateUrl = function() {
 			var baseUrl = '/cowq/cow/' + $scope.nr + '/' + $scope.view;
@@ -153,6 +158,8 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 					}
 					break;
 				case 'info':
+					//infoView is null if not yet decided by infoController
+					if($scope.infoView === null) { break; }
 					if($scope.infoView) {
 						$ngSilentLocation.silent(baseUrl + '/' + $scope.infoView, true);
 						break;	
@@ -169,6 +176,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 			$scope.updateUrl();
 		};
 
+		$scope.infoView = null;
 		$scope.setInfoView = function(view) {
 			$scope.infoView = view;
 		};
@@ -612,8 +620,14 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		});
 
 		$scope.$watchGroup(['cowData', 'sort'], function(values) {
-			if(values[0]) {
+			var cowData = values[0];
+			if(angular.isUndefined(cowData)) {
+				return;
+			} else if(cowData !== null) {
 				$scope.milkings = sortMilkings(values[0].milkings, values[1]);
+				$scope.$broadcast('renderMilkings', $scope.milkings);
+			} else {
+				$scope.milkings = [];
 				$scope.$broadcast('renderMilkings', $scope.milkings);
 			}
 		});
@@ -766,7 +780,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		$scope.$watchGroup(['milkingIndex', 'milkingsEntries'], function(values) {
 			var index = values[0], entries = values[1];
 			if(index != null && entries != null ) {
-				if(!(index  in entries)) {
+				if(!(index in entries)) {
 					index = entries.length - 1;
 					$scope.setMilkingIndex(index);
 					$scope.updateUrl();
@@ -984,6 +998,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 })
 .factory('pairify', function() {
 	return function(array) {
+		if(array == null) { return; }
 		var pairs = [];
 		for (var i = 0; i < array.length; i += 2) {
 			if (array[i + 1]) {
@@ -1034,7 +1049,9 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 			scope = element.scope();
 			pScope = parent.scope();
 
-			var mainGraph = new jrGraph.instance(function onMouseStop(){}, translate('January February March April May June July August September October November December')), data = animal.production;
+			var months = translate('January February March April May June July August September October November December');
+			var mainGraph = new jrGraph.instance(function onMouseStop(){}, months);
+			var data = animal.production;
 
 			var viewElement = $('<canvas>')
 				.prop('width', parent.width())
@@ -1121,7 +1138,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 			mainGraph.addInfo(info, {font:'15px sans-serif', size:17, color:"#000000"});
 			mainGraph.paint();
 
-			pScope.milkingsEntries = $.map(milkings, function(value, key) {
+			var entries = $.map(milkings, function(value, key) {
 				return value;
 			})
 			.map(getMilkingMetadata)
@@ -1129,6 +1146,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 				return a.date - b.date;
 			});
 
+			pScope.setMilkingsEntries(entries);
 			// pScope.milkingMeta = pScope.milkingsEntries[0];
 		};
 	}
