@@ -229,15 +229,15 @@ angular.module('password', ['j$'])
 }])
 .factory('appendBuildPath', ['$window', function($window) {
 	return function(url) {
-		var locationIsBuild = $window.location.pathname.indexOf('/build') !== -1;
-		var urlIsBuild = url.indexOf('/build') !== -1;
-		return (locationIsBuild && !urlIsBuild) ? url.replace('/jr-myfarm', '/jr-myfarm/build') : url;
+		var locationIsBuild = $window.location.pathname.indexOf('/dev') !== -1;
+		var urlIsBuild = url.indexOf('/dev') !== -1;
+		return (locationIsBuild && !urlIsBuild) ? url.replace('/jr-myfarm', '/jr-myfarm/dev') : url;
 	}
 }])
 .factory('removeBuildPath', [function() {
 	return function(url) {
-		var isBuild = url.indexOf('/build') !== -1;
-		return isBuild ? url.replace('/build', '') : url;
+		var isBuild = url.indexOf('/dev') !== -1;
+		return isBuild ? url.replace('/dev', '') : url;
 	}
 }])
 .factory('appUrl', ['appendMobileSuffix', function(appendMobileSuffix) {

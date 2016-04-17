@@ -91,7 +91,7 @@
 					</div>
 
 					<div class="cow-cells clearfix">
-						<div class="cow-cell" ng-repeat="name in cellNames" j$-bind-value="$index + 1" ng-class="{selected: isSelectedSortCol(value)}" ng-click="setSortCol(value, $event)" ng-bind="name"></div>
+						<div class="cow-cell" ng-repeat="name in cellNames" j$-bind-value="$index + 1" ng-class="{selected: isSelectedSortCol(value)}" ng-click="setSortCol(value, $event)" translate-bind="name"></div>
 					</div>
 				</div>
 			</div>

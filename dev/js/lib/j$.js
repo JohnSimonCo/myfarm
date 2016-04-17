@@ -1,10 +1,10 @@
 'use strict';
 
-jr.include('/jr-myfarm/js/lib/util.js');
-jr.include('/jr-myfarm/js/lib/server.js');
-jr.include('/jr-myfarm/js/lib/emoji.js');
+jr.include('/jr-myfarm/dev/js/lib/util.js');
+jr.include('/jr-myfarm/dev/js/lib/server.js');
+jr.include('/jr-myfarm/dev/js/lib/emoji.js');
 
-jr.include('/jr-myfarm/css/j$.css');
+jr.include('/jr-myfarm/dev/css/j$.css');
 
 angular.module('j$', ['server', 'util', 'emoji'])
 .constant('j$.version', jr.version)

@@ -1,6 +1,6 @@
 'use strict';
 
-jr.include('/jr-myfarm/css/modal.css');
+jr.include('/jr-myfarm/dev/css/modal.css');
 
 angular.module('modal', ['translate'])
 .constant('MODAL_STACK_MAX_LENGTH', 5)

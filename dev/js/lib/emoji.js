@@ -1,6 +1,6 @@
 'use strict';
 
-jr.include('/jr-myfarm/js/lib/escape-html.js');
+jr.include('/jr-myfarm/dev/js/lib/escape-html.js');
 
 angular.module('emoji', ['util', 'escapeHtml'])
 .factory('emojies', ['util.escapeRegex', 'escapeHtml', 'util.format', function(escapeRegex, escapeHtml, createFormat) {

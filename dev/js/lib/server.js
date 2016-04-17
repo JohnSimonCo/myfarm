@@ -1,6 +1,6 @@
 'use strict';
 
-jr.include('/jr-myfarm/js/lib/modal.js');
+jr.include('/jr-myfarm/dev/js/lib/modal.js');
 
 angular.module('server', ['modal'])
 	.service('sendRequest', ['$http', 'generateRequestUrl', '$q', '$log', function($http, generateRequestUrl, $q, $log) {

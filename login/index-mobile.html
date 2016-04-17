@@ -7,22 +7,13 @@
 
 	<title>DeLaval MyFarm</title>
 
-	<script type="text/javascript" src="/js/jquery.js?ver=03"></script>
-	<script type="text/javascript" src="/js/angular.js?ver=03"></script>
-	<script type="text/javascript" src="/jr-myfarm/js/lib/jr1.js?ver=03"></script>
+	<link rel="stylesheet" type="text/css" href="../app.css?ver=01">
+	<link rel="stylesheet" type="text/css" href="app.css?ver=01">
+	<script type="text/javascript" src="../app.js?ver=01"></script>
+	<script type="text/javascript" src="app.js?ver=01"></script>
 
 	<script>
-		jr.include('/jr-myfarm/login/app.js');
-		jr.include('/jr-myfarm/login/app.css');
-		jr.include('/jr-myfarm/css/delaval.css');
-		jr.include('/jr-myfarm/js/lib/j$.js');
-		jr.include('/jr-myfarm/js/lib/translate.js');
-		jr.include('/jr-myfarm/js/lib/password.js');
-		jr.include('/jr-myfarm/js/lib/modal.js');
-		jr.include('/jr-myfarm/js/lib/polyfill.js');
-
-		jr.include('/jr-myfarm/js/lib/native.js');
-		jr.bootstrap('/jr-myfarm/login/app.html', ['app', 'polyfill', 'native']);
+		jr.bootstrap('app.html', ['app', 'polyfill', 'native']);
 	</script>
 </head>
 <body>
