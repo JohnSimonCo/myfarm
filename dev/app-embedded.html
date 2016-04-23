@@ -2,6 +2,7 @@
 	body {
 		padding: 0px;
 		/*overflow: hidden;*/
+		background: transparent;
 	}
 	#wrapper {
 		width: 100%;
@@ -84,7 +85,28 @@
 		margin-top: 0;
 	}
 
-	/*Scroll bar*/
+
+
+	/*Graph*/
+	#cow .graph .graph-info {
+		height: 202px;
+		overflow-y: auto;
+	}
+
+	#cow .graph .graph-container {
+		height: calc(100% - 202px);
+	}
+
+	#cow .graph .item-container div {
+	    height: 18px;
+	    font-size: 13px;
+	}
+
+	#cow .graph .graph-stats-container {
+	    height: 144px;
+	}
+
+	/*Special scroll bar for asterix
 	::-webkit-scrollbar {
 	    height: 12px;
 	    width: 36px;
@@ -97,7 +119,7 @@
 
 	::-webkit-scrollbar-corner {
 	    background: #000;
-	}
+	}*/
 
 </style>
 <div id="wrapper" class="full-height">

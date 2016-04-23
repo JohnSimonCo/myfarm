@@ -2,7 +2,7 @@
 
 angular.module('milkdata', [])
 .factory('getCowDataNew', ['myfarm.cacheByFarm', 'getWeekMilkings', '$q', 'MilkData', 'AnimalData', function(cacheByFarm, getWeekMilkings, $q, MilkData, AnimalData) {
-	return cacheByFarm('cow.getCowDataNew', function(vcId, useImperialUnits) {
+	return cacheByFarm('cow.getCowDataNew', function(vcId, useImperialUnits, allData) {
 		var getFileIndexFromTime=function(time) {
 			return Math.floor((time - 1415318400000) / 604800000) - 60;
 		}
@@ -40,6 +40,7 @@ angular.module('milkdata', [])
 			data.animals.forEach(function(a) {
 				if (useImperialUnits) {
 					a.milkings.forEach(function(m){
+						var mdiAlarm = allData.mdiAlarm;
 						m.pounds = true;
 						m.totalYield =		Math.round(cc * m.totalYield    * 10) / 10;
 						m.totalYieldLF =	Math.round(cc * m.totalYieldLF  * 10) / 10;

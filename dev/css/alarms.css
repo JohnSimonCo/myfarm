@@ -62,6 +62,22 @@
 	font-weight: bold;
 }
 
+#alarms .alarm .details a,
+#overview .alarms .alarm .details a {
+	color: #103d82;
+    text-decoration: underline;
+}
+
+#alarms .alarm.fatal .details a,
+#overview .alarms .alarm.fatal .details a {
+	color: #eee;
+}
+
+#alarms .alarm.notification .details a,
+#overview .alarms .alarm.notification .details a {
+	color: #ddd;
+}
+
 .alarms .empty-view {
 	margin-top: 50px;
 }

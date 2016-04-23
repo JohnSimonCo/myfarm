@@ -160,7 +160,7 @@ angular.module('modal', ['translate'])
 		'<modal class="alert">' +
 			 '<form ng-submit"confirm()">' +
 				'<pre class="title" ng-bind="title"></pre>' +
-				'<button class="big-button black-button" translate="Ok"></button>' +
+				'<button class="big-button black-button" ng-click="confirm()" translate="Ok"></button>' +
 			'</form>' +
 		'</modal>');
 	$templateCache.put('modal/confirm.html',

@@ -457,21 +457,21 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 	var sortCol, sd, smsk=[-1,0,5,9,-1,0,1,2,5,4,5,7,10,8,10,14];
 	function sort(o1, o2) {
 		switch(sortCol){
-			case 6:
+			case 1:
+				return sd*(o2.endOfMilkingTime-o1.endOfMilkingTime);
+			case 2:
+				return sd*(o2.secMilkingTime - o1.secMilkingTime);
+			case 3:
 				var v1=o1.bmcMask,v2=o2.bmcMask;
 				v1=smsk[v1>>10&15]+smsk[v1>>14&15]+smsk[v1>>18&15];
 				v2=smsk[v2>>10&15]+smsk[v2>>14&15]+smsk[v2>>18&15];
 				if(v1!=v2)
 					return sd*(v2-v1);
-			case 1:
-				return sd*(o2.endOfMilkingTime-o1.endOfMilkingTime);
-			case 2:
-				return sd*(o2.flow-o1.flow);
-			case 3:
-				return sd*(o2.totalYield-o1.totalYield);
 			case 4:
-				return sd*(o1.robot==o2.robot?o2.endOfMilkingTime-o1.endOfMilkingTime:o1.robot==null?-1:o2.robot==null?1:o1.robot.localeCompare(o2.robot));
+				return sd*(o2.totalYield-o1.totalYield);
 			case 5:
+				return sd*(o1.averageFlow-o2.averageFlow);
+			case 6:
 				return sd*(o1.milkDestination==o2.milkDestination?o2.endOfMilkingTime-o1.endOfMilkingTime:o1.milkDestination==null?-1:o2.milkDestination==null?1:o1.milkDestination.localeCompare(o2.milkDestination));
 			case 7:
 				if(o1.flags&0x9999)
@@ -612,7 +612,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		$scope.$watchGroup(['cowData', 'nr'], function(values) {
 			var nr = values[1];
 			if(!values[0]) {
-				getCowDataNew($scope.id, $scope.useImperialUnits).then(function(data) {
+				getCowDataNew($scope.id, $scope.useImperialUnits, $scope.data).then(function(data) {
 					$scope.setAllData(data);
 					$scope.setCowData(data.getAnimal(nr));
 				});
@@ -771,7 +771,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		$scope.$watchGroup(['cowData', 'nr'], function(values) {
 			var nr = values[1];
 			if(!values[0]) {
-				getCowDataNew($scope.id, $scope.useImperialUnits).then(function(data) {
+				getCowDataNew($scope.id, $scope.useImperialUnits, $scope.data).then(function(data) {
 					$scope.setAllData(data);
 					$scope.setCowData(data.getAnimal(nr));
 				});
@@ -802,13 +802,15 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		};
 	}
 ])
-.directive('cowGraph', ['cow.renderGraphNew', function(renderGraph) {
+.directive('cowGraph', ['cow.renderGraphNew', '$timeout', function(renderGraph, $timeout) {
 	return {
 		restrict: 'AC',
 		link: function(scope, element) {
 			scope.$watchGroup(['cowData', 'milkingIndex'], function(values) {
 				if(values[0]) {
-					renderGraph(scope.allData, scope.time, values[0], scope.milkingMeta && scope.milkingMeta.id, element);
+					$timeout(function() {
+						renderGraph(scope.allData, scope.time, values[0], scope.milkingMeta && scope.milkingMeta.id, element);
+					}, 10);
 				}
 			});
 		}
@@ -1039,7 +1041,6 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		}
 
 		return function(allData, time, animal, milkingId, element) {
-			console.log(milkingId)
 			milkings = {};
 
 			element.empty();
@@ -1076,10 +1077,24 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 				// alert(index);
 				// alert("Id = " + id);
 			}
-			
+	
+			var m = [], msel = null;
+			i = -1;
+			while (++i < animal.milkings.length) {
+				var mlk = animal.milkings[i];
+				if (mlk.guidHash === milkingId)
+					msel = mlk;
+				m.push(mlk);
+			}
+			m.sort(function(o1,o2){
+				return o1.endOfMilkingTime > o2.endOfMilkingTime ? 1 : -1;
+			});
+			if (!msel && m.length)
+				msel = m[m.length-1];
+
 			mainGraph.setCanvas(view);
 			mainGraph.clear('#848484','#f4f4f4','d','#575757', '#E5E5E5', '#DBDBDB');
-			mainGraph.setFont('18px sans-serif', 20);
+			mainGraph.setFont('18px sans-serif', 16);
 			if(data.prod7d){
 				mainGraph.addLine("#111111", 4);
 				mainGraph.addPoint(data.startDate, data.prod7d);
@@ -1094,15 +1109,17 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 				time += 86400000;
 			}
 			i = -1;
-			mainGraph.addLine("#ff00ff",1,"#bbbbbb");
-			while (++i < animal.milkings.length) {
-				var mm = animal.milkings[i], delta = mm.endOfMilkingTime - dt;
+			mainGraph.addLine("#ff00ff",1,"#bbbbbb", null, null, onClickClosest);
+			while (++i < m.length) {
+				var mm = m[i], delta = mm.endOfMilkingTime - dt;
+				var incomp = (mm.flags & 0x1111) !== 0, kickoff = (mm.flags & 0x2222) !== 0, normal = !incomp && !kickoff;
+				var color =  normal ? "#0000FF" : incomp ? kickoff ? "#9C0000" : "#FF2020" : "#F6CA07";
 				if (delta > 86400000)
 					delta = 86400000;
 				delta = mm.endOfMilkingTime - delta;
 				if (delta < allData.minTime)
 					delta = allData.minTime;
-				mainGraph.addStaple(delta, mm.totalYield, mm.endOfMilkingTime);
+				mainGraph.addStaple(delta, mm.totalYield, mm.endOfMilkingTime, mm.guidHash === msel.guidHash ? color : null, mm.guidHash);
 				dt = mm.endOfMilkingTime;
 			}
 
@@ -1125,7 +1142,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 						milkings[mm.guidHash] = dd[ii];
 						if (prod > data.prod7d * 2)
 							prod = data.prod7d * 2;
-						mainGraph.addPoint(lastTime=mm.endOfMilkingTime, prod, mm.guidHash, color, null);
+						mainGraph.addPoint(lastTime=mm.endOfMilkingTime, prod, mm.guidHash, color, false, mm.guidHash === msel.guidHash);
 					}
 				}
 			}

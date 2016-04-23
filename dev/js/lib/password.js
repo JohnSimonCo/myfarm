@@ -259,11 +259,14 @@ angular.module('password', ['j$'])
 }])
 .factory('redirectToLogin', ['$window', 'loginUrl', 'defaultServer', function($window, loginUrl, defaultServer) {
 	return function() {
-		// if($window.location.host === 'localhost') {
+		var host = $window.location.host;
+		var isIP = /^(\d{1,3}\.){3}\d{1,3}$/.test(host);
+		var isLocalhost = host === 'localhost';
+		if(isIP || isLocalhost) {
 			$window.location.replace(loginUrl + '#/');
-		// } else {
-			// $window.location.replace(defaultServer + loginUrl + '#/');
-		// }
+		} else {
+			$window.location.replace(defaultServer + loginUrl + '#/');
+		}
 	}
 }])
 .factory('eulaUrl', ['appendMobileSuffix', function(appendMobileSuffix) {

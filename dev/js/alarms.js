@@ -2,7 +2,7 @@
 
 jr.include('css/alarms.css');
 
-angular.module('alarms', ['j$', 'util', 'myfarm', 'translate'])
+angular.module('alarms', ['j$', 'util', 'myfarm', 'translate', 'chat'])
 .factory('alarms.texts', ['translatedTexts', function(createTexts) {
 	return createTexts({
 		'No permission': 'Sorry, you have no permission for this...',
@@ -147,6 +147,16 @@ angular.module('alarms', ['j$', 'util', 'myfarm', 'translate'])
 		var now = new Date(), confirmTime = new Date(date);
 		var dateFormat = now.getDate() !== confirmTime.getDate() || now.getMonth() !== confirmTime.getMonth() ? 'yyyy-MM-dd HH:mm' : 'HH:mm';
 		return formatDate(date, dateFormat);
+	};
+}])
+.directive('cowify', ['cowify', function(cowify) {
+	return {
+		restrict: 'AC',
+		link: function(scope, element, attr) {
+			scope.$watch(attr.cowify, function(value) {
+				element.html(cowify(value));
+			});
+		}
 	};
 }])
 .controller('alarms.alarmController', ['$scope', 'alarms.texts', 'util.format', 'util.formatDate', 'alert', 'confirm', 'alarms.confirmAlarm',

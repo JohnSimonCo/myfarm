@@ -63,28 +63,30 @@ angular.module('production', ['j$', 'myfarm', 'robotState'])
 			if(milkData.jsGroups.length>1) {
 				milkData.jsGroups.forEach(function(d){d.isGroup=1;out.push(d);});
 			}
-			out.forEach(function(d){
-				d.animalLast24h =		d.perAnimalLast24h;
-				d.animalLastLast24h =	d.perAnimalLastLast24h;
-				d.animalLastSeven =		d.perAnimalLastSeven;
-				d.animalLastLastSeven =	d.perAnimalLastLastSeven;
+			if (out && out[0]) {
+				out.forEach(function(d){
+					d.animalLast24h =		d.perAnimalLast24h;
+					d.animalLastLast24h =	d.perAnimalLastLast24h;
+					d.animalLastSeven =		d.perAnimalLastSeven;
+					d.animalLastLastSeven =	d.perAnimalLastLastSeven;
 
-				d.trend24h =			trend(d.last24h, d.lastLast24h);
-				d.trend7d =				trend(d.lastSeven, d.lastLastSeven);
-				d.trendAnimal24h =		trend(d.animalLast24h, d.animalLastLast24h);
-				d.trendAnimal7d =		trend(d.animalLastSeven, d.animalLastLastSeven);
-			});
-			out.robotData=milkData.jsRobots;
+					d.trend24h =			trend(d.last24h, d.lastLast24h);
+					d.trend7d =				trend(d.lastSeven, d.lastLastSeven);
+					d.trendAnimal24h =		trend(d.animalLast24h, d.animalLastLast24h);
+					d.trendAnimal7d =		trend(d.animalLastSeven, d.animalLastLastSeven);
+				});
+				out.robotData=milkData.jsRobots;
 
-			var alarms = extractAlarms(extractAlarmData(data));
+				var alarms = extractAlarms(extractAlarmData(data));
 
-			out.robotData.forEach(setHasAlarm.bind(null, alarms));
+				out.robotData.forEach(setHasAlarm.bind(null, alarms));
 
-			out.robotData.forEach(function(robot) {
-				robot.cowName = ['Åsa Bäst', 'Rosa kosa', 'Jöran Ko'][Math.floor(Math.random()*3)];
-				robot.action = 1;
-				robot.note = 'Här finns det plats för fritext';
-			});
+				out.robotData.forEach(function(robot) {
+					robot.cowName = ['Åsa Bäst', 'Rosa kosa', 'Jöran Ko'][Math.floor(Math.random()*3)];
+					robot.action = 1;
+					robot.note = 'Här finns det plats för fritext';
+				});
+			}
 
 			return out;
 		});

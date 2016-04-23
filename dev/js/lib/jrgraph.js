@@ -258,7 +258,8 @@ angular.module('jrGraph', [])
 									else {
 										ctx.beginPath();
 										ctx.fillStyle = p.specialColor ? p.specialColor : p.col;
-										ctx.arc(p.xPix, p.yPix, (p.specialColor || p.makeBig) ? 2 * diam : diam, 0, 2 * Math.PI, false);
+										var dm = p.specialColor || p.makeBig ? Math.max(2 * diam, 6) : diam;
+										ctx.arc(p.xPix, p.yPix, dm, 0, 2 * Math.PI, false);
 										ctx.fill();
 										ctx.lineWidth = 1;
 										ctx.strokeStyle = '#003300';
@@ -309,13 +310,20 @@ angular.module('jrGraph', [])
 					var i = 0;
 					ctx.strokeStyle = ln.colorLine;
 					if (ln.stapleOutlineColor) {
-						var y0 = this.pixY(0);
+						var fromX = ln.fromX=[];
+						var toX = ln.toX=[];
+						var toY = ln.toY=[];
+						var y0 = ln.fromY = this.pixY(0);
 						i = -1;
 						while (++i < ln.points.length) {
+							var p = ln.points[i];
 							ctx.fillStyle='#000000';
-							var x = Math.round(ln.points[i].xPix), y = Math.round(ln.points[i].yPix), width = Math.round(ln.points[i].x2Pix - ln.points[i].xPix), height = Math.round(y0 - ln.points[i].yPix);
+							var x = Math.round(p.xPix), y = Math.round(p.yPix), width = Math.round(p.x2Pix - p.xPix), height = Math.round(y0 - p.yPix);
+							fromX.push(x);
+							toX.push(x + width);
+							toY.push(y);
 							ctx.fillRect(x, y, width, height);
-							ctx.fillStyle=ln.stapleOutlineColor;
+							ctx.fillStyle = p.specialColor ? p.specialColor : ln.stapleOutlineColor;
 							if (width > 2 && height > 2)
 								ctx.fillRect(x+1, y+1, width-2, height-2);
 						}
@@ -328,9 +336,9 @@ angular.module('jrGraph', [])
 							while (++i < ln.points.length)
 								ctx.lineTo(ln.points[i].xPix, ln.points[i].yPix);
 						}
+						ctx.stroke();
+						ctx.closePath();
 					}
-					ctx.stroke();
-					ctx.closePath();
 				};
 				this.paint = function(width, height, ctx) {
 					if (currIndex >= 0) {
@@ -402,22 +410,27 @@ angular.module('jrGraph', [])
 					if (window.event.type === 'click') {
 						var mouseX=window.event.offsetX, mouseY=window.event.offsetY, i = -1;
 						while (++i < this.lines.length) {
-							var ln = this.lines[i], ii = -1, xl=mouseX-ln.markDiameter, xr=mouseX+ln.markDiameter, yu=mouseY-ln.markDiameter, yd=mouseY+ln.markDiameter;
-							if (ln.onClick && ln.markX) {
-								var dist = 1000000, id = null, ii = -1;
-								while (++ii < ln.markX.length) {
-									var nd = mouseX - ln.markX[ii];
-									if (nd < 0)
-										nd = -nd;
-									if (nd < dist) {
-										dist = nd;
-										var pnt = ln.points[ii+1];
-										id = pnt.id;
+							var ln = this.lines[i], ii = -1;
+							if (ln.onClick)
+								if (ln.markX) {
+									var dist = Number.MAX_SAFE_INTEGER, id = null;
+									while (++ii < ln.markX.length) {
+										var ndX = mouseX - ln.markX[ii], ndY = mouseY - ln.markY[ii], nd = ndX * ndX + ndY * ndY;
+										if (nd < dist) {
+											dist = nd;
+											var pnt = ln.points[ii+1];
+											id = pnt.id;
+										}
 									}
+									ln.onClick(id);
+									return true;
 								}
-								ln.onClick(id);
-								return true;
-							}
+								else if (ln.fromX)
+									while (++ii < ln.fromX.length)
+										if (mouseX >= ln.fromX[ii] && mouseX <= ln.toX[ii] && mouseY >= ln.toY[ii] && mouseY <= ln.fromY) {
+											ln.onClick(ln.points[ii].id);
+											return true;
+										}
 						}
 					}
 					return null;
@@ -431,7 +444,7 @@ angular.module('jrGraph', [])
 								while (++ii < ln.markX.length && xl > ln.markX[ii]) {}
 								if (ii === ln.markX.length)
 									break;
-								if (ln.markX[ii] <= xr && yu < ln.markY[ii] && yd > ln.markY[ii]) {
+								if (ln.markX[ii] <= xr && yu < ln.markY[ii] && yd > ln.markY[ii] && ln.onMouseOver) {
 									var pnt = ln.points[ii+1];
 									ln.onMouseOver(pnt.id, window.event);
 									return pnt.id;
@@ -459,8 +472,8 @@ angular.module('jrGraph', [])
 			this.addPoint = function(d, value, id, col, specialColor, makeBig) {
 				this.plot.addPoint(currIndex, d, value, null, id, col, specialColor, makeBig);
 			};
-			this.addStaple = function(d,value,x2) {
-				this.plot.addPoint(currIndex, d, value, x2);
+			this.addStaple = function(d,value,x2,altCol,id) {
+				this.plot.addPoint(currIndex, d, value, x2, id, null, altCol);
 			};
 			this.addLine = function(color, thickness, stapleOutlineColor, onMouseOver, markDiameter, onClick) {
 				if (!this.plot)

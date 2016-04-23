@@ -264,7 +264,6 @@
 }
 #cow .graph .graph-info {
 	height: 220px;
-	padding-top: 14px;
 	box-sizing: border-box;
 }
 
@@ -274,15 +273,15 @@
 
 #cow .graph .date-info-container {
 	width: 100%;
+	height: 50px;
 }
 
 #cow .graph .date-info-container .arrow {
 	float: left;
-	width: 30px;
-	height: 30px;
+	width: 50px;
+	height: 50px;
 	cursor: pointer;
-	background-position: center;
-	background: url('/Resources/arrow-down.png') no-repeat;
+	background: url('/Resources/arrow-down.png') no-repeat center;
 }
 
 #cow .graph .date-info-container .left-arrow {
@@ -294,11 +293,11 @@
 }
 
 #cow .graph .date-info-container .date {
-	width: calc(100% - 60px);
+	width: calc(100% - 100px);
 	float: left;
 	text-align: center;
 	font-size: 20px;
-	padding-top: 5px;
+	padding-top: 15px;
 }
 
 #cow .graph .date-info-container .date-text-container {
@@ -315,7 +314,6 @@
 	border-bottom-left-radius: 5px;
 	padding-left: 40px;
 	padding-right: 40px;
-	margin-top: 6px;
 	padding-top: 4px;
 	padding-bottom: 4px;
 	overflow-y: auto; 
@@ -399,20 +397,20 @@
 	}
 
 	#cow .graph .graph-container {
-		height: calc(100% - 368px);
+		height: calc(100% - 330px);
 	}
 
 	#cow .graph .graph-info {
-		height: 360px;
+		height: 330px;
 	}
 
 	#cow .graph .graph-stats-container {
-		height: calc(360px - 45px);
+		height: auto;
 	}
 
 	#cow .graph .item-container div {
-		font-size: 16px;
-		padding-top: 1px;		
+	    height: 18px;
+	    font-size: 13px;
 	}
 	#cow .info .incomplete img {
 		float: right;
@@ -436,23 +434,46 @@
 	#cow .info .field-pair-container:last-child .row {
 		border-bottom: none;
 	}
-
 }
 
 
-
-
 @media (max-height: 650px) {
-
-	#cow .graph .graph-container {
-		height: 60%;
+	#cow .graph .graph-info {
+		height: 202px;
 	}
 
-	#cow .graph .graph-info {
-		height: 40%;
+	#cow .graph .graph-container {
+		height: calc(100% - 202px);
+	}
+
+	#cow .graph .item-container div {
+	    height: 18px;
+	    font-size: 13px;
 	}
 
 	#cow .graph .graph-stats-container {
-		height: calc(100% - 46px);
+	    height: auto;
+	}
+}
+
+@media (max-height: 650px) and (max-width: 499px) {
+	#cow .graph .graph-info {
+		overflow-y: auto; 
+		height: 250px;
+	}
+
+	#cow .graph .graph-container {
+		height: calc(100% - 250px);
+	}
+}
+
+@media (max-height: 550px) {
+	#cow .graph .graph-info {
+		height: 45%;
+		overflow-y: auto; 
+	}
+
+	#cow .graph .graph-container {
+		height: 55%; 
 	}
 }
