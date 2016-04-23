@@ -258,6 +258,7 @@
 #cow .graph canvas {
 	width: 100%;
 	height: 100%;
+	cursor: pointer;
 }
 #cow .graph .graph-container {
 	height: calc(100% - 230px);

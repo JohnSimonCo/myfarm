@@ -802,16 +802,23 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		};
 	}
 ])
-.directive('cowGraph', ['cow.renderGraphNew', '$timeout', function(renderGraph, $timeout) {
+.directive('cowGraph', ['cow.renderGraphNew', '$timeout', '$window', function(renderGraph, $timeout, window) {
+	var $window = $(window);
 	return {
 		restrict: 'AC',
 		link: function(scope, element) {
-			scope.$watchGroup(['cowData', 'milkingIndex'], function(values) {
-				if(values[0]) {
+			function render() {
+				if(scope.cowData) {
 					$timeout(function() {
-						renderGraph(scope.allData, scope.time, values[0], scope.milkingMeta && scope.milkingMeta.id, element);
+						renderGraph(scope.allData, scope.time, scope.cowData, scope.milkingMeta && scope.milkingMeta.id, element);
 					}, 10);
 				}
+			}
+
+			scope.$watchGroup(['cowData', 'milkingIndex'], render);
+			$window.on('resize', render);
+			scope.$on('$destroy', function() {
+				$window.off('resize', render);
 			});
 		}
 	};
