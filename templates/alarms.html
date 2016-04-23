@@ -4,7 +4,7 @@
 		<div class="details">
 			<div class="title selectable" ng-bind="alarm.sourceDevice"></div>
 			<div class="date selectable" ng-bind="alarm.date"></div>
-			<div class="selectable" ng-bind="alarm.msg"></div>
+			<div class="selectable" cowify="alarm.msg"></div>
 			<div class="selectable" ng-if="alarm.dismissUser || alarm.tryToDismissUser">
 				<span translate="Confirmed"></span> 
 				<span ng-bind="alarm.dismissDateFormatted"></span> 

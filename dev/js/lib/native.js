@@ -143,7 +143,7 @@ angular.module('native', ['password', 'server'])
 					__nativeCallback('{{number}}', '{{argument}}');
 				};
 
-				var invokeString = invoke.toString().replace(/\s*/g, '');
+				var invokeString = invoke.toString().replace(/\s*/g, '').replace(/\"/g, "'");
 
 				registerCallback = function(method, callback) {
 					var length = nativeCallbacks.push(function(argument) {
@@ -240,7 +240,7 @@ angular.module('native', ['password', 'server'])
 			};
 		}]);
 
-		$provide.decorator('redirectToEula', ['$delegate', 'nativeProtocol', 'setServer', function(redirectToEula, nativeProtocol, setServer) {
+		$provide.decorator('redirectToEula', ['$delegate', 'nativeProtocol', 'setServer', 'appUrl', function(redirectToEula, nativeProtocol, setServer, appUrl) {
 			return function(eula, data, serverUrl) {
 				switch (nativeProtocol) {
 					case 'IOS 1.0': //Fallthrough

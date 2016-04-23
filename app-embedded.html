@@ -1,0 +1,183 @@
+<style type="text/css">
+	body {
+		padding: 0px;
+		/*overflow: hidden;*/
+		background: transparent;
+	}
+	#wrapper {
+		width: 100%;
+		height: inherit;
+		max-width: auto;
+		max-width: initial;
+		margin: 0px;
+	}
+	#container {
+		height: inherit;
+		background: #e5e5e5;
+		border-radius: 0px;
+		border: none;
+		padding: 0px;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+
+	#cow .action-bar {
+		display: none;
+	}
+	#cow .content > .info {
+		margin-top: 0;
+	}
+	#cow .content > .info .row:first-child.empty {
+		display: none;
+	}
+	#cow .content {
+		height: 100%;
+	}
+
+	#cow .info .field {
+		padding-top: 3px;
+		padding-bottom: 3px;
+	}
+
+	.cowq .content .cow-cell {
+		height: 16px;
+	}
+
+	.cowq .milkings .cow-cell {
+		height: auto;
+	}
+
+	.cowq .cow-cell .icon {
+		width: 14px;
+		height: 16px;
+	}
+
+	#cow .info .row > div {
+		font-size: 12px;
+	}
+
+	.cowq .cow-cell {
+		font-size: 12px;
+	}
+
+	#cow .info .note .edit-button {
+		height: 16px;
+		width: 16px;
+	}
+
+	.fetch-cows {
+		display: none;
+	}
+
+	#cow .milkings .icons .status-container {
+		margin-top: 7px !important;
+	}
+
+	.cowq .item .icons > * {
+		margin-top: 7px;
+	}
+
+	.cowq .sort .buttons {
+		margin-top: 11px;
+	}
+
+	.cowq .sort .cow-cells {
+		margin-top: 0;
+	}
+
+
+
+	/*Graph*/
+	#cow .graph .graph-info {
+		height: 202px;
+		overflow-y: auto;
+	}
+
+	#cow .graph .graph-container {
+		height: calc(100% - 202px);
+	}
+
+	#cow .graph .item-container div {
+	    height: 18px;
+	    font-size: 13px;
+	}
+
+	#cow .graph .graph-stats-container {
+	    height: 144px;
+	}
+
+	/*Special scroll bar for asterix
+	::-webkit-scrollbar {
+	    height: 12px;
+	    width: 36px;
+	    background: #e5e5e5;
+	}
+
+	::-webkit-scrollbar-thumb {
+	    background: #777;
+	}
+
+	::-webkit-scrollbar-corner {
+	    background: #000;
+	}*/
+
+</style>
+<div id="wrapper" class="full-height">
+	<div id="container" class="full-height" ng-view></div>
+</div>
+
+<script>
+	var canGoBack = false;
+	angular.module('app')
+	.value('cowqHistory', { canGoBack: false, canGoFoward: false })
+	.run(['$rootScope', '$timeout', 'cowqHistory', function($rootScope, $timeout, cowqHistory) {
+		$rootScope.$on('$routeChangeStart', function(event, next, current) {
+			$timeout(function() {
+				var cowqPage = 'templates/cowq.html';
+				var cowPage = 'templates/cow.html';
+
+				if(next.loadedTemplateUrl) {
+					switch (next.loadedTemplateUrl) {
+						case cowqPage:
+							cowqHistory.canGoBack = false;
+							if(current && current.loadedTemplateUrl == cowPage) {
+								cowqHistory.canGoFoward = true;
+							}
+							break;
+						case cowPage:
+							cowqHistory.canGoBack = true;
+							cowqHistory.canGoFoward = false;
+							break;
+					}
+				}
+			});
+		});
+	}])
+	.run(['$window', 'cowqHistory', '$rootScope', function($window, cowqHistory, $rootScope) {
+		function handleOldMessage(message) {
+			switch (message) {
+				case 'forward':
+					if(cowqHistory.canGoFoward) {
+						$window.history.forward();
+					}
+					break;
+				case 'back':
+					if(cowqHistory.canGoBack) {
+						$window.history.back();
+					}
+					break;
+			}
+		}
+		$window.addEventListener('message', function(event) {
+			var data = event.data;
+			if(typeof data == 'string') {
+				handleOldMessage(data);
+				return;
+			}
+
+			console.log('got message', data);
+			$rootScope.$broadcast('window.message', data);
+
+		}, false);
+	}]);
+</script>
