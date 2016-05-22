@@ -37,7 +37,7 @@
 	background-size: 40px 40px;
 }
 #overview .alarms .alarm > .details {
-	width: calc(100% - 60px);
+	width: calc(100% - 66px);
 }
 
 @media (max-width: 650px) {
@@ -53,7 +53,7 @@
 	}
 
 	#overview .alarms .alarm > .details {
-		width: calc(100% - 38px);
+		width: calc(100% - 42px);
 	}
 
 	#overview .alarms .alarm {
