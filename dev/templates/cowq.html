@@ -73,7 +73,7 @@
 
 	<div ng-controller="cowq.notifyController" class="item-container">
 		<!--<div class="item cow clearfix" j$-repeat="as cow when renderCows" ng-class="getCowClass(cow)" ng-click="addNotify(cow)" scroll-to-if="cow.nr matches scrollToCowNr">-->
-		<a ng-href="#/cowq/cow/{{cow.nr}}" class="item cow clearfix" j$-repeat="as cow when renderCows" ng-class="getCowClass(cow)" scroll-to-if="cow.nr matches scrollToCowNr">
+		<a ng-href="#/cowq/cow/{{cow.nr}}" class="item cow clearfix prevent-click" j$-repeat="as cow when renderCows" ng-class="getCowClass(cow)" scroll-to-if="cow.nr matches scrollToCowNr">
 			<div class="icons">
 				<div class="cow-head icon-left" ng-if="!cow.incompleteMask"></div>
 

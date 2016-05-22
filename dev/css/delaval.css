@@ -170,9 +170,6 @@ button.big-button, .button.big-button {
 	user-select: initial !important;
 }
 
-* {
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.2); 
-}
 
 .clearfix:after {
 	content: " ";

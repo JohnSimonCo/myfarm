@@ -98,33 +98,40 @@
 	}
 
 	#cow .graph .item-container div {
-	    height: 18px;
-	    font-size: 13px;
+			height: 18px;
+			font-size: 13px;
 	}
 
 	#cow .graph .graph-stats-container {
-	    height: 144px;
+			height: 144px;
 	}
 
 	/*Special scroll bar for asterix
 	::-webkit-scrollbar {
-	    height: 12px;
-	    width: 36px;
-	    background: #e5e5e5;
+			height: 12px;
+			width: 36px;
+			background: #e5e5e5;
 	}
 
 	::-webkit-scrollbar-thumb {
-	    background: #777;
+			background: #777;
 	}
 
 	::-webkit-scrollbar-corner {
-	    background: #000;
+			background: #000;
 	}*/
+
+
+	body, * {
+		user-select: none !important;
+	}
 
 </style>
 <div id="wrapper" class="full-height">
-	<div id="container" class="full-height" ng-view></div>
+	<div id="container" class="full-height drag-scroll" ng-view></div>
 </div>
+
+<script type="text/javascript" src="/js/jquery-kinetic.min.js"></script>
 
 <script>
 	var canGoBack = false;
@@ -179,5 +186,64 @@
 			$rootScope.$broadcast('window.message', data);
 
 		}, false);
-	}]);
+	}])
+	.directive('dragScroll', function() {
+
+		var clickedElement, clickedEvent;
+
+		function dist(x1, y1, x2, y2) {
+			var dx = x2 - x1;
+			var dy = y2 - y1;
+			return Math.sqrt(dx*dx + dy*dy);
+		}
+
+		var distLimit = 10;
+
+		return {
+			restrict: 'C',
+			link: function(scope, element, attr) {
+				element.kinetic({
+					filterTarget: function(target, e) {
+						var $target = $(target);
+						var prevent = $target;
+						if(!$target.hasClass('prevent-click')) {
+							var parent = $target.parents('.prevent-click')[0];
+							if(parent) {
+								prevent = $(parent);
+							}
+						}
+
+						if(e.type === 'mousedown') {
+							clickedElement = prevent[0];
+							clickedEvent = e;
+						}
+						if(e.type === 'mouseup') {
+							var pageDist = dist(e.pageX, e.pageY, clickedEvent.pageX, clickedEvent.pageY);
+							if(prevent[0] == clickedElement && pageDist > distLimit) {
+								prevent.data('preventClick', true);
+								return false;
+							}
+						}
+
+						if($target.is('select')) {
+							return false;
+						}
+						return true;
+					}
+				});
+			}
+		};
+	}).directive('preventClick', function() {
+		return {
+			restrict: 'C',
+			link: function(scope, element, attr) {
+				element.click(function(e) {
+					if(element.data('preventClick')) {
+						e.preventDefault();
+						element.removeData('preventClick');
+					}
+				});
+			}
+		};
+	});
 </script>

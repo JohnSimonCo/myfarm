@@ -1,5 +1,4 @@
 <div id="cow" class="cowq">
-	<div ng-controller="cow.windowMessageController"></div>
 	<div class="action-bar component clearfix" ng-controller="cow.navigationController">
 		<!-- <button class="big-button black-button icon back" ng-click="back()"></button> -->
 		<div class="change-cow">
@@ -67,10 +66,10 @@
 								<div class="selectable" ng-bind="note.comment"></div>
 								<div class="user">
 									<!-- <span ng-if="note.user"> -->
-										<span ng-bind="note.user"></span><span ng-if="note.date">, </span> 
+										<span ng-bind="note.user"></span><span ng-if="note.date">, </span>
 									<!-- </span> -->
 									<span ng-bind="note.date | date:'yyyy-MM-dd'"></span>
-								</div>	
+								</div>
 							</div>
 							<div ng-if="hasEditPermission()" class="edit-button">
 							</div>
@@ -87,7 +86,7 @@
 
 					<div class="component buttons">
 						<button class="black-button icon by-incomplete" j$-bind-value="7" ng-class="{selected: isSelectedSortCol(value)}" ng-click="setSortCol(value, $event)"></button>
-						
+
 					</div>
 
 					<div class="cow-cells clearfix">
@@ -97,7 +96,7 @@
 			</div>
 
 			<div class="milkings-container">
-			
+
 				<div class="item milking clearfix" j$-repeat="as milking when renderMilkings">
 					<div class="icons">
 						<!--<milking-icon index="1"></milking-icon>-->
@@ -131,7 +130,7 @@
 		<div ng-switch-when="graph" ng-controller="cow.graphController" class="graph">
 
 			<div ng-if="!cowData.milkings || cowData.milkings.length < 1" class="empty-view" translate="No milk data"></div>
-		
+
 			<div class="graph-container">
 				<div ng-if="cowData.milkings.length > 0" cow-graph></div>
 			</div>

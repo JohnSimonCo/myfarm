@@ -3,8 +3,8 @@
 angular.module('app', ['j$', 'server', 'translate', 'password', 'modal'])
 .controller('formController', [	'$scope', 'storage', 'sendRequest', 'getUserEmail',
 								'translate.userLanguage', 'translate.changeLanguage',
-								'attemptLogin', 'alert', 'translate', 'selectServerList', 'loginToServer',
-	function($scope, storage, sendRequest, getUserEmail, userLanguage, changeLanguage, attemptLogin, alert, translate, selectServerList, loginToServer) {
+								'attemptLogin', 'alert', 'translate', 'selectServerList', 'loginToServer', '$timeout',
+	function($scope, storage, sendRequest, getUserEmail, userLanguage, changeLanguage, attemptLogin, alert, translate, selectServerList, loginToServer, $timeout) {
 		$scope.email = getUserEmail();
 
 		sendRequest('SrvLanguage.getLanguages', null).then(function(response) {
@@ -33,6 +33,13 @@ angular.module('app', ['j$', 'server', 'translate', 'password', 'modal'])
 		$scope.changeLanguage = function() {
 			changeLanguage($scope.language);
 		};
+
+		$timeout(function() {
+			if($scope.email) {
+				$scope.form.$setDirty();
+				$scope.form.$setValidity();
+			}
+		}, 50);
 
 		$scope.attemptLogin = function() {
 			$scope.submitted = true;
@@ -76,7 +83,7 @@ angular.module('app', ['j$', 'server', 'translate', 'password', 'modal'])
 				customUrl: customUrl
 			});
 			return modal.result;
-		}
+		};
 	}
 ])
 .run(['$templateCache', function($templateCache) {
@@ -95,6 +102,6 @@ angular.module('app', ['j$', 'server', 'translate', 'password', 'modal'])
 		 reason: 'eula_farm',
 		 userName: 'John Rapp',
 		 farmId: 'MOCK ID',
-		 farmName: 'Bredsjö'
+		 farmName: 'BredsjÃ¶'
 	 });*/
  }]);
