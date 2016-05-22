@@ -34,17 +34,21 @@ angular.module('app', ['j$', 'server', 'translate', 'password', 'modal'])
 			changeLanguage($scope.language);
 		};
 
+		//In case of autofill
+		$scope.autofill = false;
 		$timeout(function() {
 			if($scope.email) {
 				$scope.form.$setDirty();
 				$scope.form.$setValidity();
+				$scope.autofill = true;
 			}
 		}, 50);
 
 		$scope.attemptLogin = function() {
 			$scope.submitted = true;
 
-			if($scope.form.$valid) {
+			$scope.validAutoFill = $scope.autofill && $scope.email && $scope.password;
+			if($scope.form.$valid || $scope.validAutoFill) {
 				attemptLogin($scope.email, $scope.password, $scope.servers)
 				.then(function(servers) {
 					if(servers == null) { return; }

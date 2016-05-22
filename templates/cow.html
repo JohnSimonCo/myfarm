@@ -138,14 +138,14 @@
 			<div ng-if="cowData.milkings.length > 0" class="graph-info">
 
 				<div class="date-info-container">
-					<div class="arrow left-arrow" ng-click="prevMilking()"></div>
+					<button class="black-button arrow left-arrow" ng-click="prevMilking()"></button>
 					<div class="date">
 						<div class="date-text-container">
 							<span ng-bind="milkingMeta.date | date:'yyyy-MM-dd'"></span>
 							<span ng-bind="milkingMeta.date | date:'HH:mm:ss'"></span>
 						</div>
 					</div>
-					<div class="arrow right-arrow" ng-click="nextMilking()"></div>
+					<button class="black-button arrow right-arrow" ng-click="nextMilking()"></button>
 				</div>
 
 				<div class="clearfix"></div>
@@ -154,14 +154,14 @@
 					<div class="stats-subcontainer">
 						<div class="item-container" ng-repeat="entry in milkingMeta.entries | firstHalf">
 							<div class="text-overflow" ng-bind="entry.label"></div>
-							<div class="value text-overflow" ng-bind="entry.value"></div>
+							<div class="value text-overflow selectable" ng-bind="entry.value"></div>
 						</div>
 					</div>
 
 					<div class="stats-subcontainer">
 						<div class="item-container" ng-repeat="entry in milkingMeta.entries | secondHalf">
 							<div class="text-overflow" ng-bind="entry.label"></div>
-							<div class="value text-overflow" ng-bind="entry.value"></div>
+							<div class="value text-overflow selectable" ng-bind="entry.value"></div>
 						</div>
 					</div>
 
