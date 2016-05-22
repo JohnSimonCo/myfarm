@@ -1,3 +1,7 @@
+#production .info {
+	padding-bottom: 10px;
+}
+
 #production .choose-farm {
 	height: 50px;
 }

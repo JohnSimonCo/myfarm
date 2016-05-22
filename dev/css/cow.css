@@ -274,23 +274,32 @@
 
 #cow .graph .date-info-container {
 	width: 100%;
-	height: 50px;
+	height: 58px;
 }
 
 #cow .graph .date-info-container .arrow {
 	float: left;
 	width: 50px;
 	height: 50px;
-	cursor: pointer;
-	background: url('/Resources/arrow-down.png') no-repeat center;
+	position: relative;
 }
 
-#cow .graph .date-info-container .left-arrow {
-	transform: rotate(90deg);
+#cow .graph .date-info-container .arrow:after {
+	content: " ";
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-repeat: no-repeat;
 }
 
-#cow .graph .date-info-container .right-arrow {
-	transform: rotate(270deg);
+#cow .graph .date-info-container .left-arrow:after {
+	background: url('/Resources/arrowleft.png') no-repeat center;
+}
+
+#cow .graph .date-info-container .right-arrow:after {
+	background: url('/Resources/arrowright.png') no-repeat center;
 }
 
 #cow .graph .date-info-container .date {
@@ -313,8 +322,8 @@
 	background: #fff;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
-	padding-left: 40px;
-	padding-right: 40px;
+	padding-left: 16px;
+	padding-right: 16px;
 	padding-top: 4px;
 	padding-bottom: 4px;
 	overflow-y: auto; 

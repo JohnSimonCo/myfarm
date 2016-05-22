@@ -19,6 +19,7 @@
 #chat .compose {
 	height: 40%;
 	bottom: 0;
+	padding-bottom: 10px;
 }
 
 #chat .messages div.empty-view {

@@ -21,7 +21,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 .factory('cow.extractData', ['util.getTime', 'cowqSnapshot', 'util.findIndex', 'util.getItem',
 	function(getTime, getSnapshot, findIndex, getItem) {
 		return function(data, id, nr) {
-			var	time = getTime(); 
+			var	time = getTime();
 			var cows = getSnapshot(data, id, time);
 			var index = findIndex(cows, function(test) {
 				return test.nr === nr;
@@ -43,7 +43,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 				nr: nr,
 				time: time,
 				data: data,
-				
+
 				cows: cows,
 				cow: cow,
 				index: index
@@ -107,7 +107,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 	function($scope, data, $location, extractData, extractCowData, $timeout, getTime, getCowClass, scrollTo, $ngSilentLocation) {
 		$.extend($scope, data);
 		scrollTo.set('scrollToCowNr', $scope.nr);
-		
+
 		$scope.$on('cowq.update', function(event, data) {
 			$scope.$apply(function() {
 				$scope.data = data;
@@ -125,7 +125,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		$scope.$on('$destroy', function() {
 			$timeout.cancel($scope.timeout);
 		});
-		
+
 		$scope.setCow = function(index) {
 			$scope.index = index;
 			$scope.cow = $scope.cows[index];
@@ -135,7 +135,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 			$scope.milkingsEntries = null;
 			$scope.milkingIndex = -1;
 			$scope.updateUrl();
-			
+
 			scrollTo.set('scrollToCowNr', $scope.nr);
 		};
 		$scope.setCowData = function(data) {
@@ -162,7 +162,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 					if($scope.infoView === null) { break; }
 					if($scope.infoView) {
 						$ngSilentLocation.silent(baseUrl + '/' + $scope.infoView, true);
-						break;	
+						break;
 					}
 					//else fall through
 				default:
@@ -324,7 +324,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		$scope.setInfoView($routeParams.infoView);
 
 		$scope.$watch('cow', function() {
-            if ($scope.data.users) 
+            if ($scope.data.users)
 				if ($scope.hasEditPermission()) {
 					$scope.notes = $.map($scope.data.noteTypes, function(typeName, type) {
 						var note = $scope.cow.notes && $scope.cow.notes[type];
@@ -549,7 +549,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 					}
 				}
 			};
-			this.get7Days=function(){	
+			this.get7Days=function(){
 				return this.sumTime>172800000?this.sumYield/this.sumTime*86400000:0;
 			};
 			this.getDayYield=function(){
@@ -766,7 +766,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 			} else {
 				$scope.setMilkingIndex(-1);
 				// $scope.updateUrl();
-			}	
+			}
 		}
 		$scope.$watchGroup(['cowData', 'nr'], function(values) {
 			var nr = values[1];
@@ -779,7 +779,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		});
 		$scope.$watchGroup(['milkingIndex', 'milkingsEntries'], function(values) {
 			var index = values[0], entries = values[1];
-			if(index != null && entries != null ) {
+			if(index != null && entries != null) {
 				if(!(index in entries)) {
 					index = entries.length - 1;
 					$scope.setMilkingIndex(index);
@@ -941,7 +941,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 	}
 	return function(mo) {
 		var entries = [];
-		
+
 		var milking = mo.o;
 		var date = new Date(milking.endOfMilkingTime);
 
@@ -982,7 +982,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 			date: milking.endOfMilkingTime,
 			entries: entries,
 			id: milking.guidHash
-		};	
+		};
 
 		scope.displayHover(event);
 	};
@@ -1030,14 +1030,14 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 		function onMouseOver(id, event) {
 			console.log(event);
 			var entries = [];
-			
+
 			var mo = milkings[id];
 			var milking = mo.o;
 
 			var data = getMilkingMetadata(milking);
 
 			pScope.$apply(function() {
-				pScope.data = data;	
+				pScope.data = data;
 			});
 
 			scope.displayHover(event);
@@ -1084,7 +1084,7 @@ angular.module('cow', ['myfarm', 'cowq', 'cowExtras', 'server', 'jrGraph', 'moda
 				// alert(index);
 				// alert("Id = " + id);
 			}
-	
+
 			var m = [], msel = null;
 			i = -1;
 			while (++i < animal.milkings.length) {
